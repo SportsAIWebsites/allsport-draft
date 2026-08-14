@@ -41,16 +41,25 @@
     }
     .seat-badge.active { color: var(--accent-light); border-color: var(--accent); background: rgba(61,123,214,0.12); }
 
+    /* Rankings is the primary panel — that's what you scroll through
+       constantly while drafting. The pick-history board is reference
+       material once a draft is underway, so it gets a narrow side slot. */
     .layout {
       display: grid;
-      grid-template-columns: minmax(440px, 1.3fr) minmax(400px, 1fr) minmax(460px, 1.15fr);
+      grid-template-columns: minmax(280px, 0.65fr) minmax(360px, 0.85fr) minmax(680px, 1.8fr);
       gap: 20px;
       padding: 20px 28px;
       height: calc(100vh - 76px);
       overflow: hidden;
       width: 100%;
     }
-    @media (max-width: 1500px) { .layout { grid-template-columns: 1fr 380px; } .rankings-col { display: none; } }
+    .board-col { order: 1; }
+    .mine-col { order: 2; }
+    .rankings-col { order: 3; }
+    @media (max-width: 1400px) {
+      .layout { grid-template-columns: 340px 1fr; }
+      .board-col { display: none; }
+    }
 
     .col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
     .col h2 {
