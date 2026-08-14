@@ -1,12 +1,12 @@
 """All-Sport Redraft — Flask dashboard for two humans + six bots.
 
-Two human seats ("You" and "Buddy") share one draft over local wifi via
-?team=you / ?team=buddy. Bots think for 15 real seconds (a background
+Two human seats ("You" and "Bruner") share one draft over local wifi via
+?team=you / ?team=bruner. Bots think for 15 real seconds (a background
 thread ticks the draft forward) before auto-picking; humans pick via POST.
 
 Run:
     venv/bin/python allsport_draft_web.py
-Then open http://<host-ip>:5060/?team=you and http://<host-ip>:5060/?team=buddy
+Then open http://<host-ip>:5060/?team=you and http://<host-ip>:5060/?team=bruner
 """
 
 from __future__ import annotations
@@ -40,6 +40,8 @@ app = Flask(__name__, template_folder="templates")
 
 BOT_THINK_SECONDS = 15
 DATABASE_URL = os.environ.get("DATABASE_URL")
+YOUR_FIXED_SLOT = 7
+YOUR_FIXED_SLOT_TEAM = "You"
 
 
 # ---------------------------------------------------------------------------
@@ -122,8 +124,11 @@ class Draft:
         with self._lock:
             self.all_players = build_pool()
             self.pool: list[Player] = list(self.all_players)
-            order_teams = TEAM_NAMES.copy()
-            random.shuffle(order_teams)
+            # "You" is always locked to slot #7; the other 7 teams (Bruner +
+            # 6 bots) are shuffled into the remaining slots each draft.
+            others = [t for t in TEAM_NAMES if t != YOUR_FIXED_SLOT_TEAM]
+            random.shuffle(others)
+            order_teams = others[:YOUR_FIXED_SLOT - 1] + [YOUR_FIXED_SLOT_TEAM] + others[YOUR_FIXED_SLOT - 1:]
             self.draft_order: list[str] = build_snake_order(order_teams, ROUNDS)
             self.slots: dict[str, int] = {t: i + 1 for i, t in enumerate(order_teams)}
             self.rosters: dict[str, list[Player]] = {t: [] for t in TEAM_NAMES}
@@ -328,8 +333,8 @@ def _resolve_viewer() -> str | None:
     team = raw.strip().lower()
     if team == "you":
         return "You"
-    if team == "buddy":
-        return "Buddy"
+    if team == "bruner":
+        return "Bruner"
     return None
 
 
@@ -352,7 +357,7 @@ def api_pick():
     viewer = _resolve_viewer()
     query = str(data.get("player", "")).strip()
     if viewer is None:
-        return jsonify({"ok": False, "message": "Unknown seat. Use ?team=you or ?team=buddy."}), 400
+        return jsonify({"ok": False, "message": "Unknown seat. Use ?team=you or ?team=bruner."}), 400
     ok, msg = draft.make_pick(viewer, query)
     status = 200 if ok else 400
     return jsonify({"ok": ok, "message": msg, "state": draft.snapshot(viewer)}), status
@@ -367,5 +372,5 @@ def api_reset():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5060))
-    print(f"All-Sport Redraft dashboard -> http://0.0.0.0:{port}/?team=you  and  /?team=buddy")
+    print(f"All-Sport Redraft dashboard -> http://0.0.0.0:{port}/?team=you  and  /?team=bruner")
     app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
