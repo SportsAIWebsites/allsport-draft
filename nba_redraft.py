@@ -91,6 +91,11 @@ PLAYERS_RAW: list[tuple[str, str, int, int, int]] = [
     ("Desmond Bane",            "SG", 27, 82, 82),
     ("LaMelo Ball",             "PG", 24, 83, 55),
     ("Kyrie Irving",            "PG", 33, 86, 65),
+    # ---- 2026 NBA Draft rookies (78-88) ----
+    ("AJ Dybantsa",             "F",  19, 88, 86),
+    ("Darryn Peterson",         "G",  19, 84, 85),
+    ("Cameron Boozer",          "F",  19, 82, 88),
+    ("Caleb Wilson",            "F",  20, 79, 84),
     ("Dejounte Murray",         "PG", 29, 80, 78),
     ("Julius Randle",           "PF", 31, 80, 75),
     ("Mark Williams",           "C",  24, 78, 65),
