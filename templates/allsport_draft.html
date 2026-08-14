@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>All-Sport Redraft</title>
+  <style>
+    :root {
+      --bg: #0f1216;
+      --panel: #171b22;
+      --panel2: #1f252e;
+      --border: #2a313c;
+      --text: #e6e8eb;
+      --muted: #8b94a3;
+      --accent: #3d7bd6;
+      --accent-light: #6ba6f2;
+      --warn: #d6a821;
+      --danger: #d55353;
+      --ok: #2fb170;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    header {
+      display: flex; align-items: center; gap: 20px;
+      padding: 16px 28px; background: var(--panel); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+    }
+    header h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.2px; }
+    header .subtitle { color: var(--muted); font-size: 13px; margin-top: 2px; }
+    header .meta { color: var(--muted); font-size: 13px; margin-left: auto; }
+    header button {
+      background: var(--panel2); color: var(--text); border: 1px solid var(--border);
+      padding: 9px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;
+    }
+    header button:hover { background: var(--border); }
+    .seat-badge {
+      font-size: 12px; padding: 5px 12px; border-radius: 12px; border: 1px solid var(--border);
+      color: var(--muted); white-space: nowrap;
+    }
+    .seat-badge.active { color: var(--accent-light); border-color: var(--accent); background: rgba(61,123,214,0.12); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(440px, 1.3fr) minmax(400px, 1fr) minmax(460px, 1.15fr);
+      gap: 20px;
+      padding: 20px 28px;
+      height: calc(100vh - 76px);
+      overflow: hidden;
+      max-width: 2200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 1500px) { .layout { grid-template-columns: 1fr 380px; } .rankings-col { display: none; } }
+
+    .col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .col h2 {
+      margin: 0; padding: 14px 18px; font-size: 13px; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); background: var(--panel2); border-bottom: 1px solid var(--border);
+      font-weight: 700;
+    }
+    .col-body { overflow-y: auto; flex: 1; padding: 4px 0; }
+
+    /* ---- Sport badges ---- */
+    .sport-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+      letter-spacing: 0.4px; display: inline-block; min-width: 38px; text-align: center;
+    }
+    .sport-NFL { background: #3a2020; color: #e0837a; }
+    .sport-MLB { background: #1f2f4a; color: #7aa8e0; }
+    .sport-NHL { background: #202f3a; color: #7ad0e0; }
+    .sport-NBA { background: #2a1f3a; color: #b78ae0; }
+    .sport-CBB { background: #2f3a20; color: #a8d47a; }
+    .sport-CFB { background: #3a3320; color: #d4b87a; }
+
+    /* ---- Draft board ---- */
+    .board { padding: 6px 18px 18px; }
+    .round-header {
+      position: sticky; top: 0; background: var(--panel);
+      font-size: 12px; text-transform: uppercase; color: var(--accent-light);
+      padding: 16px 0 8px; border-bottom: 1px solid var(--border);
+      letter-spacing: 1px; font-weight: 700;
+    }
+    .pick-row {
+      display: grid; grid-template-columns: 48px 120px 1fr 64px 140px; gap: 14px;
+      padding: 12px 10px; border-bottom: 1px solid var(--panel2);
+      align-items: center; border-radius: 6px;
+    }
+    .pick-row:nth-child(even) { background: rgba(255,255,255,0.015); }
+    .pick-row.mine { background: rgba(61, 123, 214, 0.16); }
+    .pick-row.current { background: rgba(214, 168, 33, 0.14); box-shadow: inset 4px 0 0 var(--warn); }
+    .pick-num { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; }
+    .pick-team { color: var(--muted); font-size: 13px; }
+    .pick-player { font-weight: 500; font-size: 14px; }
+    .pick-meta { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; }
+    .pick-empty .pick-player { color: var(--muted); font-style: italic; font-weight: normal; }
+
+    /* ---- On-clock / your seat column ---- */
+    .clock {
+      padding: 24px; background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border-bottom: 1px solid var(--border);
+    }
+    .clock .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-weight: 700; }
+    .clock .team-name { font-size: 28px; font-weight: 700; margin-top: 6px; }
+    .clock.mine { border-left: 4px solid var(--accent); padding-left: 20px; background: linear-gradient(180deg, rgba(61,123,214,0.14), var(--panel)); }
+    .clock .pick-info { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .clock .countdown { font-size: 15px; color: var(--warn); margin-top: 8px; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .status-msg { padding: 10px 24px; font-size: 13px; color: var(--muted); min-height: 14px; }
+    .status-msg.error { color: var(--danger); }
+    .status-msg.ok { color: var(--ok); }
+
+    .roster-list { padding: 4px 0; }
+    .roster-group-header {
+      padding: 12px 18px 6px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); background: var(--panel2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .roster-group-header:first-child { border-top: none; }
+    .roster-group-header span { font-weight: 400; text-transform: none; letter-spacing: 0; }
+    .roster-item {
+      padding: 12px 18px; display: grid; grid-template-columns: 108px 1fr auto auto;
+      gap: 14px; align-items: center; font-size: 13px; border-bottom: 1px solid var(--panel2);
+    }
+    .roster-item:nth-child(even) { background: rgba(255,255,255,0.015); }
+    .tag-group { display: flex; gap: 6px; align-items: center; }
+    .pos-badge { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--panel2); color: var(--muted); text-align: center; }
+    .roster-empty { padding: 24px 18px; color: var(--muted); font-style: italic; font-size: 13px; }
+
+    .search-box {
+      padding: 16px 24px; border-top: 1px solid var(--border); background: var(--panel2);
+    }
+    .search-box input {
+      width: 100%; padding: 10px 12px; font-size: 14px;
+      background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px;
+    }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+    /* ---- Rankings ---- */
+    .rankings-explainer { padding: 12px 18px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); line-height: 1.6; }
+    .rankings-explainer b { color: var(--accent-light); }
+    .rankings-head {
+      display: grid; grid-template-columns: 36px 54px 1fr 54px 50px 56px 56px 64px;
+      gap: 10px; padding: 10px 18px; font-size: 11px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      background: var(--panel2); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 2; font-weight: 700;
+    }
+    .rankings-list { padding: 0 0 8px; }
+    .rank-row {
+      display: grid; grid-template-columns: 36px 54px 1fr 54px 50px 56px 56px 64px;
+      gap: 10px; padding: 10px 18px; font-size: 13px;
+      border-bottom: 1px solid var(--panel2); align-items: center;
+      cursor: default;
+    }
+    .rank-row:nth-child(even) { background: rgba(255,255,255,0.015); }
+    .rank-row.available.my-turn { cursor: pointer; }
+    .rank-row.available.my-turn:hover { background: rgba(107, 166, 242, 0.18); }
+    .rank-row.drafted { opacity: 0.4; }
+    .rank-row .rank-n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
+    .rank-row .rank-name { font-weight: 500; }
+    .rank-row .rank-name small { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 12px; }
+    .rank-row .num { font-variant-numeric: tabular-nums; color: var(--muted); text-align: right; }
+    .rank-row .score {
+      text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent-light);
+      background: rgba(61,123,214,0.14); border-radius: 5px; padding: 3px 0;
+    }
+    .rankings-search {
+      padding: 14px 18px; background: var(--panel2); border-bottom: 1px solid var(--border);
+      display: flex; gap: 10px;
+    }
+    .rankings-search input { flex: 1; padding: 9px 12px; font-size: 13px;
+      background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; }
+    .rankings-search select { padding: 9px 10px; font-size: 13px;
+      background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>All-Sport Redraft <span style="color:var(--muted); font-weight:400;">· 6 sports, 1 board</span></h1>
+    <div class="meta" id="slot-meta"></div>
+    <div class="seat-badge" id="seat-badge"></div>
+    <button id="reset-btn">New Draft</button>
+  </header>
+
+  <div class="layout">
+    <!-- Column 1: Draft board -->
+    <div class="col board-col">
+      <h2>Draft Board</h2>
+      <div class="col-body" id="board"></div>
+    </div>
+
+    <!-- Column 2: On the clock / your picks so far -->
+    <div class="col mine-col">
+      <div id="clock-panel"></div>
+      <div id="status-msg" class="status-msg"></div>
+      <h2 style="border-top: 1px solid var(--border);">Your Picks So Far</h2>
+      <div class="col-body" id="roster"></div>
+    </div>
+
+    <!-- Column 3: Full rankings -->
+    <div class="col rankings-col">
+      <h2>Full Rankings</h2>
+      <div class="rankings-explainer">
+        Sorted by <b>Value</b> — each player's skill is z-scored against others in their own sport,
+        then mapped to a shared 1–99 scale, so an NHL star and an NBA star can be ranked on one board. Click a player to draft when it's your turn.
+      </div>
+      <div class="rankings-search">
+        <input id="rank-filter" type="text" placeholder="filter by name or position…" />
+        <select id="sport-filter">
+          <option value="">All sports</option>
+          <option value="NFL">NFL</option>
+          <option value="MLB">MLB</option>
+          <option value="NHL">NHL</option>
+          <option value="NBA">NBA</option>
+          <option value="CBB">CBB</option>
+          <option value="CFB">CFB</option>
+        </select>
+      </div>
+      <div class="rankings-head">
+        <div>#</div><div>Sport</div><div>Player</div><div>Pos</div><div>Age</div>
+        <div title="Skill rating (0-100, within-sport)">Skill</div>
+        <div title="Durability / health rating (0-100)">Dur</div>
+        <div style="text-align:center">Value</div>
+      </div>
+      <div class="col-body" id="rankings"></div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    const path = location.pathname.replace(/^\/+/, "").toLowerCase();
+    let VIEWER_PARAM = (params.get("team") || path || "").toLowerCase();
+    let STATE = null;
+    let FILTER = "";
+    let SPORT_FILTER = "";
+
+    function apiUrl(base) {
+      const u = new URL(base, location.origin);
+      if (VIEWER_PARAM) u.searchParams.set("team", VIEWER_PARAM);
+      return u.toString();
+    }
+
+    async function fetchState() {
+      const r = await fetch(apiUrl("/api/state"));
+      STATE = await r.json();
+      render();
+    }
+
+    async function makePick(name) {
+      const r = await fetch(apiUrl("/api/pick"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ player: name }),
+      });
+      const data = await r.json();
+      if (!data.ok) {
+        setStatus(data.message, "error");
+      } else {
+        setStatus(data.message, "ok");
+        setTimeout(() => setStatus("", ""), 2500);
+      }
+      STATE = data.state;
+      render();
+    }
+
+    async function resetDraft() {
+      const r = await fetch(apiUrl("/api/reset"), { method: "POST" });
+      const data = await r.json();
+      STATE = data.state;
+      setStatus("New draft rolled.", "ok");
+      setTimeout(() => setStatus("", ""), 2000);
+      render();
+    }
+
+    function setStatus(msg, cls) {
+      const el = $("status-msg");
+      el.textContent = msg;
+      el.className = "status-msg " + (cls || "");
+    }
+
+    function render() {
+      const totalPicks = STATE.total_picks;
+      $("slot-meta").textContent =
+        `${STATE.rounds} rounds · ${STATE.roster_size}-player rosters · pick ${STATE.current_overall ?? "—"}/${totalPicks}`;
+      const seatEl = $("seat-badge");
+      if (STATE.viewer) {
+        seatEl.textContent = `Playing as ${STATE.viewer}`;
+        seatEl.className = "seat-badge active";
+      } else {
+        seatEl.textContent = "Spectating (add ?team=you or ?team=buddy)";
+        seatEl.className = "seat-badge";
+      }
+
+      renderClock();
+      renderBoard();
+      renderRoster();
+      renderRankings();
+    }
+
+    function renderClock() {
+      const panel = $("clock-panel");
+      if (STATE.complete) {
+        panel.innerHTML = `<div class="clock"><div class="label">Draft complete</div><div class="team-name">Final 30-player rosters set</div></div>`;
+        return;
+      }
+      const isMine = STATE.is_viewer_turn;
+      const isBot = STATE.bot_on_clock;
+      let sub = `Round ${STATE.current_round}, pick #${STATE.current_overall} overall`;
+      if (isBot && STATE.seconds_left !== null) {
+        sub = `<div class="pick-info">${sub}</div><div class="countdown">${STATE.current_team} is thinking… auto-picks in ${STATE.seconds_left}s</div>`;
+      } else {
+        sub = `<div class="pick-info">${sub}</div>`;
+      }
+      panel.innerHTML = `
+        <div class="clock ${isMine ? "mine" : ""}">
+          <div class="label">${isMine ? "★ You are on the clock" : (isBot ? "Bot thinking" : "On the clock")}</div>
+          <div class="team-name">${STATE.current_team}</div>
+          ${sub}
+        </div>
+        ${isMine ? `
+          <div class="search-box">
+            <input id="pick-input" type="text" placeholder="Type player name + Enter, or click a player →" autofocus />
+            <div class="hint">Tip: click any available player in the rankings panel.</div>
+          </div>
+        ` : ""}
+      `;
+      const inp = document.getElementById("pick-input");
+      if (inp) {
+        inp.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && inp.value.trim()) {
+            makePick(inp.value.trim());
+          }
+        });
+      }
+    }
+
+    function renderBoard() {
+      const el = $("board");
+      const html = [];
+      html.push(`<div class="board">`);
+      const picksByOverall = {};
+      for (const rnd of STATE.board_rounds) for (const pk of rnd) picksByOverall[pk.overall] = pk;
+      const teamsN = STATE.teams.length;
+
+      for (let r = 1; r <= STATE.rounds; r++) {
+        html.push(`<div class="round-header">Round ${r}</div>`);
+        const start = (r - 1) * teamsN;
+        for (let i = 0; i < teamsN; i++) {
+          const overall = start + i + 1;
+          const team = STATE.draft_order[start + i];
+          const pk = picksByOverall[overall];
+          const isCur = overall === STATE.current_overall;
+          const isMine = team === STATE.viewer;
+          const cls = ["pick-row"];
+          if (isMine) cls.push("mine");
+          if (isCur) cls.push("current");
+          if (!pk) cls.push("pick-empty");
+          if (pk) {
+            const p = pk.player;
+            html.push(`
+              <div class="${cls.join(" ")}">
+                <div class="pick-num">${overall}.</div>
+                <div class="pick-team">${team}</div>
+                <div class="pick-player"><span class="sport-badge sport-${p.sport}">${p.sport}</span> ${p.name}</div>
+                <div class="pick-player" style="color:var(--muted); font-weight:400;">${p.pos}</div>
+                <div class="pick-meta">${p.age_display} · sk ${p.skill} · ${p.draft_value.toFixed(1)}</div>
+              </div>
+            `);
+          } else {
+            html.push(`
+              <div class="${cls.join(" ")}">
+                <div class="pick-num">${overall}.</div>
+                <div class="pick-team">${team}</div>
+                <div class="pick-player">${isCur ? "— on the clock —" : "—"}</div>
+                <div class="pick-player"></div>
+                <div class="pick-meta"></div>
+              </div>
+            `);
+          }
+        }
+      }
+      html.push(`</div>`);
+      el.innerHTML = html.join("");
+      const curEl = el.querySelector(".pick-row.current");
+      if (curEl) curEl.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+
+    function renderRoster() {
+      const el = $("roster");
+      const roster = STATE.rosters[STATE.viewer] || [];
+      if (!roster.length) {
+        el.innerHTML = `<div class="roster-empty">No picks yet.</div>`;
+        return;
+      }
+      const bySport = {};
+      for (const p of roster) (bySport[p.sport] = bySport[p.sport] || []).push(p);
+      const sports = Object.keys(bySport).sort();
+      el.innerHTML = `<div class="roster-list">${
+        sports.map(sport => `
+          <div class="roster-group-header">${sport} <span>(${bySport[sport].length})</span></div>
+          ${bySport[sport].map((p) => `
+            <div class="roster-item">
+              <div class="tag-group">
+                <span class="sport-badge sport-${p.sport}">${p.sport}</span><span class="pos-badge">${p.pos}</span>
+              </div>
+              <div>${p.name} <small style="color:var(--muted)">${p.age_display}</small></div>
+              <div style="color:var(--muted); font-size:11px;">sk ${p.skill}</div>
+              <div style="font-weight:600; color:var(--accent-light);">${p.draft_value.toFixed(1)}</div>
+            </div>
+          `).join("")}
+        `).join("")
+      }</div>`;
+    }
+
+    function renderRankings() {
+      const el = $("rankings");
+      const f = FILTER.toLowerCase();
+      const rows = STATE.rankings
+        .filter(p => (!f || p.name.toLowerCase().includes(f) || p.pos.toLowerCase().includes(f)) && (!SPORT_FILTER || p.sport === SPORT_FILTER))
+        .map((p, idx) => {
+          const cls = ["rank-row"];
+          if (p.drafted) cls.push("drafted"); else cls.push("available");
+          if (STATE.is_viewer_turn) cls.push("my-turn");
+          const meta = p.drafted
+            ? `<small>#${p.pick_overall} · ${p.pick_team}</small>`
+            : "";
+          return `
+            <div class="${cls.join(" ")}" data-name="${p.name.replace(/"/g, "&quot;")}" data-drafted="${p.drafted}">
+              <div class="rank-n">${idx + 1}</div>
+              <div><span class="sport-badge sport-${p.sport}">${p.sport}</span></div>
+              <div class="rank-name">${p.name}${meta}</div>
+              <div class="num">${p.pos}</div>
+              <div class="num">${p.age_display}</div>
+              <div class="num">${p.skill}</div>
+              <div class="num">${p.health}</div>
+              <div class="score">${p.draft_value.toFixed(1)}</div>
+            </div>
+          `;
+        });
+      el.innerHTML = `<div class="rankings-list">${rows.join("")}</div>`;
+      for (const row of el.querySelectorAll(".rank-row.available")) {
+        row.addEventListener("click", () => {
+          if (STATE.is_viewer_turn && row.dataset.drafted === "false") {
+            makePick(row.dataset.name);
+          }
+        });
+      }
+    }
+
+    document.getElementById("reset-btn").addEventListener("click", resetDraft);
+    document.getElementById("rank-filter").addEventListener("input", (e) => {
+      FILTER = e.target.value;
+      renderRankings();
+    });
+    document.getElementById("sport-filter").addEventListener("change", (e) => {
+      SPORT_FILTER = e.target.value;
+      renderRankings();
+    });
+
+    fetchState();
+    setInterval(fetchState, 2000);
+  </script>
+</body>
+</html>

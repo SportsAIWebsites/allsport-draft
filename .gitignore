@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.env.local
+march-madness-fantasy/node_modules/
+march-madness-fantasy/dist/

@@ -1,0 +1,15 @@
+# Install nfl-data-py separately with --no-deps to bypass its outdated pandas<2.0 pin:
+#   pip install flask fastparquet appdirs
+#   pip install nfl-data-py --no-deps
+#
+# Or just run: pip install flask fastparquet appdirs && pip install nfl-data-py --no-deps
+flask>=3.0
+nfl-data-py==0.3.3
+pandas>=2.0
+numpy>=2.0
+fastparquet>=2023.0
+appdirs>=1.4
+
+# allsport_draft_web.py deployment (Render)
+gunicorn>=21.0
+psycopg2-binary>=2.9
