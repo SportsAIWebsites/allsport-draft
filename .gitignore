@@ -3,5 +3,19 @@ __pycache__/
 *.pyc
 .env
 .env.local
-march-madness-fantasy/node_modules/
-march-madness-fantasy/dist/
+.claude/
+
+# Only allsport_draft.py, allsport_draft_web.py, templates/allsport_draft.html,
+# render.yaml, requirements.txt, and this .gitignore belong in this repo.
+# Everything below is a separate, unrelated project living in the same folder.
+app.py
+audio_matcher/
+daily_sports_tiktok/
+snapback-sports-ai/
+tiktok_generator/
+march-madness-fantasy/
+nba_redraft.py
+nba_redraft_web.py
+static/
+templates/index.html
+templates/nba_redraft.html
