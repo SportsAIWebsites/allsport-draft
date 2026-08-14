@@ -17,7 +17,6 @@ Run: python3 allsport_draft.py
 from __future__ import annotations
 
 import random
-import statistics
 import sys
 from dataclasses import dataclass, field
 
@@ -753,22 +752,35 @@ def _build_nba() -> list[Player]:
 
 
 def normalize_pool(players: list[Player]) -> None:
-    """Z-score normalize raw `score` within a single sport's pool and map
-    onto a shared 0-100 `draft_value` scale (mean 50, ~15 pts per stdev).
+    """Percentile-rank each player within their own sport's pool, then map
+    that standing onto a shared 1-99 `draft_value` scale.
 
-    This is the step that makes cross-sport comparison meaningful: an NHL
-    goalie's score and an NFL quarterback's score live on different raw
-    scales, but "how many standard deviations above this sport's own
-    average" is directly comparable.
+    This is the step that makes cross-sport comparison meaningful: judge a
+    player against their own sport's peers first (percentile rank), then
+    convert that standing into a number that means the same thing across
+    sports. Percentile rank (rather than z-score) keeps one sport's outlier
+    ratings from dominating the shared board — a sport can only ever
+    contribute its true proportional share of the combined top tier,
+    regardless of how spread out or clustered its raw skill numbers happen
+    to be. Ties get averaged ranks so equal scores land on equal percentiles.
     """
-    if not players:
+    n = len(players)
+    if n == 0:
         return
-    scores = [p.score for p in players]
-    mean = statistics.fmean(scores)
-    stdev = statistics.pstdev(scores) or 1.0
-    for p in players:
-        z = (p.score - mean) / stdev
-        p.draft_value = round(max(1.0, min(99.0, 50 + z * 15)), 1)
+    if n == 1:
+        players[0].draft_value = 99.0
+        return
+    ordered = sorted(players, key=lambda p: p.score)
+    i = 0
+    while i < n:
+        j = i
+        while j + 1 < n and ordered[j + 1].score == ordered[i].score:
+            j += 1
+        percentile = ((i + j) / 2) / (n - 1)
+        draft_value = round(1.0 + percentile * 98.0, 1)
+        for k in range(i, j + 1):
+            ordered[k].draft_value = draft_value
+        i = j + 1
 
 
 def build_pool() -> list[Player]:
