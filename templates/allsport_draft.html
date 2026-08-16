@@ -98,13 +98,16 @@
 
       .layout {
         display: block;
-        height: auto;
-        min-height: calc(100vh - 130px);
-        overflow: visible;
+        height: calc(100vh - 130px);
+        overflow: hidden;
         padding: 12px;
-        gap: 12px;
       }
-      .layout .col { display: none; margin-bottom: 12px; }
+      /* The single visible panel fills the fixed-height layout and scrolls
+         internally via its own .col-body, same pattern as desktop -- an
+         auto-height column here left long lists (600+ players) with no
+         bounded scroll area, so anything past one screen's worth silently
+         never got a scrollbar. */
+      .layout .col { display: none; height: 100%; }
       .layout .col.mobile-active { display: flex; }
 
       .myteam-view { padding: 12px; }
