@@ -174,6 +174,45 @@
       background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; }
 
     /* ---- Tabs ---- */
+    /* ---- Turn banner ---- */
+    .turn-banner {
+      padding: 14px 24px; font-size: 14px; font-weight: 600; border-bottom: 1px solid var(--border);
+      background: var(--panel2); color: var(--muted);
+    }
+    .turn-banner.mine { background: rgba(61,123,214,0.16); color: var(--accent-light); }
+    .turn-banner .sub { font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ---- Player detail modal ---- */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-card {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      width: 420px; max-width: 90vw; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-header {
+      padding: 20px 24px; background: var(--panel2); border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .modal-header .name { font-size: 20px; font-weight: 700; }
+    .modal-header .close-btn {
+      background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; line-height: 1;
+      padding: 4px;
+    }
+    .modal-header .close-btn:hover { color: var(--text); }
+    .modal-stats { padding: 20px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .modal-stat .n { font-size: 22px; font-weight: 700; }
+    .modal-stat .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 2px; }
+    .modal-actions { padding: 16px 24px 24px; }
+    .modal-draft-btn {
+      width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border-radius: 8px; border: none;
+      background: var(--accent); color: #fff; cursor: pointer;
+    }
+    .modal-draft-btn:hover { background: var(--accent-light); }
+    .modal-draft-btn:disabled { background: var(--panel2); color: var(--muted); cursor: not-allowed; }
+    .modal-hint { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; }
+
     .tabs { display: flex; gap: 4px; background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
     .tab-btn {
       background: transparent; color: var(--muted); border: none; padding: 7px 16px;
@@ -225,6 +264,8 @@
 
   <div class="myteam-view" id="myteam-view" style="display:none;"></div>
 
+  <div class="modal-overlay" id="player-modal" style="display:none;"></div>
+
   <div class="layout" id="draft-layout">
     <!-- Column 1: Draft board -->
     <div class="col board-col">
@@ -234,6 +275,7 @@
 
     <!-- Column 2: Your picks so far -->
     <div class="col mine-col">
+      <div id="turn-banner" class="turn-banner"></div>
       <div id="status-msg" class="status-msg"></div>
       <h2>Your Picks So Far</h2>
       <div class="col-body" id="roster"></div>
@@ -335,10 +377,73 @@
         seatEl.className = "seat-badge";
       }
 
+      renderTurnBanner();
       renderBoard();
       renderRoster();
       renderRankings();
       renderMyTeam();
+    }
+
+    function renderTurnBanner() {
+      const el = $("turn-banner");
+      if (STATE.complete) {
+        el.className = "turn-banner";
+        el.innerHTML = `Draft complete <div class="sub">Final ${STATE.roster_size}-player rosters set</div>`;
+        return;
+      }
+      const isMine = STATE.is_viewer_turn;
+      const isBot = STATE.bot_on_clock;
+      let sub = `Round ${STATE.current_round}, pick #${STATE.current_overall} overall`;
+      if (isBot && STATE.seconds_left !== null) {
+        sub += ` · auto-picks in ${STATE.seconds_left}s`;
+      }
+      el.className = "turn-banner" + (isMine ? " mine" : "");
+      el.innerHTML = `${isMine ? "★ You're on the clock" : `${STATE.current_team} is on the clock`}<div class="sub">${sub}</div>`;
+    }
+
+    function openPlayerModal(name) {
+      const p = STATE.rankings.find(r => r.name === name);
+      if (!p) return;
+      const canDraft = STATE.is_viewer_turn;
+      const modal = $("player-modal");
+      modal.innerHTML = `
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <div class="name">${p.name}</div>
+              <span class="sport-badge sport-${p.sport}">${p.sport}</span> <span class="pos-badge">${p.pos}</span>
+            </div>
+            <button class="close-btn" id="modal-close">&times;</button>
+          </div>
+          <div class="modal-stats">
+            <div class="modal-stat"><div class="n">${p.age_display}</div><div class="l">Age / Class</div></div>
+            <div class="modal-stat"><div class="n">${p.draft_value.toFixed(1)}</div><div class="l">Draft Value</div></div>
+            <div class="modal-stat"><div class="n">${p.skill}</div><div class="l">Skill</div></div>
+            <div class="modal-stat"><div class="n">${p.health}</div><div class="l">Health</div></div>
+          </div>
+          <div class="modal-actions">
+            <button class="modal-draft-btn" id="modal-draft-btn" ${canDraft ? "" : "disabled"}>
+              ${canDraft ? `Draft ${p.name}` : "Not your turn"}
+            </button>
+            ${canDraft ? "" : `<div class="modal-hint">${STATE.current_team} is currently on the clock.</div>`}
+          </div>
+        </div>
+      `;
+      modal.style.display = "flex";
+      $("modal-close").addEventListener("click", closePlayerModal);
+      modal.addEventListener("click", (e) => { if (e.target === modal) closePlayerModal(); });
+      if (canDraft) {
+        $("modal-draft-btn").addEventListener("click", () => {
+          makePick(p.name);
+          closePlayerModal();
+        });
+      }
+    }
+
+    function closePlayerModal() {
+      const modal = $("player-modal");
+      modal.style.display = "none";
+      modal.innerHTML = "";
     }
 
     function setView(view) {
@@ -498,11 +603,7 @@
         });
       el.innerHTML = `<div class="rankings-list">${rows.join("")}</div>`;
       for (const row of el.querySelectorAll(".rank-row.available")) {
-        row.addEventListener("click", () => {
-          if (STATE.is_viewer_turn) {
-            makePick(row.dataset.name);
-          }
-        });
+        row.addEventListener("click", () => openPlayerModal(row.dataset.name));
       }
     }
 
