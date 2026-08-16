@@ -432,6 +432,7 @@
       renderRoster();
       renderRankings();
       renderMyTeam();
+      renderPlayerModal();
     }
 
     function renderTurnBanner() {
@@ -452,10 +453,24 @@
     }
 
     function openPlayerModal(name) {
-      const p = STATE.rankings.find(r => r.name === name);
-      if (!p) return;
-      const canDraft = STATE.is_viewer_turn;
+      OPEN_MODAL_PLAYER = name;
+      renderPlayerModal();
+    }
+
+    // Re-renders the currently-open modal (if any) from the latest STATE.
+    // Called on every poll tick so a modal left open across a turn change
+    // reflects reality instead of freezing whatever was true the moment
+    // it was first opened.
+    function renderPlayerModal() {
+      if (!OPEN_MODAL_PLAYER) return;
+      const p = STATE.rankings.find(r => r.name === OPEN_MODAL_PLAYER);
       const modal = $("player-modal");
+      if (!p) {
+        // Someone else drafted this player while the modal was open.
+        closePlayerModal();
+        return;
+      }
+      const canDraft = STATE.is_viewer_turn;
       modal.innerHTML = `
         <div class="modal-card">
           <div class="modal-header">
@@ -491,6 +506,7 @@
     }
 
     function closePlayerModal() {
+      OPEN_MODAL_PLAYER = null;
       const modal = $("player-modal");
       modal.style.display = "none";
       modal.innerHTML = "";
@@ -679,6 +695,15 @@
 
     fetchState();
     setInterval(fetchState, 2000);
+    // Browsers throttle setInterval heavily in backgrounded/inactive tabs
+    // (sometimes to once a minute or less) -- without this, a phone with
+    // the tab open but not focused could sit on stale "not your turn"
+    // state indefinitely even though the server had long since moved on.
+    // Force an immediate refetch the moment the tab becomes active again.
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") fetchState();
+    });
+    window.addEventListener("focus", fetchState);
   </script>
 </body>
 </html>

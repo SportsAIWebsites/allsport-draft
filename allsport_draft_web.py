@@ -40,8 +40,6 @@ app = Flask(__name__, template_folder="templates")
 
 BOT_THINK_SECONDS = 15
 DATABASE_URL = os.environ.get("DATABASE_URL")
-YOUR_FIXED_SLOT = 7
-YOUR_FIXED_SLOT_TEAM = "You"
 
 
 # ---------------------------------------------------------------------------
@@ -124,11 +122,8 @@ class Draft:
         with self._lock:
             self.all_players = build_pool()
             self.pool: list[Player] = list(self.all_players)
-            # "You" is always locked to slot #7; the other 7 teams (Bruner +
-            # 6 bots) are shuffled into the remaining slots each draft.
-            others = [t for t in TEAM_NAMES if t != YOUR_FIXED_SLOT_TEAM]
-            random.shuffle(others)
-            order_teams = others[:YOUR_FIXED_SLOT - 1] + [YOUR_FIXED_SLOT_TEAM] + others[YOUR_FIXED_SLOT - 1:]
+            order_teams = TEAM_NAMES.copy()
+            random.shuffle(order_teams)
             self.draft_order: list[str] = build_snake_order(order_teams, ROUNDS)
             self.slots: dict[str, int] = {t: i + 1 for i, t in enumerate(order_teams)}
             self.rosters: dict[str, list[Player]] = {t: [] for t in TEAM_NAMES}
