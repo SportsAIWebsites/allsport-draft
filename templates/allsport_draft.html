@@ -41,23 +41,35 @@
     }
     .seat-badge.active { color: var(--accent-light); border-color: var(--accent); background: rgba(61,123,214,0.12); }
 
-    /* Rankings is the primary panel — that's what you scroll through
-       constantly while drafting. The pick-history board is reference
-       material once a draft is underway, so it gets a narrow side slot. */
+    /* Player Rankings is the primary panel — that's what you scroll through
+       constantly while drafting, so it takes the entire left side, full
+       height. The clock/your-picks panel and the pick-history board (just
+       reference material once a draft is underway) stack on the right. */
     .layout {
       display: grid;
-      grid-template-columns: minmax(280px, 0.65fr) minmax(360px, 0.85fr) minmax(680px, 1.8fr);
+      grid-template-columns: minmax(680px, 1.8fr) minmax(320px, 0.8fr);
+      grid-template-rows: minmax(260px, 0.55fr) 1fr;
+      grid-template-areas:
+        "rankings mine"
+        "rankings board";
       gap: 20px;
       padding: 20px 28px;
       height: calc(100vh - 76px);
       overflow: hidden;
       width: 100%;
     }
-    .board-col { order: 1; }
-    .mine-col { order: 2; }
-    .rankings-col { order: 3; }
+    .rankings-col { grid-area: rankings; }
+    .mine-col { grid-area: mine; }
+    .board-col { grid-area: board; }
     @media (max-width: 1400px) {
-      .layout { grid-template-columns: 340px 1fr; }
+      .layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(320px, 1fr);
+        grid-template-areas: "mine" "rankings";
+        height: auto;
+        min-height: calc(100vh - 76px);
+        overflow: visible;
+      }
       .board-col { display: none; }
     }
 
@@ -207,7 +219,7 @@
 
     <!-- Column 3: Full rankings -->
     <div class="col rankings-col">
-      <h2>Full Rankings</h2>
+      <h2>Player Rankings</h2>
       <div class="rankings-explainer">
         Sorted by <b>Value</b> — each player's skill is z-scored against others in their own sport,
         then mapped to a shared 1–99 scale, so an NHL star and an NBA star can be ranked on one board. Click a player to draft when it's your turn.
