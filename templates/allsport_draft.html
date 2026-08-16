@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>All-Sport Redraft</title>
   <style>
     :root {
@@ -61,7 +62,7 @@
     .rankings-col { grid-area: rankings; }
     .mine-col { grid-area: mine; }
     .board-col { grid-area: board; }
-    @media (max-width: 1400px) {
+    @media (max-width: 1400px) and (min-width: 821px) {
       .layout {
         grid-template-columns: 1fr;
         grid-template-rows: auto minmax(320px, 1fr);
@@ -71,6 +72,45 @@
         overflow: visible;
       }
       .board-col { display: none; }
+    }
+
+    /* ---- Phone: same theme/components, but only one panel on screen at a
+       time (a real 3-column grid cannot be shrunk to phone width and stay
+       readable) with a small sub-tab bar to switch between them. ---- */
+    .mobile-subtabs { display: none; }
+    @media (max-width: 820px) {
+      header { padding: 12px 14px; gap: 10px; flex-wrap: wrap; }
+      header h1 { font-size: 16px; }
+      header h1 .subtitle-text { display: none; }
+      header .meta { display: none; }
+      .tabs { order: 3; width: 100%; }
+      .tab-btn { flex: 1; }
+
+      .mobile-subtabs {
+        display: flex; gap: 4px; padding: 10px 14px; background: var(--panel);
+        border-bottom: 1px solid var(--border);
+      }
+      .mobile-subtabs button {
+        flex: 1; background: var(--panel2); color: var(--muted); border: 1px solid var(--border);
+        padding: 9px 6px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
+      }
+      .mobile-subtabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+      .layout {
+        display: block;
+        height: auto;
+        min-height: calc(100vh - 130px);
+        overflow: visible;
+        padding: 12px;
+        gap: 12px;
+      }
+      .layout .col { display: none; margin-bottom: 12px; }
+      .layout .col.mobile-active { display: flex; }
+
+      .myteam-view { padding: 12px; }
+      .myteam-groups { grid-template-columns: 1fr; }
+      .myteam-summary { gap: 14px; padding: 16px; }
+      .modal-card { width: 92vw; }
     }
 
     .col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
@@ -252,7 +292,7 @@
 </head>
 <body>
   <header>
-    <h1>All-Sport Redraft <span style="color:var(--muted); font-weight:400;">· 6 sports, 1 board</span></h1>
+    <h1>All-Sport Redraft <span class="subtitle-text" style="color:var(--muted); font-weight:400;">· 6 sports, 1 board</span></h1>
     <div class="tabs">
       <button class="tab-btn active" id="tab-draft" data-view="draft">Draft</button>
       <button class="tab-btn" id="tab-myteam" data-view="myteam">My Team</button>
@@ -261,6 +301,12 @@
     <div class="seat-badge" id="seat-badge"></div>
     <button id="reset-btn">New Draft</button>
   </header>
+
+  <div class="mobile-subtabs" id="mobile-subtabs">
+    <button class="active" data-panel="rankings-col">Rankings</button>
+    <button data-panel="mine-col">My Picks</button>
+    <button data-panel="board-col">Board</button>
+  </div>
 
   <div class="myteam-view" id="myteam-view" style="display:none;"></div>
 
@@ -282,7 +328,7 @@
     </div>
 
     <!-- Column 3: Full rankings -->
-    <div class="col rankings-col">
+    <div class="col rankings-col mobile-active">
       <h2>Player Rankings</h2>
       <div class="rankings-explainer">
         Sorted by <b>Value</b> — each player's skill is z-scored against others in their own sport,
@@ -319,6 +365,7 @@
     let FILTER = "";
     let SPORT_FILTER = "";
     let VIEW = "draft";
+    let OPEN_MODAL_PLAYER = null;
 
     function apiUrl(base) {
       const u = new URL(base, location.origin);
@@ -610,6 +657,14 @@
     document.getElementById("reset-btn").addEventListener("click", resetDraft);
     document.getElementById("tab-draft").addEventListener("click", () => { setView("draft"); if (STATE) render(); });
     document.getElementById("tab-myteam").addEventListener("click", () => { setView("myteam"); if (STATE) render(); });
+    for (const btn of document.querySelectorAll("#mobile-subtabs button")) {
+      btn.addEventListener("click", () => {
+        for (const b of document.querySelectorAll("#mobile-subtabs button")) b.classList.remove("active");
+        btn.classList.add("active");
+        for (const col of document.querySelectorAll(".layout .col")) col.classList.remove("mobile-active");
+        document.querySelector("." + btn.dataset.panel).classList.add("mobile-active");
+      });
+    }
     document.getElementById("rank-filter").addEventListener("input", (e) => {
       FILTER = e.target.value;
       renderRankings();
