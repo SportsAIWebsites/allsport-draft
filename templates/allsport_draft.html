@@ -47,8 +47,8 @@
        reference material once a draft is underway) stack on the right. */
     .layout {
       display: grid;
-      grid-template-columns: minmax(680px, 1.8fr) minmax(320px, 0.8fr);
-      grid-template-rows: minmax(260px, 0.55fr) 1fr;
+      grid-template-columns: minmax(600px, 1.5fr) minmax(420px, 1.1fr);
+      grid-template-rows: 1fr 1fr;
       grid-template-areas:
         "rankings mine"
         "rankings board";
@@ -115,16 +115,6 @@
     .pick-meta { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; }
     .pick-empty .pick-player { color: var(--muted); font-style: italic; font-weight: normal; }
 
-    /* ---- On-clock / your seat column ---- */
-    .clock {
-      padding: 24px; background: linear-gradient(180deg, var(--panel2), var(--panel));
-      border-bottom: 1px solid var(--border);
-    }
-    .clock .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-weight: 700; }
-    .clock .team-name { font-size: 28px; font-weight: 700; margin-top: 6px; }
-    .clock.mine { border-left: 4px solid var(--accent); padding-left: 20px; background: linear-gradient(180deg, rgba(61,123,214,0.14), var(--panel)); }
-    .clock .pick-info { font-size: 13px; color: var(--muted); margin-top: 8px; }
-    .clock .countdown { font-size: 15px; color: var(--warn); margin-top: 8px; font-variant-numeric: tabular-nums; font-weight: 600; }
     .status-msg { padding: 10px 24px; font-size: 13px; color: var(--muted); min-height: 14px; }
     .status-msg.error { color: var(--danger); }
     .status-msg.ok { color: var(--ok); }
@@ -145,15 +135,6 @@
     .tag-group { display: flex; gap: 6px; align-items: center; }
     .pos-badge { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--panel2); color: var(--muted); text-align: center; }
     .roster-empty { padding: 24px 18px; color: var(--muted); font-style: italic; font-size: 13px; }
-
-    .search-box {
-      padding: 16px 24px; border-top: 1px solid var(--border); background: var(--panel2);
-    }
-    .search-box input {
-      width: 100%; padding: 10px 12px; font-size: 14px;
-      background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px;
-    }
-    .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
 
     /* ---- Rankings ---- */
     .rankings-explainer { padding: 12px 18px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); line-height: 1.6; }
@@ -209,11 +190,10 @@
       <div class="col-body" id="board"></div>
     </div>
 
-    <!-- Column 2: On the clock / your picks so far -->
+    <!-- Column 2: Your picks so far -->
     <div class="col mine-col">
-      <div id="clock-panel"></div>
       <div id="status-msg" class="status-msg"></div>
-      <h2 style="border-top: 1px solid var(--border);">Your Picks So Far</h2>
+      <h2>Your Picks So Far</h2>
       <div class="col-body" id="roster"></div>
     </div>
 
@@ -312,47 +292,9 @@
         seatEl.className = "seat-badge";
       }
 
-      renderClock();
       renderBoard();
       renderRoster();
       renderRankings();
-    }
-
-    function renderClock() {
-      const panel = $("clock-panel");
-      if (STATE.complete) {
-        panel.innerHTML = `<div class="clock"><div class="label">Draft complete</div><div class="team-name">Final 30-player rosters set</div></div>`;
-        return;
-      }
-      const isMine = STATE.is_viewer_turn;
-      const isBot = STATE.bot_on_clock;
-      let sub = `Round ${STATE.current_round}, pick #${STATE.current_overall} overall`;
-      if (isBot && STATE.seconds_left !== null) {
-        sub = `<div class="pick-info">${sub}</div><div class="countdown">${STATE.current_team} is thinking… auto-picks in ${STATE.seconds_left}s</div>`;
-      } else {
-        sub = `<div class="pick-info">${sub}</div>`;
-      }
-      panel.innerHTML = `
-        <div class="clock ${isMine ? "mine" : ""}">
-          <div class="label">${isMine ? "★ You are on the clock" : (isBot ? "Bot thinking" : "On the clock")}</div>
-          <div class="team-name">${STATE.current_team}</div>
-          ${sub}
-        </div>
-        ${isMine ? `
-          <div class="search-box">
-            <input id="pick-input" type="text" placeholder="Type player name + Enter, or click a player →" autofocus />
-            <div class="hint">Tip: click any available player in the rankings panel.</div>
-          </div>
-        ` : ""}
-      `;
-      const inp = document.getElementById("pick-input");
-      if (inp) {
-        inp.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" && inp.value.trim()) {
-            makePick(inp.value.trim());
-          }
-        });
-      }
     }
 
     function renderBoard() {
