@@ -516,8 +516,6 @@ CBB_RAW: list[tuple[str, str, int, int, int]] = [
     ("Trey Green", "PG", 1, 75, 80),
     # ---- Depth / role players (55-78) ----
     ("Aaron Bradshaw", "C", 2, 74, 78),
-    ("Cliff Omoruyi", "C", 4, 72, 82),
-    ("Hunter Sallis", "SG", 4, 74, 82),
     ("Assane Diop", "C", 2, 66, 78),
     ("Chance Westry", "SG", 2, 66, 78),
     ("Malachi Moreno", "C", 1, 68, 80),
