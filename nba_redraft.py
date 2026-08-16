@@ -148,7 +148,6 @@ PLAYERS_RAW: list[tuple[str, str, int, int, int]] = [
     ("Payton Pritchard",        "PG", 27, 75, 88),
     ("D'Angelo Russell",        "PG", 29, 71, 80),
     ("Al Horford",              "C",  39, 71, 82),
-    ("Chris Paul",              "PG", 40, 70, 78),
     ("Bobby Portis",            "PF", 30, 71, 85),
     ("Gary Trent Jr.",          "SG", 26, 70, 80),
     ("Jalen Suggs",             "SG", 24, 73, 60),

@@ -437,7 +437,6 @@ NHL_RAW: list[tuple[str, str, int, int, int]] = [
     ("Brayden Point", "C", 29, 85, 78),
     ("Nikolaj Ehlers", "LW", 29, 78, 78),
     ("Kyle Connor", "LW", 28, 82, 85),
-    ("Anze Kopitar", "C", 38, 74, 82),
     ("Drew Doughty", "D", 35, 70, 75),
     ("Dylan Larkin", "C", 28, 78, 82),
     ("Patrick Kane", "RW", 36, 72, 68),
