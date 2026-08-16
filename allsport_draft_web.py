@@ -228,17 +228,7 @@ class Draft:
 
     def snapshot(self, viewer: str | None = None) -> dict:
         with self._lock:
-            drafted_names = {p.name for t in TEAM_NAMES for p in self.rosters[t]}
-            rankings = [
-                {**_player_dict(p), "drafted": p.name in drafted_names}
-                for p in self.all_players
-            ]
-            pick_by_name = {pk["player"]["name"]: pk for pk in self.picks}
-            for r in rankings:
-                pk = pick_by_name.get(r["name"])
-                if pk:
-                    r["pick_overall"] = pk["overall"]
-                    r["pick_team"] = pk["team"]
+            rankings = [_player_dict(p) for p in self.pool]
 
             board_rounds: list[list[dict]] = [[] for _ in range(ROUNDS)]
             for pk in self.picks:

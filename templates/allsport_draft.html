@@ -163,7 +163,6 @@
     .rank-row:nth-child(even) { background: rgba(255,255,255,0.015); }
     .rank-row.available.my-turn { cursor: pointer; }
     .rank-row.available.my-turn:hover { background: rgba(107, 166, 242, 0.18); }
-    .rank-row.drafted { opacity: 0.4; }
     .rank-row .rank-n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
     .rank-row .rank-name { font-weight: 500; }
     .rank-row .rank-name small { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 12px; }
@@ -428,17 +427,13 @@
       const rows = STATE.rankings
         .filter(p => (!f || p.name.toLowerCase().includes(f) || p.pos.toLowerCase().includes(f)) && (!SPORT_FILTER || p.sport === SPORT_FILTER))
         .map((p, idx) => {
-          const cls = ["rank-row"];
-          if (p.drafted) cls.push("drafted"); else cls.push("available");
+          const cls = ["rank-row", "available"];
           if (STATE.is_viewer_turn) cls.push("my-turn");
-          const meta = p.drafted
-            ? `<small>#${p.pick_overall} · ${p.pick_team}</small>`
-            : "";
           return `
-            <div class="${cls.join(" ")}" data-name="${p.name.replace(/"/g, "&quot;")}" data-drafted="${p.drafted}">
+            <div class="${cls.join(" ")}" data-name="${p.name.replace(/"/g, "&quot;")}">
               <div class="rank-n">${idx + 1}</div>
               <div><span class="sport-badge sport-${p.sport}">${p.sport}</span></div>
-              <div class="rank-name">${p.name}${meta}</div>
+              <div class="rank-name">${p.name}</div>
               <div class="num">${p.pos}</div>
               <div class="num">${p.age_display}</div>
               <div class="num">${p.skill}</div>
@@ -450,7 +445,7 @@
       el.innerHTML = `<div class="rankings-list">${rows.join("")}</div>`;
       for (const row of el.querySelectorAll(".rank-row.available")) {
         row.addEventListener("click", () => {
-          if (STATE.is_viewer_turn && row.dataset.drafted === "false") {
+          if (STATE.is_viewer_turn) {
             makePick(row.dataset.name);
           }
         });
