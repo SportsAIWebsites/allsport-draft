@@ -183,7 +183,7 @@
     .rankings-explainer { padding: 12px 18px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); line-height: 1.6; }
     .rankings-explainer b { color: var(--accent-light); }
     .rankings-head {
-      display: grid; grid-template-columns: 36px 54px 1fr 54px 50px 56px 56px 64px;
+      display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 56px 64px;
       gap: 10px; padding: 10px 18px; font-size: 11px; color: var(--muted);
       text-transform: uppercase; letter-spacing: 0.6px;
       background: var(--panel2); border-bottom: 1px solid var(--border);
@@ -191,7 +191,7 @@
     }
     .rankings-list { padding: 0 0 8px; }
     .rank-row {
-      display: grid; grid-template-columns: 36px 54px 1fr 54px 50px 56px 56px 64px;
+      display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 56px 64px;
       gap: 10px; padding: 10px 18px; font-size: 13px;
       border-bottom: 1px solid var(--panel2); align-items: center;
       cursor: default;
@@ -199,6 +199,19 @@
     .rank-row:nth-child(even) { background: rgba(255,255,255,0.015); }
     .rank-row.available.my-turn { cursor: pointer; }
     .rank-row.available.my-turn:hover { background: rgba(107, 166, 242, 0.18); }
+    .rank-row.favorited { background: rgba(214, 168, 33, 0.08); }
+    .star-btn {
+      background: none; border: none; cursor: pointer; font-size: 16px; line-height: 1;
+      color: var(--muted); padding: 0; width: 100%;
+    }
+    .star-btn.active { color: var(--warn); }
+    .star-btn:hover { color: var(--warn); }
+    .favorites-toggle {
+      background: var(--panel2); color: var(--muted); border: 1px solid var(--border);
+      padding: 9px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;
+      white-space: nowrap;
+    }
+    .favorites-toggle.active { background: rgba(214, 168, 33, 0.16); color: var(--warn); border-color: var(--warn); }
     .rank-row .rank-n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
     .rank-row .rank-name { font-weight: 500; }
     .rank-row .rank-name small { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 12px; }
@@ -348,9 +361,10 @@
           <option value="CBB">CBB</option>
           <option value="CFB">CFB</option>
         </select>
+        <button class="favorites-toggle" id="favorites-toggle" title="Show only starred players">★ Favorites</button>
       </div>
       <div class="rankings-head">
-        <div>#</div><div>Sport</div><div>Player</div><div>Pos</div><div>Age</div>
+        <div></div><div>#</div><div>Sport</div><div>Player</div><div>Pos</div><div>Age</div>
         <div title="Skill rating (0-100, within-sport)">Skill</div>
         <div title="Durability / health rating (0-100)">Dur</div>
         <div style="text-align:center">Value</div>
@@ -369,6 +383,19 @@
     let SPORT_FILTER = "";
     let VIEW = "draft";
     let OPEN_MODAL_PLAYER = null;
+    let FAVORITES_ONLY = false;
+    // Favorites are a personal watchlist, not shared draft state -- stored
+    // per-browser (keyed by viewer so You and Bruner on the same device
+    // don't share a list) rather than round-tripped through the server.
+    const FAVORITES_KEY = "allsport_favorites_" + (VIEWER_PARAM || "spectator");
+    let FAVORITES = new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]"));
+
+    function toggleFavorite(name) {
+      if (FAVORITES.has(name)) FAVORITES.delete(name); else FAVORITES.add(name);
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify([...FAVORITES]));
+      renderRankings();
+      renderPlayerModal();
+    }
 
     function apiUrl(base) {
       const u = new URL(base, location.origin);
@@ -471,11 +498,12 @@
         return;
       }
       const canDraft = STATE.is_viewer_turn;
+      const isFav = FAVORITES.has(p.name);
       modal.innerHTML = `
         <div class="modal-card">
           <div class="modal-header">
             <div>
-              <div class="name">${p.name}</div>
+              <div class="name">${p.name} <button class="star-btn${isFav ? " active" : ""}" id="modal-star-btn" style="font-size:18px; vertical-align:middle;" title="${isFav ? "Remove from favorites" : "Add to favorites"}">${isFav ? "★" : "☆"}</button></div>
               <span class="sport-badge sport-${p.sport}">${p.sport}</span> <span class="pos-badge">${p.pos}</span>
             </div>
             <button class="close-btn" id="modal-close">&times;</button>
@@ -496,6 +524,7 @@
       `;
       modal.style.display = "flex";
       $("modal-close").addEventListener("click", closePlayerModal);
+      $("modal-star-btn").addEventListener("click", () => toggleFavorite(p.name));
       modal.addEventListener("click", (e) => { if (e.target === modal) closePlayerModal(); });
       if (canDraft) {
         $("modal-draft-btn").addEventListener("click", () => {
@@ -651,11 +680,15 @@
       const f = FILTER.toLowerCase();
       const rows = STATE.rankings
         .filter(p => (!f || p.name.toLowerCase().includes(f) || p.pos.toLowerCase().includes(f)) && (!SPORT_FILTER || p.sport === SPORT_FILTER))
+        .filter(p => !FAVORITES_ONLY || FAVORITES.has(p.name))
         .map((p, idx) => {
+          const isFav = FAVORITES.has(p.name);
           const cls = ["rank-row", "available"];
           if (STATE.is_viewer_turn) cls.push("my-turn");
+          if (isFav) cls.push("favorited");
           return `
             <div class="${cls.join(" ")}" data-name="${p.name.replace(/"/g, "&quot;")}">
+              <button class="star-btn${isFav ? " active" : ""}" data-star="${p.name.replace(/"/g, "&quot;")}" title="${isFav ? "Remove from favorites" : "Add to favorites"}">${isFav ? "★" : "☆"}</button>
               <div class="rank-n">${idx + 1}</div>
               <div><span class="sport-badge sport-${p.sport}">${p.sport}</span></div>
               <div class="rank-name">${p.name}</div>
@@ -670,6 +703,12 @@
       el.innerHTML = `<div class="rankings-list">${rows.join("")}</div>`;
       for (const row of el.querySelectorAll(".rank-row.available")) {
         row.addEventListener("click", () => openPlayerModal(row.dataset.name));
+      }
+      for (const star of el.querySelectorAll(".star-btn")) {
+        star.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavorite(star.dataset.star);
+        });
       }
     }
 
@@ -690,6 +729,11 @@
     });
     document.getElementById("sport-filter").addEventListener("change", (e) => {
       SPORT_FILTER = e.target.value;
+      renderRankings();
+    });
+    document.getElementById("favorites-toggle").addEventListener("click", () => {
+      FAVORITES_ONLY = !FAVORITES_ONLY;
+      document.getElementById("favorites-toggle").classList.toggle("active", FAVORITES_ONLY);
       renderRankings();
     });
 
