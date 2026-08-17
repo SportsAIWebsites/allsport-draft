@@ -30,6 +30,25 @@ from nba_redraft import PLAYERS_RAW as NBA_PLAYERS_RAW
 
 COLLEGE_SPORTS = {"CBB", "CFB"}
 
+# Injury/availability overlay, keyed by player name. Values are one of
+# "Q", "D", "IR", "IL", "OUT". Maintained by a nightly status-check job;
+# players who have left their league entirely are removed from the
+# relevant *_RAW list instead of tagged here.
+PLAYER_STATUS: dict[str, str] = {
+    # Updated 2026-08-17. NFL/NHL/NBA/CBB haven't started their 2026-27
+    # seasons yet, so only confirmed multi-week/season-opening absences are
+    # tagged (as OUT/IR) — no Q/D until each league's games are live. MLB's
+    # season is in progress, so IL tags reflect current active placements.
+    "Micah Parsons": "IR",       # NFL — ACL tear (Dec 2025 surgery), out to ~Week 6
+    "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
+    "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, out to ~Nov 2026
+    "Aaron Judge": "IL",         # MLB — rib stress fracture, on IL since June
+    "Juan Soto": "IL",           # MLB — Grade 2 calf strain, on IL since July 24
+    "Corbin Burnes": "IL",       # MLB — recovering from Tommy John surgery, missed 2026 so far
+    "Vladimir Guerrero Jr.": "IL",  # MLB — concussion IL, placed Aug 14/15
+    "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, expected out to ~Dec 2026
+}
+
 
 @dataclass
 class Player:
@@ -42,6 +61,7 @@ class Player:
     health: int
     score: float = field(init=False)
     draft_value: float = field(default=0.0)
+    status: str | None = field(default=None)
 
     def __post_init__(self) -> None:
         # This is a redraft for one season, not a dynasty league — age and
@@ -49,6 +69,7 @@ class Player:
         # ranks the same as a rookie having the same great year; only
         # current talent and durability-for-this-season matter.
         self.score = round(self.skill * 0.85 + self.health * 0.15, 2)
+        self.status = PLAYER_STATUS.get(self.name)
 
     @property
     def age_display(self) -> str:
