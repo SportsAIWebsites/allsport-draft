@@ -136,6 +136,15 @@
     .sport-CBB { background: #2f3a20; color: #a8d47a; }
     .sport-CFB { background: #3a3320; color: #d4b87a; }
 
+    /* ---- Injury/status badges ---- */
+    .status-badge {
+      font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      letter-spacing: 0.4px; display: inline-block; margin-left: 6px; vertical-align: middle;
+    }
+    .status-Q { background: rgba(214, 168, 33, 0.18); color: var(--warn); }
+    .status-D { background: rgba(214, 133, 33, 0.18); color: #d68521; }
+    .status-IR, .status-IL, .status-OUT { background: rgba(213, 83, 83, 0.18); color: var(--danger); }
+
     /* ---- Draft board ---- */
     .board { padding: 6px 18px 18px; }
     .round-header {
@@ -555,7 +564,7 @@
                 ${players.map(p => `
                   <div class="myteam-player">
                     <div class="pos-badge">${p.pos}</div>
-                    <div>${p.name} <small style="color:var(--muted)">${p.age_display}</small></div>
+                    <div>${p.name}${p.status ? `<span class="status-badge status-${p.status}">${p.status}</span>` : ""} <small style="color:var(--muted)">${p.age_display}</small></div>
                     <div class="num">sk ${p.skill}</div>
                     <div class="num">hp ${p.health}</div>
                     <div class="num" style="font-weight:600; color:var(--accent-light);">${p.draft_value.toFixed(1)}</div>
@@ -658,7 +667,7 @@
             <div class="${cls.join(" ")}" data-name="${p.name.replace(/"/g, "&quot;")}">
               <div class="rank-n">${idx + 1}</div>
               <div><span class="sport-badge sport-${p.sport}">${p.sport}</span></div>
-              <div class="rank-name">${p.name}</div>
+              <div class="rank-name">${p.name}${p.status ? `<span class="status-badge status-${p.status}">${p.status}</span>` : ""}</div>
               <div class="num">${p.pos}</div>
               <div class="num">${p.age_display}</div>
               <div class="num">${p.skill}</div>

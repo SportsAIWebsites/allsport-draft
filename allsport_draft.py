@@ -30,6 +30,12 @@ from nba_redraft import PLAYERS_RAW as NBA_PLAYERS_RAW
 
 COLLEGE_SPORTS = {"CBB", "CFB"}
 
+# Injury/availability overlay, keyed by player name. Values are one of
+# "Q", "D", "IR", "IL", "OUT". Maintained by a nightly status-check job;
+# players who have left their league entirely are removed from the
+# relevant *_RAW list instead of tagged here.
+PLAYER_STATUS: dict[str, str] = {}
+
 
 @dataclass
 class Player:
@@ -42,6 +48,7 @@ class Player:
     health: int
     score: float = field(init=False)
     draft_value: float = field(default=0.0)
+    status: str | None = field(default=None)
 
     def __post_init__(self) -> None:
         # This is a redraft for one season, not a dynasty league — age and
@@ -49,6 +56,7 @@ class Player:
         # ranks the same as a rookie having the same great year; only
         # current talent and durability-for-this-season matter.
         self.score = round(self.skill * 0.85 + self.health * 0.15, 2)
+        self.status = PLAYER_STATUS.get(self.name)
 
     @property
     def age_display(self) -> str:
