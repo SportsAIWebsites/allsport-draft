@@ -476,7 +476,14 @@
         sub += ` · auto-picks in ${STATE.seconds_left}s`;
       }
       el.className = "turn-banner" + (isMine ? " mine" : "");
-      el.innerHTML = `${isMine ? "★ You're on the clock" : `${STATE.current_team} is on the clock`}<div class="sub">${sub}</div>`;
+      let extra = "";
+      if (STATE.viewer && STATE.viewer_missing_sports && STATE.viewer_missing_sports.length) {
+        const urgent = STATE.viewer_missing_urgent;
+        extra = `<div class="sub" style="color:${urgent ? "var(--danger)" : "var(--warn)"}; margin-top:4px;">
+          ${urgent ? "⚠ Must draft from" : "Still need"} ${STATE.viewer_missing_sports.join(", ")} before your roster fills up
+        </div>`;
+      }
+      el.innerHTML = `${isMine ? "★ You're on the clock" : `${STATE.current_team} is on the clock`}<div class="sub">${sub}</div>${extra}`;
     }
 
     function openPlayerModal(name) {

@@ -23,6 +23,7 @@ from flask import Flask, jsonify, render_template, request
 from allsport_draft import (
     HUMAN_TEAMS,
     ROUNDS,
+    SPORTS,
     TEAM_NAMES,
     Player,
     ai_pick,
@@ -169,6 +170,27 @@ class Draft:
         else:
             self.clock_deadline = time.time() + BOT_THINK_SECONDS
 
+    def _diversity_ok(self, team: str, candidate_sport: str) -> bool:
+        """A roster must end up with at least one player from every one of
+        the 6 leagues. It's impossible to satisfy that from pick #1 (you
+        only have one player after your first pick), so this doesn't
+        restrict early picks at all -- it only blocks a pick the moment it
+        would make full coverage mathematically impossible by the time the
+        roster fills up (i.e. more leagues still missing than roster slots
+        remaining after this pick)."""
+        roster = self.rosters[team]
+        covered = {p.sport for p in roster} | {candidate_sport}
+        missing = set(SPORTS) - covered
+        remaining_after = ROUNDS - (len(roster) + 1)
+        return len(missing) <= remaining_after
+
+    def _eligible_pool(self, team: str) -> list[Player]:
+        return [p for p in self.pool if self._diversity_ok(team, p.sport)]
+
+    def _missing_sports(self, team: str) -> list[str]:
+        covered = {p.sport for p in self.rosters[team]}
+        return [s for s in SPORTS if s not in covered]
+
     def _commit(self, team: str, player: Player) -> None:
         self.pool.remove(player)
         self.rosters[team].append(player)
@@ -194,7 +216,8 @@ class Draft:
                 return
             if self.clock_deadline is None or time.time() < self.clock_deadline:
                 return
-            pick = ai_pick(self.pool)
+            eligible = self._eligible_pool(team) or self.pool
+            pick = ai_pick(eligible)
             self._commit(team, pick)
 
     # -- public API ----------------------------------------------------
@@ -210,6 +233,12 @@ class Draft:
             player = resolve_pick(self.pool, query)
             if player is None:
                 return False, f"No unique available player matches '{query}'."
+            if not self._diversity_ok(team, player.sport):
+                missing = self._missing_sports(team)
+                return False, (
+                    f"You still need a player from {', '.join(missing)} before your roster fills up "
+                    f"-- pick one of those first, then come back for {player.name}."
+                )
             self._commit(team, player)
             return True, f"{team} selected {player.name}."
 
@@ -272,6 +301,13 @@ class Draft:
                 "top_available": top_available,
                 "rosters": rosters_out,
                 "viewer_roster": rosters_out.get(viewer, []) if viewer else [],
+                "viewer_missing_sports": self._missing_sports(viewer) if viewer else [],
+                "viewer_missing_urgent": (
+                    bool(viewer)
+                    and viewer in TEAM_NAMES
+                    and len(self._missing_sports(viewer)) >= ROUNDS - len(self.rosters[viewer]) - 1
+                    and len(self._missing_sports(viewer)) > 0
+                ),
                 "team_totals": team_totals,
                 "complete": self.is_complete(),
             }

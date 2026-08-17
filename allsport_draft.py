@@ -552,6 +552,7 @@ CFB_RAW: list[tuple[str, str, int, int, int]] = [
     ("Arch Manning", "QB", 2, 90, 82),
     ("Ryan Williams", "WR", 2, 92, 82),
     ("LaNorris Sellers", "QB", 2, 87, 85),
+    ("Dylan Stewart", "DE", 3, 90, 82),
     # ---- Quality (74-87) ----
     ("Julian Sayin", "QB", 2, 82, 82),
     ("DJ Lagway", "QB", 2, 85, 75),
