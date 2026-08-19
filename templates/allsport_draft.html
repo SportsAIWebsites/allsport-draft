@@ -356,8 +356,9 @@
     <div class="col rankings-col mobile-active">
       <h2>Player Rankings</h2>
       <div class="rankings-explainer">
-        Sorted by <b>Value</b> — each player's skill is z-scored against others in their own sport,
-        then mapped to a shared 1–99 scale, so an NHL star and an NBA star can be ranked on one board. Click a player to draft when it's your turn.
+        Sorted by <b>Value</b> — each player's standing is ranked against others in their own sport (backed by real
+        expert rankings where available), then mapped to a shared 1–99 scale so an NHL star and an NBA star can be
+        ranked on one board. <b>Pos Rank</b> shows their real position rank (e.g. RB4). Click a player to draft when it's your turn.
       </div>
       <div class="rankings-search">
         <input id="rank-filter" type="text" placeholder="filter by name or position…" />
@@ -374,7 +375,7 @@
       </div>
       <div class="rankings-head">
         <div></div><div>#</div><div>Sport</div><div>Player</div><div>Pos</div><div>Age</div>
-        <div title="Skill rating (0-100, within-sport)">Skill</div>
+        <div title="Rank among players at this position (real expert rankings, where available)">Pos Rank</div>
         <div title="Durability / health rating (0-100)">Dur</div>
         <div style="text-align:center">Value</div>
       </div>
@@ -527,7 +528,7 @@
           <div class="modal-stats">
             <div class="modal-stat"><div class="n">${p.age_display}</div><div class="l">Age / Class</div></div>
             <div class="modal-stat"><div class="n">${p.draft_value.toFixed(1)}</div><div class="l">Draft Value</div></div>
-            <div class="modal-stat"><div class="n">${p.skill}</div><div class="l">Skill</div></div>
+            <div class="modal-stat"><div class="n">${p.pos}${p.pos_rank || "-"}</div><div class="l">Pos Rank</div></div>
             <div class="modal-stat"><div class="n">${p.health}</div><div class="l">Health</div></div>
           </div>
           <div class="modal-actions">
@@ -601,7 +602,7 @@
                   <div class="myteam-player">
                     <div class="pos-badge">${p.pos}</div>
                     <div>${p.name}${p.status ? `<span class="status-badge status-${p.status}">${p.status}</span>` : ""} <small style="color:var(--muted)">${p.age_display}</small></div>
-                    <div class="num">sk ${p.skill}</div>
+                    <div class="num">${p.pos}${p.pos_rank || "-"}</div>
                     <div class="num">hp ${p.health}</div>
                     <div class="num" style="font-weight:600; color:var(--accent-light);">${p.draft_value.toFixed(1)}</div>
                   </div>
@@ -642,7 +643,7 @@
                 <div class="pick-team">${team}</div>
                 <div class="pick-player"><span class="sport-badge sport-${p.sport}">${p.sport}</span> ${p.name}</div>
                 <div class="pick-player" style="color:var(--muted); font-weight:400;">${p.pos}</div>
-                <div class="pick-meta">${p.age_display} · sk ${p.skill} · ${p.draft_value.toFixed(1)}</div>
+                <div class="pick-meta">${p.age_display} · ${p.pos}${p.pos_rank || "-"} · ${p.draft_value.toFixed(1)}</div>
               </div>
             `);
           } else {
@@ -683,7 +684,7 @@
                 <span class="sport-badge sport-${p.sport}">${p.sport}</span><span class="pos-badge">${p.pos}</span>
               </div>
               <div>${p.name} <small style="color:var(--muted)">${p.age_display}</small></div>
-              <div style="color:var(--muted); font-size:11px;">sk ${p.skill}</div>
+              <div style="color:var(--muted); font-size:11px;">${p.pos}${p.pos_rank || "-"}</div>
               <div style="font-weight:600; color:var(--accent-light);">${p.draft_value.toFixed(1)}</div>
             </div>
           `).join("")}
@@ -710,7 +711,7 @@
               <div class="rank-name">${p.name}${p.status ? `<span class="status-badge status-${p.status}">${p.status}</span>` : ""}</div>
               <div class="num">${p.pos}</div>
               <div class="num">${p.age_display}</div>
-              <div class="num">${p.skill}</div>
+              <div class="num">${p.pos_rank ? p.pos + p.pos_rank : "-"}</div>
               <div class="num">${p.health}</div>
               <div class="score">${p.draft_value.toFixed(1)}</div>
             </div>
