@@ -35,7 +35,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-08-17. NFL/NHL/NBA/CBB haven't started their 2026-27
+    # Updated 2026-08-19. NFL/NHL/NBA/CBB haven't started their 2026-27
     # seasons yet, so only confirmed multi-week/season-opening absences are
     # tagged (as OUT/IR) — no Q/D until each league's games are live. MLB's
     # season is in progress, so IL tags reflect current active placements.
@@ -47,6 +47,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Corbin Burnes": "IL",       # MLB — recovering from Tommy John surgery, missed 2026 so far
     "Vladimir Guerrero Jr.": "IL",  # MLB — concussion IL, placed Aug 14/15
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, expected out to ~Dec 2026
+    "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
 }
 
 
