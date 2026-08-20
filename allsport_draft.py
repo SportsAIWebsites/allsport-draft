@@ -35,19 +35,27 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-08-19. NFL/NHL/NBA/CBB haven't started their 2026-27
-    # seasons yet, so only confirmed multi-week/season-opening absences are
-    # tagged (as OUT/IR) — no Q/D until each league's games are live. MLB's
-    # season is in progress, so IL tags reflect current active placements.
-    "Micah Parsons": "IR",       # NFL — ACL tear (Dec 2025 surgery), out to ~Week 6
+    # Updated 2026-08-20. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
+    # CBB (Nov 1), and CFB (Aug 29) haven't started their 2026-27 seasons
+    # yet, so only confirmed multi-week/season-opening absences are tagged
+    # (as OUT/IR) — no Q/D until each league's games are live. MLB's season
+    # is in progress, so IL tags reflect current active placements.
+    "Micah Parsons": "IR",       # NFL — ACL tear (Dec 2025 surgery), targeting Week 6 (Oct 18) at best
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
-    "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, out to ~Nov 2026
-    "Aaron Judge": "IL",         # MLB — rib stress fracture, on IL since June
+    "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
+    "Aaron Judge": "IL",         # MLB — rib stress fracture, on IL since May 31
     "Juan Soto": "IL",           # MLB — Grade 2 calf strain, on IL since July 24
-    "Corbin Burnes": "IL",       # MLB — recovering from Tommy John surgery, missed 2026 so far
+    "Corbin Burnes": "IL",       # MLB — Tommy John recovery hit a new lat/teres strain setback, now targeting Sept
     "Vladimir Guerrero Jr.": "IL",  # MLB — concussion IL, placed Aug 14/15
+    "Edwin Diaz": "IL",          # MLB — neck inflammation, placed Aug 18
+    "Mookie Betts": "IL",        # MLB — sore right hip, placed ~Aug 11-12
+    "Max Fried": "IL",           # MLB — recurrence of left elbow bone bruise, placed Aug 18 (retro to Aug 14)
+    "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression restarted, outcome uncertain
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, expected out to ~Dec 2026
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
+    "De'Aaron Fox": "OUT",       # NBA — hamstring strain (Aug 2026), player expects to miss start of season
+    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound, 5-8 week process, uncertain for Sep 3 opener
+    "Dylan Stewart": "OUT",      # CFB — lingering back injury, coach calls Sep 5 opener "unrealistic"
 }
 
 
