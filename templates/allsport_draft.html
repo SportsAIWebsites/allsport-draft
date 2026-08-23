@@ -9,13 +9,13 @@
       --bg: #0e0e0f;
       --panel: #17181a;
       --panel2: #1c1d1f;
-      --border: #e5342a;
+      --border: #b8362d;
       --text: #f0f0f0;
       --muted: #9a9fa6;
       --accent: #22c55e;
       --accent-light: #3ddb79;
       --warn: #e0b62c;
-      --danger: #e5342a;
+      --danger: #b8362d;
       --ok: #22c55e;
     }
     * { box-sizing: border-box; }
@@ -110,7 +110,7 @@
       padding: 12px 10px; border-bottom: 1px solid var(--panel2);
       align-items: center; border-radius: 6px;
     }
-    .pick-row:nth-child(even) { background: rgba(229,52,42,0.08); }
+    .pick-row:nth-child(even) { background: rgba(184,54,45,0.08); }
     .pick-row.mine { background: rgba(34,197,94,0.16); }
     .pick-row.current { background: rgba(214, 168, 33, 0.14); box-shadow: inset 4px 0 0 var(--warn); }
     .pick-num { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; }
@@ -135,7 +135,7 @@
       padding: 12px 18px; display: grid; grid-template-columns: 108px 1fr auto auto;
       gap: 14px; align-items: center; font-size: 13px; border-bottom: 1px solid var(--panel2);
     }
-    .roster-item:nth-child(even) { background: rgba(229,52,42,0.08); }
+    .roster-item:nth-child(even) { background: rgba(184,54,45,0.08); }
     .tag-group { display: flex; gap: 6px; align-items: center; }
     .pos-badge { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--panel2); color: var(--muted); text-align: center; }
     .roster-empty { padding: 24px 18px; color: var(--muted); font-style: italic; font-size: 13px; }
@@ -155,7 +155,7 @@
       border-bottom: 1px solid var(--panel2); align-items: center;
       cursor: default;
     }
-    .rank-row:nth-child(even) { background: rgba(229,52,42,0.08); }
+    .rank-row:nth-child(even) { background: rgba(184,54,45,0.08); }
     .rank-row.available.my-turn { cursor: pointer; }
     .rank-row.available.my-turn:hover { background: rgba(34,197,94,0.18); }
     .rank-row.favorited { background: rgba(214, 168, 33, 0.08); }
@@ -259,7 +259,7 @@
       padding: 12px 18px; align-items: center; font-size: 13px; border-bottom: 1px solid var(--panel2);
     }
     .myteam-player:last-child { border-bottom: none; }
-    .myteam-player:nth-child(even) { background: rgba(229,52,42,0.08); }
+    .myteam-player:nth-child(even) { background: rgba(184,54,45,0.08); }
     .myteam-player .num { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; font-size: 12px; }
     .myteam-empty { padding: 60px 24px; text-align: center; color: var(--muted); font-size: 15px; }
 
@@ -359,6 +359,7 @@
       <button class="tab-btn" id="tab-myteam" data-view="myteam">My Team</button>
     </div>
     <div class="meta" id="slot-meta"></div>
+    <button id="pause-btn" class="view-hidden">Pause</button>
     <button id="reset-btn" class="view-hidden">New Draft</button>
   </header>
 
@@ -475,6 +476,16 @@
       render();
     }
 
+    async function togglePause() {
+      const endpoint = STATE.paused ? "/api/resume" : "/api/pause";
+      const r = await fetch(apiUrl(endpoint), { method: "POST" });
+      const data = await r.json();
+      STATE = data.state;
+      setStatus(STATE.paused ? "Draft paused." : "Draft resumed.", "ok");
+      setTimeout(() => setStatus("", ""), 2000);
+      render();
+    }
+
     function setStatus(msg, cls) {
       const el = $("status-msg");
       el.textContent = msg;
@@ -485,9 +496,11 @@
       const totalPicks = STATE.total_picks;
       $("slot-meta").textContent =
         `${STATE.rounds} rounds · ${STATE.roster_size}-player rosters · pick ${STATE.current_overall ?? "—"}/${totalPicks}`;
-      // Only the "You" seat can start a new draft -- Bruner's link never
-      // shows the button, so a stray tap there can't wipe a shared draft.
+      // Only the "You" seat can start a new draft or pause it -- Bruner's
+      // link never shows either button.
       $("reset-btn").classList.toggle("view-hidden", STATE.viewer !== "You");
+      $("pause-btn").classList.toggle("view-hidden", STATE.viewer !== "You");
+      $("pause-btn").textContent = STATE.paused ? "Resume" : "Pause";
       renderTurnBanner();
       renderBoard();
       renderRoster();
@@ -505,7 +518,9 @@
       }
       const isMine = STATE.is_viewer_turn;
       let sub = `Round ${STATE.current_round}, pick #${STATE.current_overall} overall`;
-      if (STATE.seconds_left !== null) {
+      if (STATE.paused) {
+        sub += ` · ⏸ paused`;
+      } else if (STATE.seconds_left !== null) {
         const s = STATE.seconds_left;
         const clockText = s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}` : `${s}s`;
         sub += ` · auto-picks in ${clockText}`;
@@ -793,6 +808,7 @@
     }
 
     document.getElementById("reset-btn").addEventListener("click", resetDraft);
+    document.getElementById("pause-btn").addEventListener("click", togglePause);
     document.getElementById("tab-draft").addEventListener("click", () => { setView("draft"); if (STATE) render(); });
     document.getElementById("tab-myteam").addEventListener("click", () => { setView("myteam"); if (STATE) render(); });
     for (const btn of document.querySelectorAll("#mobile-subtabs button")) {

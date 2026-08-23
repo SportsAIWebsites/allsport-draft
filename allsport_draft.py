@@ -2198,37 +2198,46 @@ def _assign_last_value(players: list[Player]) -> None:
     that sport's format produces). Falls back to draft_value for players with
     no real last-season data on file (see LAST_SEASON_STATS) -- an honest
     stand-in rather than a fabricated point total.
+
+    Real-data coverage varies wildly by sport (NFL has it for nearly the
+    whole pool; MLB/NHL/NBA only for a handful of anchors; CBB/CFB none at
+    all). Percentile-ranking the real-data players and the fallback players
+    as two SEPARATE pools -- as this used to do -- means each sub-pool
+    averages out to ~50 on its own, but a sport that's mostly real data
+    (NFL) ends up combining "50-average, wide range" with a small
+    "50-average" tail, while a sport that's mostly fallback (MLB/NHL/NBA)
+    combines a tiny top-heavy real slice with a huge fallback tail --
+    dragging different sports' overall averages apart even though nothing
+    about the players' actual value differs. That's what produced NFL
+    reading as scoring noticeably lower than other sports despite no real
+    difference in quality. Fixed by ranking every player in the sport in
+    ONE combined order (real-data players first, ranked by ppg among
+    themselves; fallback players after, ranked by draft_value among
+    themselves) and computing a single percentile pass across that whole
+    list -- so every sport's Value column averages to the same ~50
+    regardless of how much real last-season data happens to be on file for
+    it.
     """
     stats_by_norm = {_normalize_name(n): v for n, v in LAST_SEASON_STATS.items()}
-    ppg_by_player: dict[str, float] = {}
-    for p in players:
+
+    def sort_key(p: Player) -> tuple[int, float]:
         stat = LAST_SEASON_STATS.get(p.name) or stats_by_norm.get(_normalize_name(p.name))
         if stat and stat[1] > 0:
-            ppg_by_player[p.name] = stat[0] / stat[1]
+            return (1, stat[0] / stat[1])
+        return (0, p.draft_value)
 
-    if not ppg_by_player:
-        for p in players:
-            p.last_value = p.draft_value
-        return
-
-    ordered = sorted(ppg_by_player.items(), key=lambda kv: kv[1])
+    ordered = sorted(players, key=sort_key)
     n = len(ordered)
-    percentile_by_player: dict[str, float] = {}
     i = 0
     while i < n:
         j = i
-        while j + 1 < n and ordered[j + 1][1] == ordered[i][1]:
+        while j + 1 < n and sort_key(ordered[j + 1]) == sort_key(ordered[i]):
             j += 1
         percentile = ((i + j) / 2) / (n - 1) if n > 1 else 1.0
+        value = round(1.0 + percentile * 98.0, 1)
         for k in range(i, j + 1):
-            percentile_by_player[ordered[k][0]] = percentile
+            ordered[k].last_value = value
         i = j + 1
-
-    for p in players:
-        if p.name in percentile_by_player:
-            p.last_value = round(1.0 + percentile_by_player[p.name] * 98.0, 1)
-        else:
-            p.last_value = p.draft_value
 
 
 def _assign_pos_ranks(players: list[Player]) -> None:

@@ -132,6 +132,8 @@ class Draft:
             self.picks: list[dict] = []
             self.cursor: int = 0
             self.clock_deadline: float | None = None  # epoch seconds bot auto-picks at
+            self.paused: bool = False
+            self.pause_remaining: float | None = None  # seconds left on the clock when paused
             self._set_clock_for_current()
             self._persist()
 
@@ -143,6 +145,8 @@ class Draft:
         self.picks = payload["picks"]
         self.cursor = payload["cursor"]
         self.clock_deadline = payload["clock_deadline"]
+        self.paused = payload.get("paused", False)
+        self.pause_remaining = payload.get("pause_remaining")
         drafted_names = {pk["player"]["name"] for pk in self.picks}
         self.pool = [p for p in self.all_players if p.name not in drafted_names]
         self.rosters = {t: [] for t in TEAM_NAMES}
@@ -156,6 +160,8 @@ class Draft:
                 "picks": self.picks,
                 "cursor": self.cursor,
                 "clock_deadline": self.clock_deadline,
+                "paused": self.paused,
+                "pause_remaining": self.pause_remaining,
             }
         )
 
@@ -210,7 +216,7 @@ class Draft:
         who's away/idle (2 min) -- auto-pick for them so the draft never
         stalls waiting on someone who isn't there."""
         with self._lock:
-            if self.is_complete():
+            if self.is_complete() or self.paused:
                 return
             team = self.draft_order[self.cursor]
             if self.clock_deadline is None or time.time() < self.clock_deadline:
@@ -221,10 +227,33 @@ class Draft:
 
     # -- public API ----------------------------------------------------
 
+    def pause(self) -> None:
+        with self._lock:
+            if self.paused or self.is_complete():
+                return
+            self.paused = True
+            self.pause_remaining = (
+                max(0.0, self.clock_deadline - time.time()) if self.clock_deadline is not None else None
+            )
+            self._persist()
+
+    def resume(self) -> None:
+        with self._lock:
+            if not self.paused:
+                return
+            self.paused = False
+            self.clock_deadline = (
+                time.time() + self.pause_remaining if self.pause_remaining is not None else None
+            )
+            self.pause_remaining = None
+            self._persist()
+
     def make_pick(self, team: str, query: str) -> tuple[bool, str]:
         with self._lock:
             if self.is_complete():
                 return False, "Draft already complete."
+            if self.paused:
+                return False, "Draft is paused."
             if team not in HUMAN_TEAMS:
                 return False, "Only human seats may submit a pick."
             if self.draft_order[self.cursor] != team:
@@ -261,7 +290,10 @@ class Draft:
             current_round = self.cursor // len(TEAM_NAMES) + 1 if not self.is_complete() else None
             current_overall = self.cursor + 1 if not self.is_complete() else None
             seconds_left = None
-            if self.clock_deadline is not None:
+            if self.paused:
+                if self.pause_remaining is not None:
+                    seconds_left = round(self.pause_remaining)
+            elif self.clock_deadline is not None:
                 seconds_left = max(0, round(self.clock_deadline - time.time()))
 
             top_available = [_player_dict(p) for p in self.pool[:30]]
@@ -296,6 +328,7 @@ class Draft:
                 "is_viewer_turn": viewer is not None and current_team == viewer,
                 "bot_on_clock": current_team is not None and current_team not in HUMAN_TEAMS,
                 "seconds_left": seconds_left,
+                "paused": self.paused,
                 "rankings": rankings,
                 "top_available": top_available,
                 "rosters": rosters_out,
@@ -389,6 +422,24 @@ def api_reset():
     if viewer != "You":
         return jsonify({"ok": False, "message": "Only the You seat can start a new draft."}), 403
     draft.reset()
+    return jsonify({"ok": True, "state": draft.snapshot(viewer)})
+
+
+@app.route("/api/pause", methods=["POST"])
+def api_pause():
+    viewer = _resolve_viewer()
+    if viewer != "You":
+        return jsonify({"ok": False, "message": "Only the You seat can pause the draft."}), 403
+    draft.pause()
+    return jsonify({"ok": True, "state": draft.snapshot(viewer)})
+
+
+@app.route("/api/resume", methods=["POST"])
+def api_resume():
+    viewer = _resolve_viewer()
+    if viewer != "You":
+        return jsonify({"ok": False, "message": "Only the You seat can resume the draft."}), 403
+    draft.resume()
     return jsonify({"ok": True, "state": draft.snapshot(viewer)})
 
 
