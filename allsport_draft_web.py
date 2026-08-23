@@ -1,7 +1,7 @@
 """All-Sport Redraft — Flask dashboard for two humans + six bots.
 
 Two human seats ("You" and "Bruner") share one draft over local wifi via
-?team=you / ?team=bruner. Bots think for 15 real seconds (a background
+?team=you / ?team=bruner. Bots think for 8 real seconds (a background
 thread ticks the draft forward) before auto-picking; humans pick via POST.
 
 Run:
@@ -39,7 +39,7 @@ except ImportError:
 
 app = Flask(__name__, template_folder="templates")
 
-BOT_THINK_SECONDS = 15
+BOT_THINK_SECONDS = 8
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 
