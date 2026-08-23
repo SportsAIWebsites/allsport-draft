@@ -189,8 +189,6 @@
     .roster-empty { padding: 24px 18px; color: var(--muted); font-style: italic; font-size: 13px; }
 
     /* ---- Rankings ---- */
-    .rankings-explainer { padding: 12px 18px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); line-height: 1.6; }
-    .rankings-explainer b { color: var(--accent-light); }
     .rankings-head {
       display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 56px 64px;
       gap: 10px; padding: 10px 18px; font-size: 11px; color: var(--muted);
@@ -355,11 +353,6 @@
     <!-- Column 3: Full rankings -->
     <div class="col rankings-col mobile-active">
       <h2>Player Rankings</h2>
-      <div class="rankings-explainer">
-        Sorted by <b>Value</b> — each player's standing is ranked against others in their own sport (backed by real
-        expert rankings where available), then mapped to a shared 1–99 scale so an NHL star and an NBA star can be
-        ranked on one board. <b>Pos Rank</b> shows their real position rank (e.g. RB4). Click a player to draft when it's your turn.
-      </div>
       <div class="rankings-search">
         <input id="rank-filter" type="text" placeholder="filter by name or position…" />
         <select id="sport-filter">
