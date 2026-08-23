@@ -190,7 +190,7 @@
 
     /* ---- Rankings ---- */
     .rankings-head {
-      display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 56px 64px;
+      display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 84px 64px;
       gap: 10px; padding: 10px 18px; font-size: 11px; color: var(--muted);
       text-transform: uppercase; letter-spacing: 0.6px;
       background: var(--panel2); border-bottom: 1px solid var(--border);
@@ -198,7 +198,7 @@
     }
     .rankings-list { padding: 0 0 8px; }
     .rank-row {
-      display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 56px 64px;
+      display: grid; grid-template-columns: 30px 36px 54px 1fr 54px 50px 56px 84px 64px;
       gap: 10px; padding: 10px 18px; font-size: 13px;
       border-bottom: 1px solid var(--panel2); align-items: center;
       cursor: default;
@@ -222,7 +222,7 @@
     .rank-row .rank-n { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; }
     .rank-row .rank-name { font-weight: 500; }
     .rank-row .rank-name small { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 12px; }
-    .rank-row .num { font-variant-numeric: tabular-nums; color: var(--muted); text-align: right; }
+    .rank-row .num { font-variant-numeric: tabular-nums; color: var(--muted); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .rank-row .score {
       text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent-light);
       background: rgba(61,123,214,0.14); border-radius: 5px; padding: 3px 0;
@@ -369,8 +369,8 @@
       <div class="rankings-head">
         <div></div><div>#</div><div>Sport</div><div>Player</div><div>Pos</div><div>Age</div>
         <div title="Rank among players at this position (real expert rankings, where available)">Pos Rank</div>
-        <div title="Durability / health rating (0-100)">Dur</div>
-        <div style="text-align:center">Value</div>
+        <div title="Team">Team</div>
+        <div style="text-align:center">2025 Pts</div>
       </div>
       <div class="col-body" id="rankings"></div>
     </div>
@@ -522,7 +522,7 @@
             <div class="modal-stat"><div class="n">${p.age_display}</div><div class="l">Age / Class</div></div>
             <div class="modal-stat"><div class="n">${p.draft_value.toFixed(1)}</div><div class="l">Draft Value</div></div>
             <div class="modal-stat"><div class="n">${p.pos}${p.pos_rank || "-"}</div><div class="l">Pos Rank</div></div>
-            <div class="modal-stat"><div class="n">${p.health}</div><div class="l">Health</div></div>
+            <div class="modal-stat"><div class="n">${p.team || "—"}</div><div class="l">Team</div></div>
           </div>
           <div class="modal-actions">
             <button class="modal-draft-btn" id="modal-draft-btn" ${canDraft ? "" : "disabled"}>
@@ -596,7 +596,7 @@
                     <div class="pos-badge">${p.pos}</div>
                     <div>${p.name}${p.status ? `<span class="status-badge status-${p.status}">${p.status}</span>` : ""} <small style="color:var(--muted)">${p.age_display}</small></div>
                     <div class="num">${p.pos}${p.pos_rank || "-"}</div>
-                    <div class="num">hp ${p.health}</div>
+                    <div class="num">${p.team || "—"}</div>
                     <div class="num" style="font-weight:600; color:var(--accent-light);">${p.draft_value.toFixed(1)}</div>
                   </div>
                 `).join("")}
@@ -705,7 +705,7 @@
               <div class="num">${p.pos}</div>
               <div class="num">${p.age_display}</div>
               <div class="num">${p.pos_rank ? p.pos + p.pos_rank : "-"}</div>
-              <div class="num">${p.health}</div>
+              <div class="num">${p.team || "—"}</div>
               <div class="score">${p.last_value.toFixed(1)}</div>
             </div>
           `;
