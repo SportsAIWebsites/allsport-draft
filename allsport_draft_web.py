@@ -385,8 +385,10 @@ def api_pick():
 
 @app.route("/api/reset", methods=["POST"])
 def api_reset():
-    draft.reset()
     viewer = _resolve_viewer()
+    if viewer != "You":
+        return jsonify({"ok": False, "message": "Only the You seat can start a new draft."}), 403
+    draft.reset()
     return jsonify({"ok": True, "state": draft.snapshot(viewer)})
 
 

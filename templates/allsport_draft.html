@@ -9,11 +9,11 @@
       --bg: #ffffff;
       --panel: #ffffff;
       --panel2: #f4f4f5;
-      --border: #d6362f;
+      --border: #cc1c11;
       --text: #1a1a1a;
       --muted: #5b5f66;
-      --accent: #1f8a3d;
-      --accent-light: #2fae54;
+      --accent: #14822f;
+      --accent-light: #1fa843;
       --warn: #d6a821;
       --danger: #c62828;
       --ok: #2fb170;
@@ -35,9 +35,9 @@
     header {
       flex: 0 0 auto;
       display: flex; align-items: center; gap: 20px;
-      padding: 16px 28px; background: var(--panel); border-bottom: 1px solid var(--border);
+      padding: 16px 28px; background: var(--panel); border-bottom: 2px solid var(--border);
     }
-    header h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.2px; }
+    header h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 0.2px; color: var(--border); }
     header .subtitle { color: var(--muted); font-size: 13px; margin-top: 2px; }
     header .meta { color: var(--muted); font-size: 13px; margin-left: auto; }
     header button {
@@ -45,11 +45,6 @@
       padding: 9px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;
     }
     header button:hover { background: var(--border); }
-    .seat-badge {
-      font-size: 12px; padding: 5px 12px; border-radius: 12px; border: 1px solid var(--border);
-      color: var(--muted); white-space: nowrap;
-    }
-    .seat-badge.active { color: var(--accent-light); border-color: var(--accent); background: rgba(31,138,61,0.12); }
 
     /* Player Rankings is the primary panel — that's what you scroll through
        constantly while drafting, so it takes the entire left side, full
@@ -73,7 +68,7 @@
     .mine-col { grid-area: mine; }
     .board-col { grid-area: board; }
 
-    .col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .col { background: var(--panel); border: 2px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
     .col h2 {
       margin: 0; padding: 14px 18px; font-size: 13px; text-transform: uppercase;
       letter-spacing: 1px; color: var(--muted); background: var(--panel2); border-bottom: 1px solid var(--border);
@@ -208,7 +203,7 @@
       display: flex; align-items: center; justify-content: center;
     }
     .modal-card {
-      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      background: var(--panel); border: 2px solid var(--border); border-radius: 12px;
       width: 420px; max-width: 90vw; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
     .modal-header {
@@ -364,8 +359,7 @@
       <button class="tab-btn" id="tab-myteam" data-view="myteam">My Team</button>
     </div>
     <div class="meta" id="slot-meta"></div>
-    <div class="seat-badge" id="seat-badge"></div>
-    <button id="reset-btn">New Draft</button>
+    <button id="reset-btn" class="view-hidden">New Draft</button>
   </header>
 
   <div class="mobile-subtabs" id="mobile-subtabs">
@@ -491,15 +485,9 @@
       const totalPicks = STATE.total_picks;
       $("slot-meta").textContent =
         `${STATE.rounds} rounds · ${STATE.roster_size}-player rosters · pick ${STATE.current_overall ?? "—"}/${totalPicks}`;
-      const seatEl = $("seat-badge");
-      if (STATE.viewer) {
-        seatEl.textContent = `Playing as ${STATE.viewer}`;
-        seatEl.className = "seat-badge active";
-      } else {
-        seatEl.textContent = "Spectating (add ?team=you or ?team=bruner)";
-        seatEl.className = "seat-badge";
-      }
-
+      // Only the "You" seat can start a new draft -- Bruner's link never
+      // shows the button, so a stray tap there can't wipe a shared draft.
+      $("reset-btn").classList.toggle("view-hidden", STATE.viewer !== "You");
       renderTurnBanner();
       renderBoard();
       renderRoster();
