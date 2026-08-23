@@ -17,6 +17,7 @@ Run: python3 allsport_draft.py
 from __future__ import annotations
 
 import random
+import re
 import sys
 from dataclasses import dataclass, field
 
@@ -59,6 +60,282 @@ PLAYER_STATUS: dict[str, str] = {
 }
 
 
+# Real final-season standard-scoring fantasy point totals + games played,
+# used to compute the "Value" column shown in the rankings list (a display
+# stat, kept separate from draft_value which drives the actual combined
+# sort order / Pos Rank). NFL 2025 coverage is comprehensive (QB/RB/WR/TE
+# stat pages, FantasyPros standard PPR). MLB/NHL/NBA coverage is a real,
+# verified anchor set for each sport's top players (StatMuse); players
+# outside these anchors fall back to their draft_value in _assign_last_value
+# below rather than a fabricated point total. CBB/CFB have no mainstream
+# standard fantasy-point convention, so they always use that fallback.
+
+
+LAST_SEASON_STATS: dict[str, tuple[float, int]] = {
+    # NFL
+    "Josh Allen": (374.5, 17),
+    "Drake Maye": (359.9, 17),
+    "Matthew Stafford": (358.3, 17),
+    "Trevor Lawrence": (350.1, 17),
+    "Caleb Williams": (325.3, 17),
+    "Dak Prescott": (323.8, 17),
+    "Bo Nix": (315.8, 17),
+    "Jared Goff": (305.1, 17),
+    "Jalen Hurts": (305.0, 16),
+    "Justin Herbert": (299.8, 16),
+    "Patrick Mahomes II": (296.7, 14),
+    "Baker Mayfield": (282.9, 17),
+    "Sam Darnold": (249.4, 17),
+    "Jaxson Dart": (246.5, 14),
+    "Jordan Love": (241.3, 15),
+    "Jacoby Brissett": (235.4, 14),
+    "Daniel Jones": (234.4, 13),
+    "Aaron Rodgers": (234.2, 16),
+    "Bryce Young": (229.0, 16),
+    "Lamar Jackson": (221.8, 13),
+    "C.J. Stroud": (216.7, 14),
+    "Cam Ward": (193.7, 17),
+    "Geno Smith": (190.9, 15),
+    "Brock Purdy": (187.4, 9),
+    "Tua Tagovailoa": (175.6, 14),
+    "Tyler Shough": (164.0, 11),
+    "Joe Flacco": (156.9, 13),
+    "Justin Fields": (143.6, 9),
+    "Joe Burrow": (139.4, 8),
+    "J.J. McCarthy": (137.3, 10),
+    "Mac Jones": (136.2, 11),
+    "Marcus Mariota": (132.4, 12),
+    "Michael Penix Jr.": (123.2, 9),
+    "Jayden Daniels": (117.1, 7),
+    "Kirk Cousins": (108.6, 10),
+    "Spencer Rattler": (104.1, 9),
+    "Shedeur Sanders": (95.0, 8),
+    "Kyler Murray": (80.8, 5),
+    "Carson Wentz": (75.3, 5),
+    "Dillon Gabriel": (72.0, 10),
+    "Davis Mills": (69.6, 6),
+    "Tyrod Taylor": (64.4, 6),
+    "Christian McCaffrey": (416.6, 17),
+    "Bijan Robinson": (370.8, 17),
+    "Jahmyr Gibbs": (366.9, 17),
+    "Jonathan Taylor": (362.3, 17),
+    "De'Von Achane": (322.8, 16),
+    "James Cook III": (302.2, 17),
+    "Chase Brown": (282.6, 17),
+    "Derrick Henry": (279.5, 17),
+    "Kyren Williams": (263.3, 17),
+    "Travis Etienne Jr.": (253.9, 17),
+    "Ashton Jeanty": (245.1, 17),
+    "Javonte Williams": (242.8, 16),
+    "Josh Jacobs": (237.1, 15),
+    "Saquon Barkley": (232.3, 16),
+    "D'Andre Swift": (228.6, 16),
+    "Kenny Gainwell": (221.3, 17),
+    "Jaylen Warren": (217.1, 16),
+    "Rico Dowdle": (216.3, 17),
+    "Breece Hall": (207.7, 16),
+    "RJ Harvey": (206.6, 17),
+    "TreVeyon Henderson": (206.2, 17),
+    "Kenneth Walker III": (191.9, 17),
+    "Tony Pollard": (185.8, 17),
+    "Zach Charbonnet": (181.4, 16),
+    "Rhamondre Stevenson": (178.8, 14),
+    "Quinshon Judkins": (169.8, 14),
+    "David Montgomery": (166.9, 17),
+    "Tyrone Tracy Jr.": (160.8, 15),
+    "Woody Marks": (151.1, 16),
+    "Kyle Monangai": (146.7, 17),
+    "Kareem Hunt": (145.4, 17),
+    "Rachaad White": (143.0, 17),
+    "Jacory Croskey-Merritt": (140.3, 17),
+    "Bucky Irving": (138.5, 10),
+    "Omarion Hampton": (135.7, 9),
+    "Jordan Mason": (128.9, 16),
+    "Cam Skattebo": (127.7, 8),
+    "Chuba Hubbard": (125.4, 15),
+    "Tyler Allgeier": (123.0, 17),
+    "Blake Corum": (122.2, 17),
+    "Aaron Jones Sr.": (118.7, 12),
+    "J.K. Dobbins": (115.9, 10),
+    "Tyjae Spears": (111.7, 13),
+    "Alvin Kamara": (100.7, 11),
+    "Isiah Pacheco": (87.3, 13),
+    "Dylan Sampson": (87.6, 15),
+    "Bhayshul Tuten": (88.6, 15),
+    "Keaton Mitchell": (55.4, 13),
+    "Brian Robinson Jr.": (62.5, 17),
+    "Tank Bigsby": (53.8, 16),
+    "Jaydon Blue": (20.4, 5),
+    "Braelon Allen": (15.3, 4),
+    "MarShawn Lloyd": (0.0, 1),
+    "Nick Singleton": (0.0, 1),
+    "Jerome Ford": (43.6, 13),
+    "George Holani": (20.8, 10),
+    "Sean Tucker": (91.4, 17),
+    "Kaytron Allen": (0.0, 1),
+    "Puka Nacua": (375.0, 16),
+    "Jaxon Smith-Njigba": (359.9, 17),
+    "Amon-Ra St. Brown": (324.0, 17),
+    "Ja'Marr Chase": (313.6, 16),
+    "George Pickens": (291.9, 17),
+    "Chris Olave": (269.0, 16),
+    "Zay Flowers": (243.3, 17),
+    "Nico Collins": (226.2, 15),
+    "Davante Adams": (222.9, 14),
+    "Michael Wilson": (220.6, 17),
+    "A.J. Brown": (220.3, 15),
+    "Jameson Williams": (219.9, 17),
+    "Courtland Sutton": (219.7, 17),
+    "Wan'Dale Robinson": (217.9, 16),
+    "Tee Higgins": (211.6, 15),
+    "Tetairoa McMillan": (211.4, 17),
+    "Stefon Diggs": (210.3, 17),
+    "Michael Pittman Jr.": (202.4, 17),
+    "Drake London": (201.9, 12),
+    "DeVonta Smith": (201.8, 17),
+    "Justin Jefferson": (201.5, 17),
+    "CeeDee Lamb": (200.9, 14),
+    "Emeka Egbuka": (195.7, 17),
+    "Jaylen Waddle": (194.1, 16),
+    "Deebo Samuel Sr.": (188.2, 16),
+    "DK Metcalf": (187.2, 15),
+    "Parker Washington": (184.7, 16),
+    "Alec Pierce": (183.3, 15),
+    "Keenan Allen": (182.7, 17),
+    "Ladd McConkey": (180.9, 16),
+    "Troy Franklin": (177.1, 17),
+    "Jakobi Meyers": (175.8, 16),
+    "Jauan Jennings": (173.3, 15),
+    "Quentin Johnston": (171.2, 14),
+    "DJ Moore": (170.2, 17),
+    "Khalil Shakir": (166.4, 16),
+    "Romeo Doubs": (165.4, 16),
+    "Tre Tucker": (161.7, 17),
+    "Rashee Rice": (150.1, 8),
+    "Rome Odunze": (146.1, 12),
+    "Brian Thomas Jr.": (138.8, 14),
+    "Josh Downs": (136.4, 16),
+    "Jordan Addison": (135.1, 14),
+    "Christian Watson": (132.4, 10),
+    "Jayden Higgins": (129.5, 17),
+    "Luther Burden III": (127.9, 15),
+    "Marvin Harrison Jr.": (127.8, 12),
+    "Kayshon Boutte": (124.1, 14),
+    "Jerry Jeudy": (120.7, 17),
+    "Cooper Kupp": (117.3, 16),
+    "Malik Washington": (116.7, 17),
+    "Terry McLaurin": (114.2, 10),
+    "Xavier Worthy": (109.9, 14),
+    "Keon Coleman": (102.4, 13),
+    "Jalen Nailor": (100.7, 17),
+    "Garrett Wilson": (99.5, 7),
+    "Marvin Mims Jr.": (93.0, 16),
+    "Xavier Legette": (89.3, 15),
+    "Ricky Pearsall": (88.6, 10),
+    "Adonai Mitchell": (87.9, 16),
+    "Mike Evans": (84.8, 8),
+    "Chris Godwin Jr.": (83.0, 9),
+    "Isaac TeSlaa": (75.9, 17),
+    "Dontayvion Wicks": (75.8, 14),
+    "Pat Bryant": (74.8, 15),
+    "Tyler Lockett": (73.1, 17),
+    "Matthew Golden": (70.0, 14),
+    "Tre' Harris": (69.4, 17),
+    "Jaylin Noel": (68.4, 17),
+    "DeAndre Hopkins": (67.0, 17),
+    "Travis Hunter": (63.8, 7),
+    "Malik Nabers": (57.1, 4),
+    "Rashod Bateman": (55.4, 13),
+    "Tyreek Hill": (53.5, 4),
+    "Christian Kirk": (57.9, 13),
+    "Jayden Reed": (48.5, 7),
+    "Calvin Ridley": (47.3, 7),
+    "Jalen McMillan": (29.9, 4),
+    "Elic Ayomanor": (116.5, 16),
+    "Darnell Mooney": (82.3, 15),
+    "Trey McBride": (315.9, 17),
+    "Kyle Pitts Sr.": (210.8, 17),
+    "Travis Kelce": (193.2, 17),
+    "Tyler Warren": (188.5, 17),
+    "Jake Ferguson": (188.1, 17),
+    "Harold Fannin Jr.": (186.4, 16),
+    "Dallas Goedert": (185.1, 15),
+    "Juwan Johnson": (179.9, 17),
+    "Hunter Henry": (178.8, 17),
+    "Dalton Schultz": (177.7, 17),
+    "Brock Bowers": (176.2, 12),
+    "Colston Loveland": (165.1, 16),
+    "George Kittle": (161.5, 11),
+    "AJ Barner": (147.3, 17),
+    "Oronde Gadsden II": (131.4, 15),
+    "Mark Andrews": (131.0, 17),
+    "Dalton Kincaid": (126.1, 12),
+    "Chig Okonkwo": (124.0, 17),
+    "Tucker Kraft": (117.2, 8),
+    "T.J. Hockenson": (112.8, 15),
+    "Sam LaPorta": (106.9, 9),
+    "Dawson Knox": (103.7, 17),
+    "Isaiah Likely": (61.7, 14),
+    "Darren Waller": (88.7, 9),
+    "Jonnu Smith": (85.2, 17),
+    # MLB
+    "Shohei Ohtani": (1990.4, 158),
+    "Aaron Judge": (1802.0, 152),
+    "Juan Soto": (1702.0, 160),
+    "Kyle Schwarber": (1657.0, 162),
+    "Cal Raleigh": (1661.0, 159),
+    "Jose Ramirez": (1541.0, 158),
+    "Francisco Lindor": (1526.0, 160),
+    "Bobby Witt Jr.": (1515.0, 157),
+    "Corbin Carroll": (1494.0, 143),
+    "Geraldo Perdomo": (1489.0, 161),
+    "Trevor Story": (1325.0, 157),
+    "Garrett Crochet": (802.6, 32),
+    "Tarik Skubal": (775.1, 31),
+    "Paul Skenes": (704.4, 32),
+    "Cristopher Sanchez": (688.4, 32),
+    "Logan Webb": (668.6, 34),
+    # NHL
+    "Connor McDavid": (498.7, 82),
+    "Nathan MacKinnon": (500.1, 80),
+    "Macklin Celebrini": (448.4, 82),
+    "Nikita Kucherov": (436.9, 76),
+    "Jason Robertson": (403.5, 82),
+    "David Pastrnak": (375.5, 77),
+    "Evan Bouchard": (375.5, 82),
+    "Kirill Kaprizov": (372.9, 78),
+    "Alex DeBrincat": (374.2, 82),
+    "Kyle Connor": (374.2, 82),
+    "Matt Boldy": (374.5, 76),
+    "Cole Caufield": (370.7, 81),
+    "Tage Thompson": (364.9, 81),
+    "Nick Suzuki": (354.5, 82),
+    "Mark Scheifele": (354.5, 82),
+    "Martin Necas": (354.8, 78),
+    "Jack Eichel": (360.0, 74),
+    "Zach Werenski": (362.2, 75),
+    "Wyatt Johnston": (349.6, 82),
+    "Jake Guentzel": (348.2, 81),
+    "Leon Draisaitl": (332.4, 65),
+    "Cale Makar": (336.5, 75),
+    "Clayton Keller": (332.0, 82),
+    "Filip Forsberg": (331.4, 82),
+    "Cutter Gauthier": (333.4, 76),
+    # NBA
+    "Nikola Jokic": (4298.5, 65),
+    "Luka Doncic": (3909.3, 64),
+    "Jalen Johnson": (3685.5, 72),
+    "Shai Gilgeous-Alexander": (3442.0, 68),
+    "Tyrese Maxey": (3439.0, 70),
+    "Victor Wembanyama": (3394.0, 64),
+    "Scottie Barnes": (3352.0, 80),
+    "Kevin Durant": (3363.0, 78),
+    "Jamal Murray": (3374.0, 75),
+    "Jaylen Brown": (3367.5, 71),
+    "Cooper Flagg": (2800.5, 70),
+}
+
+
 @dataclass
 class Player:
     name: str
@@ -72,6 +349,7 @@ class Player:
     draft_value: float = field(default=0.0)
     status: str | None = field(default=None)
     pos_rank: int = field(default=0)
+    last_value: float = field(default=0.0)
 
     def __post_init__(self) -> None:
         # This is a redraft for one season, not a dynasty league — age and
@@ -933,6 +1211,7 @@ def build_pool() -> list[Player]:
         _assign_pos_ranks(players)
         if sport in COLLEGE_VALUE_DISCOUNT:
             _discount_draft_value(players, COLLEGE_VALUE_DISCOUNT[sport])
+        _assign_last_value(players)
         pool.extend(players)
     pool.sort(key=lambda p: p.draft_value, reverse=True)
     return pool
@@ -950,6 +1229,54 @@ COLLEGE_VALUE_DISCOUNT = {"CBB": 55.0, "CFB": 55.0}
 def _discount_draft_value(players: list[Player], cap: float) -> None:
     for p in players:
         p.draft_value = round(1.0 + (p.draft_value - 1.0) / 98.0 * (cap - 1.0), 1)
+
+
+_SUFFIX_RE = re.compile(r"\s+(Jr\.?|Sr\.?|II|III|IV)$")
+_ACCENTS = str.maketrans("áéíóúñÁÉÍÓÚÑ", "aeiounAEIOUN")
+
+
+def _normalize_name(name: str) -> str:
+    return _SUFFIX_RE.sub("", name.translate(_ACCENTS)).strip().lower()
+
+
+def _assign_last_value(players: list[Player]) -> None:
+    """Value column: real last-season standard-scoring points, normalized to
+    points-per-game and percentile-ranked within the sport so it's
+    comparable across sports (accounts for games played and how much scoring
+    that sport's format produces). Falls back to draft_value for players with
+    no real last-season data on file (see LAST_SEASON_STATS) -- an honest
+    stand-in rather than a fabricated point total.
+    """
+    stats_by_norm = {_normalize_name(n): v for n, v in LAST_SEASON_STATS.items()}
+    ppg_by_player: dict[str, float] = {}
+    for p in players:
+        stat = LAST_SEASON_STATS.get(p.name) or stats_by_norm.get(_normalize_name(p.name))
+        if stat and stat[1] > 0:
+            ppg_by_player[p.name] = stat[0] / stat[1]
+
+    if not ppg_by_player:
+        for p in players:
+            p.last_value = p.draft_value
+        return
+
+    ordered = sorted(ppg_by_player.items(), key=lambda kv: kv[1])
+    n = len(ordered)
+    percentile_by_player: dict[str, float] = {}
+    i = 0
+    while i < n:
+        j = i
+        while j + 1 < n and ordered[j + 1][1] == ordered[i][1]:
+            j += 1
+        percentile = ((i + j) / 2) / (n - 1) if n > 1 else 1.0
+        for k in range(i, j + 1):
+            percentile_by_player[ordered[k][0]] = percentile
+        i = j + 1
+
+    for p in players:
+        if p.name in percentile_by_player:
+            p.last_value = round(1.0 + percentile_by_player[p.name] * 98.0, 1)
+        else:
+            p.last_value = p.draft_value
 
 
 def _assign_pos_ranks(players: list[Player]) -> None:
