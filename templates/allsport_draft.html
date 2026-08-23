@@ -114,6 +114,29 @@
       .myteam-groups { grid-template-columns: 1fr; }
       .myteam-summary { gap: 14px; padding: 16px; }
       .modal-card { width: 92vw; }
+
+      /* The 9-column rankings grid (star/#/sport/name/pos/age/pos-rank/team/
+         pts) is a desktop-width layout -- on a phone the fixed columns alone
+         add up to well over the viewport, forcing an ugly horizontal
+         squeeze/scroll. Below 820px it becomes a two-line card instead:
+         star + rank# + sport badge + name on line one (name wraps the row),
+         then pos-rank/team/pts as small chips on line two. Plain Pos and
+         Age are dropped here -- Pos Rank already encodes position (e.g.
+         "RB4") and Age is the least decision-relevant stat at a glance. */
+      .rankings-head { display: none; }
+      .rank-row {
+        display: flex; flex-wrap: wrap; align-items: center;
+        column-gap: 8px; row-gap: 4px; padding: 10px 14px;
+      }
+      .rank-row .rank-name { flex: 1 1 100%; order: 1; }
+      .rank-row > *:nth-child(5), .rank-row > *:nth-child(6) { display: none; }
+      .rank-row > *:nth-child(7), .rank-row > *:nth-child(8), .rank-row > *:nth-child(9) {
+        order: 2; flex: 0 0 auto;
+      }
+      .rank-row .score { padding: 2px 8px; }
+      .pick-row { grid-template-columns: 30px 1fr 44px 90px; gap: 8px; font-size: 12px; }
+      .pick-team { display: none; }
+      .roster-item { grid-template-columns: auto 1fr 40px 46px; gap: 8px; padding: 10px 14px; font-size: 12px; }
     }
 
     .col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
