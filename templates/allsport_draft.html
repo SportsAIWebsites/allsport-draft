@@ -6,17 +6,17 @@
   <title>All-Sport Redraft</title>
   <style>
     :root {
-      --bg: #ffffff;
-      --panel: #ffffff;
-      --panel2: #f4f4f5;
-      --border: #cc1c11;
-      --text: #1a1a1a;
-      --muted: #5b5f66;
-      --accent: #14822f;
-      --accent-light: #1fa843;
-      --warn: #d6a821;
-      --danger: #c62828;
-      --ok: #2fb170;
+      --bg: #0e0e0f;
+      --panel: #17181a;
+      --panel2: #1c1d1f;
+      --border: #e5342a;
+      --text: #f0f0f0;
+      --muted: #9a9fa6;
+      --accent: #22c55e;
+      --accent-light: #3ddb79;
+      --warn: #e0b62c;
+      --danger: #e5342a;
+      --ok: #22c55e;
     }
     * { box-sizing: border-box; }
     .view-hidden { display: none !important; }
@@ -110,8 +110,8 @@
       padding: 12px 10px; border-bottom: 1px solid var(--panel2);
       align-items: center; border-radius: 6px;
     }
-    .pick-row:nth-child(even) { background: rgba(214,54,47,0.035); }
-    .pick-row.mine { background: rgba(31,138,61,0.16); }
+    .pick-row:nth-child(even) { background: rgba(229,52,42,0.08); }
+    .pick-row.mine { background: rgba(34,197,94,0.16); }
     .pick-row.current { background: rgba(214, 168, 33, 0.14); box-shadow: inset 4px 0 0 var(--warn); }
     .pick-num { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 13px; }
     .pick-team { color: var(--muted); font-size: 13px; }
@@ -135,7 +135,7 @@
       padding: 12px 18px; display: grid; grid-template-columns: 108px 1fr auto auto;
       gap: 14px; align-items: center; font-size: 13px; border-bottom: 1px solid var(--panel2);
     }
-    .roster-item:nth-child(even) { background: rgba(214,54,47,0.035); }
+    .roster-item:nth-child(even) { background: rgba(229,52,42,0.08); }
     .tag-group { display: flex; gap: 6px; align-items: center; }
     .pos-badge { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--panel2); color: var(--muted); text-align: center; }
     .roster-empty { padding: 24px 18px; color: var(--muted); font-style: italic; font-size: 13px; }
@@ -155,9 +155,9 @@
       border-bottom: 1px solid var(--panel2); align-items: center;
       cursor: default;
     }
-    .rank-row:nth-child(even) { background: rgba(214,54,47,0.035); }
+    .rank-row:nth-child(even) { background: rgba(229,52,42,0.08); }
     .rank-row.available.my-turn { cursor: pointer; }
-    .rank-row.available.my-turn:hover { background: rgba(107, 166, 242, 0.18); }
+    .rank-row.available.my-turn:hover { background: rgba(34,197,94,0.18); }
     .rank-row.favorited { background: rgba(214, 168, 33, 0.08); }
     .star-btn {
       background: none; border: none; cursor: pointer; font-size: 16px; line-height: 1;
@@ -177,7 +177,7 @@
     .rank-row .num { font-variant-numeric: tabular-nums; color: var(--muted); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .rank-row .score {
       text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent-light);
-      background: rgba(31,138,61,0.14); border-radius: 5px; padding: 3px 0;
+      background: rgba(34,197,94,0.14); border-radius: 5px; padding: 3px 0;
     }
     .rankings-search {
       padding: 14px 18px; background: var(--panel2); border-bottom: 1px solid var(--border);
@@ -194,7 +194,7 @@
       padding: 14px 24px; font-size: 14px; font-weight: 600; border-bottom: 1px solid var(--border);
       background: var(--panel2); color: var(--muted);
     }
-    .turn-banner.mine { background: rgba(31,138,61,0.16); color: var(--accent-light); }
+    .turn-banner.mine { background: rgba(34,197,94,0.16); color: var(--accent-light); }
     .turn-banner .sub { font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     /* ---- Player detail modal ---- */
@@ -259,7 +259,7 @@
       padding: 12px 18px; align-items: center; font-size: 13px; border-bottom: 1px solid var(--panel2);
     }
     .myteam-player:last-child { border-bottom: none; }
-    .myteam-player:nth-child(even) { background: rgba(214,54,47,0.035); }
+    .myteam-player:nth-child(even) { background: rgba(229,52,42,0.08); }
     .myteam-player .num { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; font-size: 12px; }
     .myteam-empty { padding: 60px 24px; text-align: center; color: var(--muted); font-size: 15px; }
 
