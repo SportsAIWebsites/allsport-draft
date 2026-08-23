@@ -19,14 +19,22 @@
       --ok: #2fb170;
     }
     * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg); color: var(--text);
+      display: flex; flex-direction: column;
+      height: 100vh; height: 100dvh; overflow: hidden;
     }
+    /* Header, tabs, and the mobile sub-tab bar are all fixed-height flex
+       children; .layout/.myteam-view take exactly what's left via flex:1.
+       No hardcoded "100vh minus N px" math -- that broke as soon as any of
+       these rows wrapped or rendered a different height than assumed,
+       clipping content with nothing to scroll it into view. */
     header {
+      flex: 0 0 auto;
       display: flex; align-items: center; gap: 20px;
       padding: 16px 28px; background: var(--panel); border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 10;
     }
     header h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.2px; }
     header .subtitle { color: var(--muted); font-size: 13px; margin-top: 2px; }
@@ -55,7 +63,8 @@
         "rankings board";
       gap: 20px;
       padding: 20px 28px;
-      height: calc(100vh - 76px);
+      flex: 1 1 auto;
+      min-height: 0;
       overflow: hidden;
       width: 100%;
     }
@@ -67,9 +76,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: auto minmax(320px, 1fr);
         grid-template-areas: "mine" "rankings";
-        height: auto;
-        min-height: calc(100vh - 76px);
-        overflow: visible;
+        overflow-y: auto;
       }
       .board-col { display: none; }
     }
@@ -87,6 +94,7 @@
       .tab-btn { flex: 1; }
 
       .mobile-subtabs {
+        flex: 0 0 auto;
         display: flex; gap: 4px; padding: 10px 14px; background: var(--panel);
         border-bottom: 1px solid var(--border);
       }
@@ -98,7 +106,8 @@
 
       .layout {
         display: block;
-        height: calc(100vh - 130px);
+        flex: 1 1 auto;
+        min-height: 0;
         overflow: hidden;
         padding: 12px;
       }
@@ -145,7 +154,7 @@
       letter-spacing: 1px; color: var(--muted); background: var(--panel2); border-bottom: 1px solid var(--border);
       font-weight: 700;
     }
-    .col-body { overflow-y: auto; flex: 1; padding: 4px 0; }
+    .col-body { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; flex: 1; padding: 4px 0; }
 
     /* ---- Sport badges ---- */
     .sport-badge {
@@ -308,7 +317,7 @@
     .tab-btn:not(.active):hover { color: var(--text); }
 
     /* ---- My Team view ---- */
-    .myteam-view { padding: 20px 28px; height: calc(100vh - 76px); overflow-y: auto; }
+    .myteam-view { padding: 20px 28px; flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .myteam-summary {
       display: flex; gap: 24px; background: var(--panel); border: 1px solid var(--border);
       border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; flex-wrap: wrap;
@@ -578,6 +587,10 @@
       VIEW = view;
       document.getElementById("draft-layout").style.display = view === "draft" ? "grid" : "none";
       document.getElementById("myteam-view").style.display = view === "myteam" ? "block" : "none";
+      // The Rankings/My Picks/Board sub-tab bar only controls panels inside
+      // draft-layout -- leaving it visible (and clickable, doing nothing)
+      // while on My Team was the "tab switching feels bugged" report.
+      document.getElementById("mobile-subtabs").style.display = view === "draft" ? "" : "none";
       document.getElementById("tab-draft").classList.toggle("active", view === "draft");
       document.getElementById("tab-myteam").classList.toggle("active", view === "myteam");
     }
@@ -708,6 +721,8 @@
       }</div>`;
     }
 
+    let LAST_RANKINGS_HTML = null;
+
     function renderRankings() {
       const el = $("rankings");
       const f = FILTER.toLowerCase();
@@ -733,7 +748,17 @@
             </div>
           `;
         });
-      el.innerHTML = `<div class="rankings-list">${rows.join("")}</div>`;
+      const html = `<div class="rankings-list">${rows.join("")}</div>`;
+      // The 2s poll calls render() -> renderRankings() constantly. Rebuilding
+      // the DOM every time (even when nothing changed) resets scrollTop to 0
+      // and can interrupt an in-progress touch scroll -- the exact "buggy"
+      // scrolling this guards against. Skip the rebuild entirely when the
+      // content is identical to what's already on screen.
+      if (html === LAST_RANKINGS_HTML) return;
+      LAST_RANKINGS_HTML = html;
+      const scrollTop = el.scrollTop;
+      el.innerHTML = html;
+      el.scrollTop = scrollTop;
       for (const row of el.querySelectorAll(".rank-row.available")) {
         row.addEventListener("click", () => openPlayerModal(row.dataset.name));
       }
