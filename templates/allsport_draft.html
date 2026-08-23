@@ -516,10 +516,11 @@
         return;
       }
       const isMine = STATE.is_viewer_turn;
-      const isBot = STATE.bot_on_clock;
       let sub = `Round ${STATE.current_round}, pick #${STATE.current_overall} overall`;
-      if (isBot && STATE.seconds_left !== null) {
-        sub += ` · auto-picks in ${STATE.seconds_left}s`;
+      if (STATE.seconds_left !== null) {
+        const s = STATE.seconds_left;
+        const clockText = s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}` : `${s}s`;
+        sub += ` · auto-picks in ${clockText}`;
       }
       el.className = "turn-banner" + (isMine ? " mine" : "");
       let extra = "";

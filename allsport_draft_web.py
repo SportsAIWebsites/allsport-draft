@@ -40,6 +40,7 @@ except ImportError:
 app = Flask(__name__, template_folder="templates")
 
 BOT_THINK_SECONDS = 6
+HUMAN_THINK_SECONDS = 120
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 
@@ -165,10 +166,8 @@ class Draft:
             self.clock_deadline = None
             return
         team = self.draft_order[self.cursor]
-        if team in HUMAN_TEAMS:
-            self.clock_deadline = None
-        else:
-            self.clock_deadline = time.time() + BOT_THINK_SECONDS
+        think_seconds = HUMAN_THINK_SECONDS if team in HUMAN_TEAMS else BOT_THINK_SECONDS
+        self.clock_deadline = time.time() + think_seconds
 
     def _diversity_ok(self, team: str, candidate_sport: str) -> bool:
         """A roster must end up with at least one player from every one of
@@ -206,14 +205,14 @@ class Draft:
         self._persist()
 
     def tick(self) -> None:
-        """Called periodically (poll + background thread). If a bot is on
-        the clock and its think-timer has elapsed, auto-pick for it."""
+        """Called periodically (poll + background thread). If whoever's on
+        the clock has let their think-timer elapse -- a bot (6s) or a human
+        who's away/idle (2 min) -- auto-pick for them so the draft never
+        stalls waiting on someone who isn't there."""
         with self._lock:
             if self.is_complete():
                 return
             team = self.draft_order[self.cursor]
-            if team in HUMAN_TEAMS:
-                return
             if self.clock_deadline is None or time.time() < self.clock_deadline:
                 return
             eligible = self._eligible_pool(team) or self.pool
