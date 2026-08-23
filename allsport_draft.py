@@ -2185,26 +2185,10 @@ def build_pool() -> list[Player]:
         players = sport_pools[sport]
         normalize_pool(players)
         _assign_pos_ranks(players)
-        if sport in COLLEGE_VALUE_DISCOUNT:
-            _discount_draft_value(players, COLLEGE_VALUE_DISCOUNT[sport])
         _assign_last_value(players)
         pool.extend(players)
     pool.sort(key=lambda p: p.draft_value, reverse=True)
     return pool
-
-
-# College players carry far more projection uncertainty than pro players in a
-# one-season redraft context (no track record against pro competition, huge
-# year-to-year variance), so their percentile-ranked draft_value is scaled
-# down after normalization — keeps their internal ordering intact while
-# ensuring even a college pool's best player can't outrank the pro sports'
-# genuine stars on the combined board.
-COLLEGE_VALUE_DISCOUNT = {"CBB": 55.0, "CFB": 55.0}
-
-
-def _discount_draft_value(players: list[Player], cap: float) -> None:
-    for p in players:
-        p.draft_value = round(1.0 + (p.draft_value - 1.0) / 98.0 * (cap - 1.0), 1)
 
 
 def _assign_last_value(players: list[Player]) -> None:
