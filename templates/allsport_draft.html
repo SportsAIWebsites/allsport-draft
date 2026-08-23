@@ -19,6 +19,7 @@
       --ok: #2fb170;
     }
     * { box-sizing: border-box; }
+    .view-hidden { display: none !important; }
     html, body { height: 100%; }
     body {
       margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -71,82 +72,6 @@
     .rankings-col { grid-area: rankings; }
     .mine-col { grid-area: mine; }
     .board-col { grid-area: board; }
-    @media (max-width: 1400px) and (min-width: 821px) {
-      .layout {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto minmax(320px, 1fr);
-        grid-template-areas: "mine" "rankings";
-        overflow-y: auto;
-      }
-      .board-col { display: none; }
-    }
-
-    /* ---- Phone: same theme/components, but only one panel on screen at a
-       time (a real 3-column grid cannot be shrunk to phone width and stay
-       readable) with a small sub-tab bar to switch between them. ---- */
-    .mobile-subtabs { display: none; }
-    @media (max-width: 820px) {
-      header { padding: 12px 14px; gap: 10px; flex-wrap: wrap; }
-      header h1 { font-size: 16px; }
-      header h1 .subtitle-text { display: none; }
-      header .meta { display: none; }
-      .tabs { order: 3; width: 100%; }
-      .tab-btn { flex: 1; }
-
-      .mobile-subtabs {
-        flex: 0 0 auto;
-        display: flex; gap: 4px; padding: 10px 14px; background: var(--panel);
-        border-bottom: 1px solid var(--border);
-      }
-      .mobile-subtabs button {
-        flex: 1; background: var(--panel2); color: var(--muted); border: 1px solid var(--border);
-        padding: 9px 6px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
-      }
-      .mobile-subtabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-      .layout {
-        display: block;
-        flex: 1 1 auto;
-        min-height: 0;
-        overflow: hidden;
-        padding: 12px;
-      }
-      /* The single visible panel fills the fixed-height layout and scrolls
-         internally via its own .col-body, same pattern as desktop -- an
-         auto-height column here left long lists (600+ players) with no
-         bounded scroll area, so anything past one screen's worth silently
-         never got a scrollbar. */
-      .layout .col { display: none; height: 100%; }
-      .layout .col.mobile-active { display: flex; }
-
-      .myteam-view { padding: 12px; }
-      .myteam-groups { grid-template-columns: 1fr; }
-      .myteam-summary { gap: 14px; padding: 16px; }
-      .modal-card { width: 92vw; }
-
-      /* The 9-column rankings grid (star/#/sport/name/pos/age/pos-rank/team/
-         pts) is a desktop-width layout -- on a phone the fixed columns alone
-         add up to well over the viewport, forcing an ugly horizontal
-         squeeze/scroll. Below 820px it becomes a two-line card instead:
-         star + rank# + sport badge + name on line one (name wraps the row),
-         then pos-rank/team/pts as small chips on line two. Plain Pos and
-         Age are dropped here -- Pos Rank already encodes position (e.g.
-         "RB4") and Age is the least decision-relevant stat at a glance. */
-      .rankings-head { display: none; }
-      .rank-row {
-        display: flex; flex-wrap: wrap; align-items: center;
-        column-gap: 8px; row-gap: 4px; padding: 10px 14px;
-      }
-      .rank-row .rank-name { flex: 1 1 100%; order: 1; }
-      .rank-row > *:nth-child(5), .rank-row > *:nth-child(6) { display: none; }
-      .rank-row > *:nth-child(7), .rank-row > *:nth-child(8), .rank-row > *:nth-child(9) {
-        order: 2; flex: 0 0 auto;
-      }
-      .rank-row .score { padding: 2px 8px; }
-      .pick-row { grid-template-columns: 30px 1fr 44px 90px; gap: 8px; font-size: 12px; }
-      .pick-team { display: none; }
-      .roster-item { grid-template-columns: auto 1fr 40px 46px; gap: 8px; padding: 10px 14px; font-size: 12px; }
-    }
 
     .col { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
     .col h2 {
@@ -343,6 +268,92 @@
     .myteam-player .num { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; font-size: 12px; }
     .myteam-empty { padding: 60px 24px; text-align: center; color: var(--muted); font-size: 15px; }
 
+
+    /* Responsive overrides live here, at the END of the stylesheet.
+       They must come after every base component rule they override --
+       CSS resolves equal-specificity conflicts by source order, so a
+       media query declared earlier than the base rules it's meant to
+       override silently loses the cascade even when its condition
+       matches. (That's exactly what happened before: these blocks sat
+       near the top of the file, so later base rules for .rank-row,
+       .pick-row, .roster-item, .rankings-head, and .myteam-view were
+       always winning on mobile regardless of viewport width.) */
+    @media (max-width: 1400px) and (min-width: 821px) {
+      .layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(320px, 1fr);
+        grid-template-areas: "mine" "rankings";
+        overflow-y: auto;
+      }
+      .board-col { display: none; }
+    }
+
+    /* ---- Phone: same theme/components, but only one panel on screen at a
+       time (a real 3-column grid cannot be shrunk to phone width and stay
+       readable) with a small sub-tab bar to switch between them. ---- */
+    .mobile-subtabs { display: none; }
+    @media (max-width: 820px) {
+      header { padding: 12px 14px; gap: 10px; flex-wrap: wrap; }
+      header h1 { font-size: 16px; }
+      header h1 .subtitle-text { display: none; }
+      header .meta { display: none; }
+      .tabs { order: 3; width: 100%; }
+      .tab-btn { flex: 1; }
+
+      .mobile-subtabs {
+        flex: 0 0 auto;
+        display: flex; gap: 4px; padding: 10px 14px; background: var(--panel);
+        border-bottom: 1px solid var(--border);
+      }
+      .mobile-subtabs button {
+        flex: 1; background: var(--panel2); color: var(--muted); border: 1px solid var(--border);
+        padding: 9px 6px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
+      }
+      .mobile-subtabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+      .layout {
+        display: block;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+        padding: 12px;
+      }
+      /* The single visible panel fills the fixed-height layout and scrolls
+         internally via its own .col-body, same pattern as desktop -- an
+         auto-height column here left long lists (600+ players) with no
+         bounded scroll area, so anything past one screen's worth silently
+         never got a scrollbar. */
+      .layout .col { display: none; height: 100%; }
+      .layout .col.mobile-active { display: flex; }
+
+      .myteam-view { padding: 12px; }
+      .myteam-groups { grid-template-columns: 1fr; }
+      .myteam-summary { gap: 14px; padding: 16px; }
+      .modal-card { width: 92vw; }
+
+      /* The 9-column rankings grid (star/#/sport/name/pos/age/pos-rank/team/
+         pts) is a desktop-width layout -- on a phone the fixed columns alone
+         add up to well over the viewport, forcing an ugly horizontal
+         squeeze/scroll. Below 820px it becomes a two-line card instead:
+         star + rank# + sport badge + name on line one (name wraps the row),
+         then pos-rank/team/pts as small chips on line two. Plain Pos and
+         Age are dropped here -- Pos Rank already encodes position (e.g.
+         "RB4") and Age is the least decision-relevant stat at a glance. */
+      .rankings-head { display: none; }
+      .rank-row {
+        display: flex; flex-wrap: wrap; align-items: center;
+        column-gap: 8px; row-gap: 4px; padding: 10px 14px;
+      }
+      .rank-row .rank-name { flex: 1 1 100%; order: 1; }
+      .rank-row > *:nth-child(5), .rank-row > *:nth-child(6) { display: none; }
+      .rank-row > *:nth-child(7), .rank-row > *:nth-child(8), .rank-row > *:nth-child(9) {
+        order: 2; flex: 0 0 auto;
+      }
+      .rank-row .score { padding: 2px 8px; }
+      .pick-row { grid-template-columns: 30px 1fr 44px 90px; gap: 8px; font-size: 12px; }
+      .pick-team { display: none; }
+      .roster-item { grid-template-columns: auto 1fr 40px 46px; gap: 8px; padding: 10px 14px; font-size: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -363,7 +374,7 @@
     <button data-panel="board-col">Board</button>
   </div>
 
-  <div class="myteam-view" id="myteam-view" style="display:none;"></div>
+  <div class="myteam-view view-hidden" id="myteam-view"></div>
 
   <div class="modal-overlay" id="player-modal" style="display:none;"></div>
 
@@ -585,12 +596,18 @@
 
     function setView(view) {
       VIEW = view;
-      document.getElementById("draft-layout").style.display = view === "draft" ? "grid" : "none";
-      document.getElementById("myteam-view").style.display = view === "myteam" ? "block" : "none";
+      // Toggle a class rather than setting style.display directly -- an
+      // inline display value beats every CSS rule, including the media
+      // queries that switch .layout between grid (desktop) and block
+      // (mobile). Setting it inline here meant the first tab switch
+      // permanently pinned .layout to "grid" and broke the mobile
+      // single-panel layout for the rest of the session.
+      document.getElementById("draft-layout").classList.toggle("view-hidden", view !== "draft");
+      document.getElementById("myteam-view").classList.toggle("view-hidden", view !== "myteam");
       // The Rankings/My Picks/Board sub-tab bar only controls panels inside
       // draft-layout -- leaving it visible (and clickable, doing nothing)
       // while on My Team was the "tab switching feels bugged" report.
-      document.getElementById("mobile-subtabs").style.display = view === "draft" ? "" : "none";
+      document.getElementById("mobile-subtabs").classList.toggle("view-hidden", view !== "draft");
       document.getElementById("tab-draft").classList.toggle("active", view === "draft");
       document.getElementById("tab-myteam").classList.toggle("active", view === "myteam");
     }
@@ -600,18 +617,18 @@
       if (VIEW !== "myteam") return;
       const roster = STATE.rosters[STATE.viewer] || [];
       if (!STATE.viewer) {
-        el.innerHTML = `<div class="myteam-empty">Spectating — add ?team=you or ?team=bruner to see a roster.</div>`;
+        setPanelHTML(el, "myteam", `<div class="myteam-empty">Spectating — add ?team=you or ?team=bruner to see a roster.</div>`);
         return;
       }
       if (!roster.length) {
-        el.innerHTML = `<div class="myteam-empty">No picks yet — head to the Draft tab to make your first pick.</div>`;
+        setPanelHTML(el, "myteam", `<div class="myteam-empty">No picks yet — head to the Draft tab to make your first pick.</div>`);
         return;
       }
       const avgValue = roster.reduce((s, p) => s + p.draft_value, 0) / roster.length;
       const bySport = {};
       for (const p of roster) (bySport[p.sport] = bySport[p.sport] || []).push(p);
       const sports = Object.keys(bySport).sort();
-      el.innerHTML = `
+      const html = `
         <div class="myteam-summary">
           <div class="myteam-stat"><div class="n">${STATE.viewer}</div><div class="l">Team</div></div>
           <div class="myteam-stat"><div class="n">${roster.length}/${STATE.roster_size}</div><div class="l">Roster spots filled</div></div>
@@ -641,6 +658,7 @@
           }).join("")}
         </div>
       `;
+      setPanelHTML(el, "myteam", html);
     }
 
     function renderBoard() {
@@ -689,22 +707,30 @@
         }
       }
       html.push(`</div>`);
-      el.innerHTML = html.join("");
-      const curEl = el.querySelector(".pick-row.current");
-      if (curEl) curEl.scrollIntoView({ block: "center", behavior: "smooth" });
+      const rebuilt = setPanelHTML(el, "board", html.join(""));
+      // Only jump to the on-the-clock pick when it actually moved (a new
+      // pick landed) or this is the first render -- not on every no-op
+      // poll, which is what made the board feel like it kept yanking you
+      // back to the top while you were trying to scroll through history.
+      if (rebuilt && STATE.current_overall !== LAST_BOARD_SCROLLED_OVERALL) {
+        LAST_BOARD_SCROLLED_OVERALL = STATE.current_overall;
+        const curEl = el.querySelector(".pick-row.current");
+        if (curEl) curEl.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
     }
+    let LAST_BOARD_SCROLLED_OVERALL = null;
 
     function renderRoster() {
       const el = $("roster");
       const roster = STATE.rosters[STATE.viewer] || [];
       if (!roster.length) {
-        el.innerHTML = `<div class="roster-empty">No picks yet.</div>`;
+        setPanelHTML(el, "roster", `<div class="roster-empty">No picks yet.</div>`);
         return;
       }
       const bySport = {};
       for (const p of roster) (bySport[p.sport] = bySport[p.sport] || []).push(p);
       const sports = Object.keys(bySport).sort();
-      el.innerHTML = `<div class="roster-list">${
+      const html = `<div class="roster-list">${
         sports.map(sport => `
           <div class="roster-group-header">${sport} <span>(${bySport[sport].length})</span></div>
           ${bySport[sport].map((p) => `
@@ -719,9 +745,25 @@
           `).join("")}
         `).join("")
       }</div>`;
+      setPanelHTML(el, "roster", html);
     }
 
-    let LAST_RANKINGS_HTML = null;
+    // The 2s poll re-renders every panel constantly. Rebuilding a panel's
+    // DOM every time -- even when the content is byte-for-byte identical --
+    // resets its scrollTop to 0 and can interrupt an in-progress touch
+    // scroll. setPanelHTML() skips the rebuild entirely when nothing
+    // changed, and preserves scroll position on the rebuilds that do
+    // happen. Returns true if it actually rebuilt (used by renderBoard to
+    // gate its scroll-to-current-pick behavior).
+    const LAST_PANEL_HTML = {};
+    function setPanelHTML(el, cacheKey, html) {
+      if (LAST_PANEL_HTML[cacheKey] === html) return false;
+      LAST_PANEL_HTML[cacheKey] = html;
+      const scrollTop = el.scrollTop;
+      el.innerHTML = html;
+      el.scrollTop = scrollTop;
+      return true;
+    }
 
     function renderRankings() {
       const el = $("rankings");
@@ -749,16 +791,7 @@
           `;
         });
       const html = `<div class="rankings-list">${rows.join("")}</div>`;
-      // The 2s poll calls render() -> renderRankings() constantly. Rebuilding
-      // the DOM every time (even when nothing changed) resets scrollTop to 0
-      // and can interrupt an in-progress touch scroll -- the exact "buggy"
-      // scrolling this guards against. Skip the rebuild entirely when the
-      // content is identical to what's already on screen.
-      if (html === LAST_RANKINGS_HTML) return;
-      LAST_RANKINGS_HTML = html;
-      const scrollTop = el.scrollTop;
-      el.innerHTML = html;
-      el.scrollTop = scrollTop;
+      if (!setPanelHTML(el, "rankings", html)) return;
       for (const row of el.querySelectorAll(".rank-row.available")) {
         row.addEventListener("click", () => openPlayerModal(row.dataset.name));
       }
