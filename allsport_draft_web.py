@@ -40,7 +40,7 @@ except ImportError:
 app = Flask(__name__, template_folder="templates")
 
 BOT_THINK_SECONDS = 6
-HUMAN_THINK_SECONDS = 120
+HUMAN_THINK_SECONDS = 75
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 
