@@ -172,7 +172,9 @@ class Draft:
             self.clock_deadline = None
             return
         team = self.draft_order[self.cursor]
-        think_seconds = HUMAN_THINK_SECONDS if team in HUMAN_TEAMS else BOT_THINK_SECONDS
+        # Bruner gets bot-speed picks now, same as the bots -- only "You"
+        # still gets the longer human think-clock.
+        think_seconds = HUMAN_THINK_SECONDS if team == "You" else BOT_THINK_SECONDS
         self.clock_deadline = time.time() + think_seconds
 
     def _diversity_ok(self, team: str, candidate_sport: str) -> bool:
