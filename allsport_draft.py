@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-08-27. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
+    # Updated 2026-08-28. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
     # CBB (Nov 1), and CFB (FBS Week 0 starts Aug 29) haven't started
     # their 2026-27 seasons yet, so only confirmed multi-week/season-opening
     # absences are tagged (as OUT/IR) — no Q/D until each league's games
@@ -45,7 +45,6 @@ PLAYER_STATUS: dict[str, str] = {
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
-    "Matthew Tkachuk": "OUT",    # NHL — offseason adductor/sports hernia surgery, targeting a December return
     "Aaron Judge": "IL",         # MLB — rib fracture, hitting progression underway, targeting a September return
     "Juan Soto": "IL",           # MLB — Grade 2 calf strain, on-field running as of Aug 18, targeting September
     "Corbin Burnes": "IL",       # MLB — targeting an early-September return, threw live BP this week
