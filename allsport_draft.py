@@ -36,12 +36,13 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-08-28. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
-    # CBB (Nov 1), and CFB (FBS Week 0 starts Aug 29) haven't started
-    # their 2026-27 seasons yet, so only confirmed multi-week/season-opening
-    # absences are tagged (as OUT/IR) — no Q/D until each league's games
-    # are live. MLB's season is in progress, so IL tags reflect current
-    # active placements.
+    # Updated 2026-08-29. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
+    # and CBB (Nov 1) haven't started their 2026-27 seasons yet, so only
+    # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
+    # for those leagues — no Q/D until each league's games are live. CFB's
+    # FBS Week 0 began Aug 29 but is only a handful of games; full slates
+    # start Sep 5, so still no Q/D there yet either. MLB's season is in
+    # progress, so IL tags reflect current active placements.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
@@ -49,7 +50,6 @@ PLAYER_STATUS: dict[str, str] = {
     "Juan Soto": "IL",           # MLB — Grade 2 calf strain, on-field running as of Aug 18, targeting September
     "Corbin Burnes": "IL",       # MLB — targeting an early-September return, threw live BP this week
     "Edwin Diaz": "IL",          # MLB — neck inflammation, placed Aug 18, seeing spine specialist
-    "Max Fried": "IL",           # MLB — recurrence of left elbow bone bruise, placed Aug 18 (retro to Aug 14)
     "Spencer Strider": "IL",     # MLB — on 60-day IL, began throwing progression this week, 2026 return not assured
     "James Wood": "IL",          # MLB — left oblique strain since Aug 4, still on tee work, no rehab assignment yet
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
