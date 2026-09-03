@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-08-30. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
+    # Updated 2026-09-03. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
     # and CBB (Nov 1) haven't started their 2026-27 seasons yet, so only
     # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
     # for those leagues — no Q/D until each league's games are live. CFB's
@@ -46,17 +46,16 @@ PLAYER_STATUS: dict[str, str] = {
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
-    "Aaron Judge": "IL",         # MLB — rib fracture, hitting progression underway, targeting a September return
-    "Corbin Burnes": "IL",       # MLB — targeting an early-September return, threw live BP this week
-    "Edwin Diaz": "IL",          # MLB — neck inflammation, placed Aug 18, seeing spine specialist
-    "Spencer Strider": "IL",     # MLB — on 60-day IL, began throwing progression this week, 2026 return not assured
-    "James Wood": "IL",          # MLB — left oblique strain since Aug 4, still on tee work, no rehab assignment yet
+    "Aaron Judge": "IL",         # MLB — rib fracture, targeting activation during Sep 8-13 homestand
+    "Corbin Burnes": "IL",       # MLB — targeting an early-September (~Sep 8) return
+    "Edwin Diaz": "IL",          # MLB — neck inflammation, still awaiting a rehab assignment before activation
+    "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
-    "Garrett Crochet": "IL",     # MLB — shoulder/lat, on IL since April, hoping to return for a playoff push
+    "Garrett Crochet": "IL",     # MLB — shoulder/lat, on IL since April, targeting a bullpen return later in Sep
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured
-    "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, open timetable, coach doesn't expect him near season start
+    "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, plans to play in 2026-27 but no firm timetable yet
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
-    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound, still no firm return date, missing Sep 3 opener
+    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound, missed Sep 3 opener, targeting mid-Sep return
 }
 
 
