@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-03. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
+    # Updated 2026-09-06. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
     # and CBB (Nov 1) haven't started their 2026-27 seasons yet, so only
     # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
     # for those leagues — no Q/D until each league's games are live. CFB's
@@ -56,6 +56,9 @@ PLAYER_STATUS: dict[str, str] = {
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, plans to play in 2026-27 but no firm timetable yet
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound, missed Sep 3 opener, targeting mid-Sep return
+    "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
+    "Zach Charbonnet": "IR",     # NFL — ACL/PUP, out minimum 4 games, earliest return Week 5-7
+    "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season, out ~2 months, earliest return Week 5
 }
 
 
