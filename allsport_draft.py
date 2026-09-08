@@ -36,19 +36,18 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-06. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
+    # Updated 2026-09-08. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
     # and CBB (Nov 1) haven't started their 2026-27 seasons yet, so only
     # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
     # for those leagues — no Q/D until each league's games are live. CFB's
-    # FBS Week 0 began Aug 29 but is only a handful of games; full slates
-    # start Sep 5, so still no Q/D there yet either. MLB's season is in
-    # progress, so IL tags reflect current active placements.
+    # full slates started Sep 5, but no specific Q/D-worthy news surfaced
+    # yet. MLB's season is in progress, so IL tags reflect current active
+    # placements.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
+    "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List (misdemeanor charges), off 53-man roster indefinitely
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
-    "Aaron Judge": "IL",         # MLB — rib fracture, targeting activation during Sep 8-13 homestand
-    "Corbin Burnes": "IL",       # MLB — targeting an early-September (~Sep 8) return
-    "Edwin Diaz": "IL",          # MLB — neck inflammation, still awaiting a rehab assignment before activation
+    "Edwin Diaz": "IL",          # MLB — neck inflammation, on rehab assignment, not yet officially reinstated
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
     "Garrett Crochet": "IL",     # MLB — shoulder/lat, on IL since April, targeting a bullpen return later in Sep
