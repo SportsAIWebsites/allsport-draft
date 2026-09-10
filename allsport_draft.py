@@ -36,16 +36,19 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-08. NFL (starts Sep 9), NHL (Sep 29), NBA (Oct 20),
-    # and CBB (Nov 1) haven't started their 2026-27 seasons yet, so only
-    # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
-    # for those leagues — no Q/D until each league's games are live. CFB's
-    # full slates started Sep 5, but no specific Q/D-worthy news surfaced
-    # yet. MLB's season is in progress, so IL tags reflect current active
-    # placements.
+    # Updated 2026-09-10. NFL's season began Sep 9 (Week 1 in progress), so
+    # Q/D tags are now valid for NFL. NHL (Sep 29), NBA (Oct 20), and CBB
+    # (Nov 1) still haven't started their 2026-27 seasons, so only confirmed
+    # multi-week/season-opening absences are tagged (as OUT/IR) for those
+    # leagues — no Q/D until each league's games are live. CFB's full slates
+    # started Sep 5, but no specific Q/D-worthy news surfaced yet. MLB's
+    # season is in progress, so IL/day-to-day tags reflect current status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List (misdemeanor charges), off 53-man roster indefinitely
+    "A.J. Brown": "Q",           # NFL — ankle injury, exited Patriots debut Sep 9 vs. Seattle, ruled out; severity unconfirmed
+    "Corbin Carroll": "Q",       # MLB — lower back discomfort, scratched from lineup, MRI scheduled Sep 10
+    "Gunnar Henderson": "Q",     # MLB — sore left knee after fouling ball off it Sep 8, day-to-day
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
     "Edwin Diaz": "IL",          # MLB — neck inflammation, on rehab assignment, not yet officially reinstated
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
