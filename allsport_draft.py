@@ -36,34 +36,34 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-12. NFL's season began Sep 9, but Week 1's Sunday/
-    # Monday slate hasn't been played yet, so the league is still in Week 1.
-    # Q/D tags are valid for NFL. NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1)
-    # still haven't started their 2026-27 seasons, so only confirmed
-    # multi-week/season-opening absences are tagged (as OUT/IR) for those
-    # leagues — no Q/D until each league's games are live. CFB's full slates
-    # started Sep 5, so Q/D applies there too. MLB's season is in progress,
-    # so IL/day-to-day tags reflect current status.
+    # Updated 2026-09-14. NFL is in Week 2. Q/D tags are valid for NFL.
+    # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
+    # their 2026-27 seasons, so only confirmed multi-week/season-opening
+    # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
+    # league's games are live. CFB's full slates started Sep 5, so Q/D
+    # applies there too. MLB's season is in progress, so IL/day-to-day tags
+    # reflect current status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List (misdemeanor charges), off 53-man roster indefinitely
-    "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 after exiting Patriots debut Sep 9; out minimum 4 weeks
-    "Brock Bowers": "Q",         # NFL — meniscus trim surgery, officially Questionable on Raiders' Week 1 injury report
+    "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11; per Rapoport now expected out ~6 weeks, targeting a Week 6 return
+    "Brock Bowers": "Q",         # NFL — meniscus trim surgery, DNP Friday, questionable for Week 2 vs. Chargers
     "Gunnar Henderson": "Q",     # MLB — sore left knee after fouling ball off it Sep 8, day-to-day
-    "Shohei Ohtani": "IL",       # MLB — 15-day IL (biceps/knee/neck), placed Sep 11, targeting Sep 22 return
-    "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, targeting early/mid-Nov return
+    "Shohei Ohtani": "IL",       # MLB — 15-day IL (biceps/knee/neck), placed Sep 11; earliest activation Sep 23, eligible Sep 26
+    "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, on track, targeting early/mid-Nov return
     "Edwin Diaz": "IL",          # MLB — neck inflammation, on rehab assignment, not yet officially reinstated
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
-    "Garrett Crochet": "IL",     # MLB — shoulder/lat, on IL since April, targeting a bullpen return later in Sep
+    "Garrett Crochet": "IL",     # MLB — shoulder/lat, throwing bullpens again but unlikely for regular season; possible playoff relief return
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, plans to play in 2026-27 but no firm timetable yet
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound, missed a second straight game, now targeting Sep 26 return
-    "Kewan Lacy": "Q",           # CFB — left Sep 7 game vs. Louisville with leg/knee injury; X-rays negative, questionable this week
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
     "Zach Charbonnet": "IR",     # NFL — ACL/PUP, out minimum 4 games, earliest return Week 5-7
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season, out ~2 months, earliest return Week 5
+    "Alvin Kamara": "Q",         # NFL — MCL sprain, missed Saints' Week 1 opener, expected back Week 2
+    "Frederik Andersen": "OUT",  # NHL — lingering knee injury, will miss training camp and start of regular season, targeting late Oct return
 }
 
 
