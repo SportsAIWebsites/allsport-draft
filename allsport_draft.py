@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-14. NFL is in Week 2. Q/D tags are valid for NFL.
+    # Updated 2026-09-16. NFL is in Week 2. Q/D tags are valid for NFL.
     # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
     # their 2026-27 seasons, so only confirmed multi-week/season-opening
     # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
@@ -46,8 +46,8 @@ PLAYER_STATUS: dict[str, str] = {
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List (misdemeanor charges), off 53-man roster indefinitely
-    "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11; per Rapoport now expected out ~6 weeks, targeting a Week 6 return
-    "Brock Bowers": "Q",         # NFL — meniscus trim surgery, DNP Friday, questionable for Week 2 vs. Chargers
+    "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); team indicates injury is more serious than initial estimate, expected return has slipped from Week 6 to closer to Week 7-8
+    "Brock Bowers": "Q",         # NFL — meniscus trim surgery, day-to-day, realistic chance to play Week 2 vs. Chargers
     "Gunnar Henderson": "Q",     # MLB — sore left knee after fouling ball off it Sep 8, day-to-day
     "Shohei Ohtani": "IL",       # MLB — 15-day IL (biceps/knee/neck), placed Sep 11; earliest activation Sep 23, eligible Sep 26
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, on track, targeting early/mid-Nov return
@@ -58,12 +58,13 @@ PLAYER_STATUS: dict[str, str] = {
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, plans to play in 2026-27 but no firm timetable yet
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
-    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound, missed a second straight game, now targeting Sep 26 return
+    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound; as of Sep 16 still hasn't resumed full-speed practice (needs a 2-week ramp-up), so the earlier Sep 26 target now looks optimistic
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
     "Zach Charbonnet": "IR",     # NFL — ACL/PUP, out minimum 4 games, earliest return Week 5-7
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season, out ~2 months, earliest return Week 5
-    "Alvin Kamara": "Q",         # NFL — MCL sprain, missed Saints' Week 1 opener, expected back Week 2
+    "Alvin Kamara": "Q",         # NFL — MCL sprain, missed Saints' Week 1 opener, recovery ahead of schedule, expected back Week 2
     "Frederik Andersen": "OUT",  # NHL — lingering knee injury, will miss training camp and start of regular season, targeting late Oct return
+    "Jamari Johnson": "OUT",     # CFB — Oregon TE, undisclosed injury suffered Sep 5 vs. Boise State, DNP and ruled out for Sep 12 game vs. Oklahoma State; coach says a few more games, not considered long-term
 }
 
 
