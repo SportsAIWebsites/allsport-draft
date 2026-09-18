@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-16. NFL is in Week 2. Q/D tags are valid for NFL.
+    # Updated 2026-09-18. NFL is in Week 2. Q/D tags are valid for NFL.
     # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
     # their 2026-27 seasons, so only confirmed multi-week/season-opening
     # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
@@ -48,10 +48,9 @@ PLAYER_STATUS: dict[str, str] = {
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List (misdemeanor charges), off 53-man roster indefinitely
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); team indicates injury is more serious than initial estimate, expected return has slipped from Week 6 to closer to Week 7-8
     "Brock Bowers": "Q",         # NFL — meniscus trim surgery, day-to-day, realistic chance to play Week 2 vs. Chargers
-    "Gunnar Henderson": "Q",     # MLB — sore left knee after fouling ball off it Sep 8, day-to-day
+    "Nico Collins": "Q",         # NFL — Grade 1 hamstring strain suffered in practice Sep 17, DNP Thursday, officially in jeopardy for Week 2 vs. Bengals
     "Shohei Ohtani": "IL",       # MLB — 15-day IL (biceps/knee/neck), placed Sep 11; earliest activation Sep 23, eligible Sep 26
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, on track, targeting early/mid-Nov return
-    "Edwin Diaz": "IL",          # MLB — neck inflammation, on rehab assignment, not yet officially reinstated
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
     "Garrett Crochet": "IL",     # MLB — shoulder/lat, throwing bullpens again but unlikely for regular season; possible playoff relief return
