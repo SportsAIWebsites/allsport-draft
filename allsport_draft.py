@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-20. NFL is in Week 2. Q/D tags are valid for NFL.
+    # Updated 2026-09-21. NFL is in Week 3. Q/D tags are valid for NFL.
     # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
     # their 2026-27 seasons, so only confirmed multi-week/season-opening
     # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
@@ -47,7 +47,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pleaded no contest to misdemeanor charges Sep 10, but NFL's own disciplinary review is still ongoing, so exempt-list status is unchanged
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); team indicates injury is more serious than initial estimate, expected return has slipped from Week 6 to closer to Week 7-8
-    "Brock Bowers": "D",         # NFL — meniscus trim surgery; officially listed doubtful for Week 2 vs. Chargers, though trending toward a Week 3 return per coaching staff
+    "Brock Bowers": "Q",         # NFL — meniscus trim surgery; missed Weeks 1-2, returned to practice (limited) Sep 19 and coach is optimistic he plays Week 3 vs. Saints
     "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, ruled out for Week 2 vs. Bengals; Houston reporting on a Week 3 return has turned more uncertain/"fluid," possibly Week 4
     "Shohei Ohtani": "IL",       # MLB — 15-day IL (biceps/knee/neck), placed Sep 11; earliest activation Sep 23, not eligible to return until Sep 26 (Dodgers' penultimate regular-season game)
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
