@@ -36,38 +36,37 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-23. NFL is in Week 3. Q/D tags are valid for NFL.
+    # Updated 2026-09-24. NFL is in Week 4. Q/D tags are valid for NFL.
     # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
     # their 2026-27 seasons, so only confirmed multi-week/season-opening
     # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
     # league's games are live. CFB's full slates started Sep 5, so Q/D
-    # applies there too. MLB's season is in progress, so IL/day-to-day tags
-    # reflect current status.
+    # applies there too. MLB's regular season is ending/postseason is
+    # starting, so IL/day-to-day tags reflect current status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent says he won't sign before medical clearance
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
-    "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pleaded no contest to misdemeanor charges Sep 10, but NFL's own disciplinary review is still ongoing, so exempt-list status is unchanged
+    "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; disciplinary review still ongoing, first court date pushed to Nov 17; Packers traded for Kaleb Johnson as insurance, signaling this could drag on
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); no surgery needed but out ~6 weeks, earliest return now targeted for Week 6 (Oct 18) vs. Jets
-    "Brock Bowers": "Q",         # NFL — meniscus trim surgery; cleared to practice fully, trending toward playing Week 3 vs. Saints per coach, but no final call yet
-    "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, ruled out for Week 3 vs. Colts; Houston reporting on a return has turned more uncertain/"fluid," possibly Week 4
-    "Saquon Barkley": "Q",       # NFL — stinger to neck/shoulder vs. Titans Sep 20; back at practice, MRI results not yet publicly confirmed, status for Week 3 MNF at Bears still TBD
+    "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, missed Week 3 vs. Colts; not spotted at Wednesday Week 4 practice, trending toward missing Week 4 too, no firm return date
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
-    "Garrett Crochet": "IL",     # MLB — shoulder/lat, throwing live BP again (94-96 mph Sep 22) and progressing well, but not yet ready for Boston's rotation; real candidate for a playoff relief return if healthy
+    "Garrett Crochet": "IL",     # MLB — shoulder/lat, threw live BP again Sep 22 and progressing well, Red Sox targeting a bullpen return this postseason but hasn't appeared in a game since April
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured; return timeline reports diverge between Christmas and Feb 2027 (~1 year post-surgery)
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, plans to play in 2026-27 but coach says he won't be ready anywhere close to the start of the season
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
-    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound; still hasn't begun the required 2-week full-speed practice ramp-up, no firm timetable from coach, Sep 26 target looks unlikely
+    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound; still not practicing, coach says timetable anywhere from mid-Sept to mid-Oct is unknown
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season, out at least through the Sep 27 Commanders game; earliest eligible return Week 5, more likely after Seattle's Week 11 bye
+    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; team did not open his practice window for Week 4, still targeting Week 5 return
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season, out ~2 months, earliest return Week 5
-    "Frederik Andersen": "OUT",  # NHL — lingering knee injury from Hurricanes' spring playoff run, will miss training camp and start of regular season; reports range from late Oct to as long as two months (into Nov)
-    "Jamari Johnson": "Q",       # CFB — Oregon TE, returned to practice Sep 21; coach says he "should" be available and is likely to play Sep 27 vs. USC
-    "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; not expected back for the Wild Card round, return-eligible Sep 27 but availability beyond that in doubt
+    "Frederik Andersen": "OUT",  # NHL — now with Oilers; lingering knee injury from spring playoff run, not skating at camp, no firm timeline, projected out until at least late October
+    "Jamari Johnson": "Q",       # CFB — Oregon TE, officially listed questionable for Sep 27 vs. USC; coach says he's likely to play
+    "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; Yankees not expecting him for the Wild Card round but not ruling it out
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
-    "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI showed sprains/bruises rather than a torn ligament (no surgery needed), but Lane Kiffin gave no firm timetable and family says he'll "miss some games" — some reports point to 5-6 weeks
+    "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, still on crutches, expected to miss the Sep 26 Texas A&M game and beyond
     "Andrei Vasilevskiy": "OUT", # NHL — back surgery (lumbar disc herniation) late Sep 2026, Lightning targeting an 8-10 week recovery, expected return late Nov
     "Brad Marchand": "OUT",      # NHL — offseason surgery (Aug 2026), will miss the start of the 2026-27 season; Panthers rehabbing him at least through end of October, targeting an early-season return
+    "Kewan Lacy": "Q",           # CFB — Ole Miss RB, shoulder injury vs. LSU, X-rays negative; limited practice reps, game-time decision for Saturday's Florida game
 }
 
 
