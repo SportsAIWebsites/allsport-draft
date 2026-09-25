@@ -36,12 +36,12 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-24. NFL is in Week 4. Q/D tags are valid for NFL.
+    # Updated 2026-09-25. NFL is in Week 3. Q/D tags are valid for NFL.
     # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
     # their 2026-27 seasons, so only confirmed multi-week/season-opening
     # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
-    # league's games are live. CFB's full slates started Sep 5, so Q/D
-    # applies there too. MLB's regular season is ending/postseason is
+    # league's games are live. CFB's full slates started Sep 5 (Week 5 now),
+    # so Q/D applies there too. MLB's regular season is ending/postseason is
     # starting, so IL/day-to-day tags reflect current status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent says he won't sign before medical clearance
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
@@ -67,6 +67,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Andrei Vasilevskiy": "OUT", # NHL — back surgery (lumbar disc herniation) late Sep 2026, Lightning targeting an 8-10 week recovery, expected return late Nov
     "Brad Marchand": "OUT",      # NHL — offseason surgery (Aug 2026), will miss the start of the 2026-27 season; Panthers rehabbing him at least through end of October, targeting an early-season return
     "Kewan Lacy": "Q",           # CFB — Ole Miss RB, shoulder injury vs. LSU, X-rays negative; limited practice reps, game-time decision for Saturday's Florida game
+    "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
 }
 
 
