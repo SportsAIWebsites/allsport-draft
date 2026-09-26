@@ -36,16 +36,16 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-25. NFL is in Week 3. Q/D tags are valid for NFL.
-    # NHL (Sep 29), NBA (Oct 20), and CBB (Nov 1) still haven't started
-    # their 2026-27 seasons, so only confirmed multi-week/season-opening
-    # absences are tagged (as OUT/IR) for those leagues — no Q/D until each
-    # league's games are live. CFB's full slates started Sep 5 (Week 5 now),
-    # so Q/D applies there too. MLB's regular season is ending/postseason is
-    # starting, so IL/day-to-day tags reflect current status.
+    # Updated 2026-09-26. NFL Q/D tags are valid. NHL (Sep 29), NBA (Oct 20),
+    # and CBB (Nov 1) still haven't started their 2026-27 seasons, so only
+    # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
+    # for those leagues — no Q/D until each league's games are live. CFB's
+    # full slates are underway, so Q/D applies there too. MLB's regular
+    # season is ending/postseason is starting, so IL/day-to-day tags
+    # reflect current status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent says he won't sign before medical clearance
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
-    "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; disciplinary review still ongoing, first court date pushed to Nov 17; Packers traded for Kaleb Johnson as insurance, signaling this could drag on
+    "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); no surgery needed but out ~6 weeks, earliest return now targeted for Week 6 (Oct 18) vs. Jets
     "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, missed Week 3 vs. Colts; not spotted at Wednesday Week 4 practice, trending toward missing Week 4 too, no firm return date
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
@@ -64,9 +64,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; Yankees not expecting him for the Wild Card round but not ruling it out
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
     "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, still on crutches, expected to miss the Sep 26 Texas A&M game and beyond
-    "Andrei Vasilevskiy": "OUT", # NHL — back surgery (lumbar disc herniation) late Sep 2026, Lightning targeting an 8-10 week recovery, expected return late Nov
     "Brad Marchand": "OUT",      # NHL — offseason surgery (Aug 2026), will miss the start of the 2026-27 season; Panthers rehabbing him at least through end of October, targeting an early-season return
-    "Kewan Lacy": "Q",           # CFB — Ole Miss RB, shoulder injury vs. LSU, X-rays negative; limited practice reps, game-time decision for Saturday's Florida game
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
 }
 
