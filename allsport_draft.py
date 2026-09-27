@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-26. NFL Q/D tags are valid. NHL (Sep 29), NBA (Oct 20),
+    # Updated 2026-09-27. NFL Q/D tags are valid. NHL (Sep 29), NBA (Oct 20),
     # and CBB (Nov 1) still haven't started their 2026-27 seasons, so only
     # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
     # for those leagues — no Q/D until each league's games are live. CFB's
@@ -47,6 +47,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); no surgery needed but out ~6 weeks, earliest return now targeted for Week 6 (Oct 18) vs. Jets
+    "Christian McCaffrey": "IR", # NFL — placed on IR Sep 14 with a calf injury/bilateral Achilles tendinitis; 49ers HC Shanahan confirmed the Achilles issue in both legs, out at least through Week 6
     "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, missed Week 3 vs. Colts; not spotted at Wednesday Week 4 practice, trending toward missing Week 4 too, no firm return date
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
@@ -60,12 +61,13 @@ PLAYER_STATUS: dict[str, str] = {
     "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; team did not open his practice window for Week 4, still targeting Week 5 return
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season, out ~2 months, earliest return Week 5
     "Frederik Andersen": "OUT",  # NHL — now with Oilers; lingering knee injury from spring playoff run, not skating at camp, no firm timeline, projected out until at least late October
-    "Jamari Johnson": "Q",       # CFB — Oregon TE, officially listed questionable for Sep 27 vs. USC; coach says he's likely to play
     "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; Yankees not expecting him for the Wild Card round but not ruling it out
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
-    "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, still on crutches, expected to miss the Sep 26 Texas A&M game and beyond
+    "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, still on crutches, missed the Sep 26 Texas A&M game, return timeline still open-ended
     "Brad Marchand": "OUT",      # NHL — offseason surgery (Aug 2026), will miss the start of the 2026-27 season; Panthers rehabbing him at least through end of October, targeting an early-season return
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
+    "Kewan Lacy": "Q",           # CFB — Ole Miss RB, re-aggravated his (surgically repaired) shoulder in the Week 3 LSU win; downgraded to out and did not play vs. Florida on Sep 26, no surgery needed, status for the next game unclear
+    "Dante Moore": "OUT",        # CFB — Oregon QB, carted off by ambulance in a neck brace after a targeting hit vs. USC on Sep 26; has movement in all extremities, evaluated at an LA hospital for at least a concussion, no return timeline yet
 }
 
 
