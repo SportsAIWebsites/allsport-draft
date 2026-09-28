@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-27. NFL Q/D tags are valid. NHL (Sep 29), NBA (Oct 20),
+    # Updated 2026-09-28. NFL Q/D tags are valid. NHL (Sep 29), NBA (Oct 20),
     # and CBB (Nov 1) still haven't started their 2026-27 seasons, so only
     # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
     # for those leagues — no Q/D until each league's games are live. CFB's
@@ -47,8 +47,8 @@ PLAYER_STATUS: dict[str, str] = {
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); no surgery needed but out ~6 weeks, earliest return now targeted for Week 6 (Oct 18) vs. Jets
-    "Christian McCaffrey": "IR", # NFL — placed on IR Sep 14 with a calf injury/bilateral Achilles tendinitis; 49ers HC Shanahan confirmed the Achilles issue in both legs, out at least through Week 6
-    "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, missed Week 3 vs. Colts; not spotted at Wednesday Week 4 practice, trending toward missing Week 4 too, no firm return date
+    "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, missed Weeks 2-3 vs. Colts/Ravens, still didn't practice this week, but Schefter reports a "decent chance" he plays Week 4 vs. Cowboys
+    "Rashee Rice": "OUT",        # NFL — serving a 6-game NFL suspension for a personal-conduct-policy violation tied to his 2024 crash case; eligible to return Week 7 (Oct 19) vs. Raiders
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
@@ -63,11 +63,11 @@ PLAYER_STATUS: dict[str, str] = {
     "Frederik Andersen": "OUT",  # NHL — now with Oilers; lingering knee injury from spring playoff run, not skating at camp, no firm timeline, projected out until at least late October
     "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; Yankees not expecting him for the Wild Card round but not ruling it out
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
-    "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, still on crutches, missed the Sep 26 Texas A&M game, return timeline still open-ended
+    "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, missed the Sep 26 Texas A&M game, expected to miss all of October with team hoping for a Nov. 7 return vs. Alabama (unconfirmed)
     "Brad Marchand": "OUT",      # NHL — offseason surgery (Aug 2026), will miss the start of the 2026-27 season; Panthers rehabbing him at least through end of October, targeting an early-season return
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
-    "Kewan Lacy": "Q",           # CFB — Ole Miss RB, re-aggravated his (surgically repaired) shoulder in the Week 3 LSU win; downgraded to out and did not play vs. Florida on Sep 26, no surgery needed, status for the next game unclear
-    "Dante Moore": "OUT",        # CFB — Oregon QB, carted off by ambulance in a neck brace after a targeting hit vs. USC on Sep 26; has movement in all extremities, evaluated at an LA hospital for at least a concussion, no return timeline yet
+    "Kewan Lacy": "OUT",         # CFB — Ole Miss RB, surgically repaired shoulder re-aggravated in the Week 3 LSU win; sat out (did not play) vs. Florida on Sep 26, "not as bad as we thought, but still not perfect" per coach Golding, no surgery needed, next-game status unclear
+    "Dante Moore": "OUT",        # CFB — Oregon QB, carted off in a neck brace after a targeting hit vs. USC on Sep 26; MRI/CT clean (concussion only, no structural damage), in protocol, Oregon has a bye until Oct 10 giving him ~2 weeks to clear, not season-ending but no fixed return date
 }
 
 
