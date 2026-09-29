@@ -36,13 +36,13 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-28. NFL Q/D tags are valid. NHL (Sep 29), NBA (Oct 20),
-    # and CBB (Nov 1) still haven't started their 2026-27 seasons, so only
-    # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
-    # for those leagues — no Q/D until each league's games are live. CFB's
-    # full slates are underway, so Q/D applies there too. MLB's regular
-    # season is ending/postseason is starting, so IL/day-to-day tags
-    # reflect current status.
+    # Updated 2026-09-29. NFL Q/D tags are valid. NHL opens tonight (Sep 29)
+    # but no games played yet, NBA (Oct 20), and CBB (Nov 1) still haven't
+    # started their 2026-27 seasons, so only confirmed multi-week/season-
+    # opening absences are tagged (as OUT/IR) for those leagues — no Q/D
+    # until each league's games are live. CFB's full slates are underway,
+    # so Q/D applies there too. MLB's regular season has ended and the
+    # postseason is starting, so IL/day-to-day tags reflect current status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent says he won't sign before medical clearance
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
@@ -68,6 +68,8 @@ PLAYER_STATUS: dict[str, str] = {
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
     "Kewan Lacy": "OUT",         # CFB — Ole Miss RB, surgically repaired shoulder re-aggravated in the Week 3 LSU win; sat out (did not play) vs. Florida on Sep 26, "not as bad as we thought, but still not perfect" per coach Golding, no surgery needed, next-game status unclear
     "Dante Moore": "OUT",        # CFB — Oregon QB, carted off in a neck brace after a targeting hit vs. USC on Sep 26; MRI/CT clean (concussion only, no structural damage), in protocol, Oregon has a bye until Oct 10 giving him ~2 weeks to clear, not season-ending but no fixed return date
+    "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
+    "Puka Nacua": "OUT",         # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, McVay "hopeful" for Week 4 vs. Eagles but surgery still possible if no improvement
 }
 
 
