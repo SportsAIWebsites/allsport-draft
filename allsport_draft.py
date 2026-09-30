@@ -36,13 +36,14 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-29. NFL Q/D tags are valid. NHL opens tonight (Sep 29)
-    # but no games played yet, NBA (Oct 20), and CBB (Nov 1) still haven't
-    # started their 2026-27 seasons, so only confirmed multi-week/season-
-    # opening absences are tagged (as OUT/IR) for those leagues — no Q/D
-    # until each league's games are live. CFB's full slates are underway,
-    # so Q/D applies there too. MLB's regular season has ended and the
-    # postseason is starting, so IL/day-to-day tags reflect current status.
+    # Updated 2026-09-30. NFL and CFB Q/D tags are valid (both in-season).
+    # NHL's 2026-27 season opened Sep 29 with games actually played, so
+    # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
+    # haven't started their 2026-27 seasons, so only confirmed multi-week/
+    # season-opening absences are tagged (as OUT/IR) for those two
+    # leagues — no Q/D until their games are live. MLB's regular season
+    # has ended and the Wild Card round started Sep 29, so IL/day-to-day
+    # tags reflect current postseason-roster status.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent says he won't sign before medical clearance
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
@@ -52,7 +53,6 @@ PLAYER_STATUS: dict[str, str] = {
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
-    "Garrett Crochet": "IL",     # MLB — shoulder/lat, threw live BP again Sep 22 and progressing well, Red Sox targeting a bullpen return this postseason but hasn't appeared in a game since April
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured; return timeline reports diverge between Christmas and Feb 2027 (~1 year post-surgery)
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, plans to play in 2026-27 but coach says he won't be ready anywhere close to the start of the season
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
@@ -70,6 +70,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Dante Moore": "OUT",        # CFB — Oregon QB, carted off in a neck brace after a targeting hit vs. USC on Sep 26; MRI/CT clean (concussion only, no structural damage), in protocol, Oregon has a bye until Oct 10 giving him ~2 weeks to clear, not season-ending but no fixed return date
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
     "Puka Nacua": "OUT",         # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, McVay "hopeful" for Week 4 vs. Eagles but surgery still possible if no improvement
+    "Travis Etienne Jr.": "OUT", # NFL — re-aggravated hamstring in Week 3 loss to Raiders (Sep 28); out at least Week 4 vs. Falcons, HC Kellen Moore gave no timeline, IR stint not ruled out
 }
 
 
