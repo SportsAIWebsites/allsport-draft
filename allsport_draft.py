@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-09-30. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-01. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
     # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
@@ -48,7 +48,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); no surgery needed but out ~6 weeks, earliest return now targeted for Week 6 (Oct 18) vs. Jets
-    "Nico Collins": "OUT",       # NFL — Grade 1 hamstring strain, missed Weeks 2-3 vs. Colts/Ravens, still didn't practice this week, but Schefter reports a "decent chance" he plays Week 4 vs. Cowboys
+    "Nico Collins": "Q",         # NFL — Grade 1 hamstring strain, missed Weeks 2-3 vs. Colts/Ravens, returned to practice Wed Sep 30 and HC Ryans is "hopeful" he plays Week 4 (Oct 5) vs. Cowboys
     "Rashee Rice": "OUT",        # NFL — serving a 6-game NFL suspension for a personal-conduct-policy violation tied to his 2024 crash case; eligible to return Week 7 (Oct 19) vs. Raiders
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
@@ -69,7 +69,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Kewan Lacy": "OUT",         # CFB — Ole Miss RB, surgically repaired shoulder re-aggravated in the Week 3 LSU win; sat out (did not play) vs. Florida on Sep 26, "not as bad as we thought, but still not perfect" per coach Golding, no surgery needed, next-game status unclear
     "Dante Moore": "OUT",        # CFB — Oregon QB, carted off in a neck brace after a targeting hit vs. USC on Sep 26; MRI/CT clean (concussion only, no structural damage), in protocol, Oregon has a bye until Oct 10 giving him ~2 weeks to clear, not season-ending but no fixed return date
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
-    "Puka Nacua": "OUT",         # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, McVay "hopeful" for Week 4 vs. Eagles but surgery still possible if no improvement
+    "Puka Nacua": "Q",           # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, limited practice Sep 30 and McVay now expects him to play Week 4 (Oct 4) vs. Eagles
     "Travis Etienne Jr.": "OUT", # NFL — re-aggravated hamstring in Week 3 loss to Raiders (Sep 28); out at least Week 4 vs. Falcons, HC Kellen Moore gave no timeline, IR stint not ruled out
 }
 
