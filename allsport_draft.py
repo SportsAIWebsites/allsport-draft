@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-01. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-02. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
     # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
@@ -58,8 +58,8 @@ PLAYER_STATUS: dict[str, str] = {
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound; still not practicing, coach says timetable anywhere from mid-Sept to mid-Oct is unknown
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; team did not open his practice window for Week 4, still targeting Week 5 return
-    "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season, out ~2 months, earliest return Week 5
+    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; practice window open, but Week 6-7 return now looks more likely than Week 5
+    "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season; HC Kellen Moore says Week 5 return is unlikely, Week 6-9 more plausible
     "Frederik Andersen": "OUT",  # NHL — now with Oilers; lingering knee injury from spring playoff run, not skating at camp, no firm timeline, projected out until at least late October
     "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; Yankees not expecting him for the Wild Card round but not ruling it out
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
@@ -70,7 +70,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Dante Moore": "OUT",        # CFB — Oregon QB, carted off in a neck brace after a targeting hit vs. USC on Sep 26; MRI/CT clean (concussion only, no structural damage), in protocol, Oregon has a bye until Oct 10 giving him ~2 weeks to clear, not season-ending but no fixed return date
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
     "Puka Nacua": "Q",           # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, limited practice Sep 30 and McVay now expects him to play Week 4 (Oct 4) vs. Eagles
-    "Travis Etienne Jr.": "OUT", # NFL — re-aggravated hamstring in Week 3 loss to Raiders (Sep 28); out at least Week 4 vs. Falcons, HC Kellen Moore gave no timeline, IR stint not ruled out
+    "Travis Etienne Jr.": "IR",  # NFL — re-aggravated hamstring in Week 3 loss to Raiders (Sep 28); formally placed on IR Oct 1, minimum 4 games, Week 9 (after Saints' Week 8 bye) the likely return
 }
 
 
