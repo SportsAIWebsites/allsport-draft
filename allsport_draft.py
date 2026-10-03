@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-02. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-03. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
     # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
@@ -71,6 +71,9 @@ PLAYER_STATUS: dict[str, str] = {
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
     "Puka Nacua": "Q",           # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, limited practice Sep 30 and McVay now expects him to play Week 4 (Oct 4) vs. Eagles
     "Travis Etienne Jr.": "IR",  # NFL — re-aggravated hamstring in Week 3 loss to Raiders (Sep 28); formally placed on IR Oct 1, minimum 4 games, Week 9 (after Saints' Week 8 bye) the likely return
+    "Jaxson Dart": "IR",         # NFL — left knee surgery (MCL/PCL/meniscus) after Week 3 MNF hit vs. Rams; out for the rest of the regular season, team not ruling out a playoff return
+    "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions; week-to-week, ruled out Week 4 vs. Bears, Jets hoping he avoids IR with a return in under 4 weeks
+    "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season
 }
 
 
