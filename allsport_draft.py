@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-03. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-04. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
     # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
@@ -48,7 +48,6 @@ PLAYER_STATUS: dict[str, str] = {
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); no surgery needed but out ~6 weeks, earliest return now targeted for Week 6 (Oct 18) vs. Jets
-    "Nico Collins": "Q",         # NFL — Grade 1 hamstring strain, missed Weeks 2-3 vs. Colts/Ravens, returned to practice Wed Sep 30 and HC Ryans is "hopeful" he plays Week 4 (Oct 5) vs. Cowboys
     "Rashee Rice": "OUT",        # NFL — serving a 6-game NFL suspension for a personal-conduct-policy violation tied to his 2024 crash case; eligible to return Week 7 (Oct 19) vs. Raiders
     "Connor Bedard": "OUT",      # NHL — shoulder surgery July 2026, back skating at camp but no contact clearance yet, still targeting early/mid-Nov return
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
@@ -58,9 +57,8 @@ PLAYER_STATUS: dict[str, str] = {
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound; still not practicing, coach says timetable anywhere from mid-Sept to mid-Oct is unknown
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; practice window open, but Week 6-7 return now looks more likely than Week 5
+    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; Seahawks opened his practice window Oct 1, now eligible to return as early as Week 5 (Oct 12) vs. 49ers
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season; HC Kellen Moore says Week 5 return is unlikely, Week 6-9 more plausible
-    "Frederik Andersen": "OUT",  # NHL — now with Oilers; lingering knee injury from spring playoff run, not skating at camp, no firm timeline, projected out until at least late October
     "Aaron Judge": "IL",         # MLB — right calf strain (moderate), got a calf injection Sep 21; Yankees not expecting him for the Wild Card round but not ruling it out
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
     "Trey'Dez Green": "OUT",     # CFB — carted off Sep 19 vs. Ole Miss; MRI negative for tears/no surgery needed, missed the Sep 26 Texas A&M game, expected to miss all of October with team hoping for a Nov. 7 return vs. Alabama (unconfirmed)
@@ -69,11 +67,12 @@ PLAYER_STATUS: dict[str, str] = {
     "Kewan Lacy": "OUT",         # CFB — Ole Miss RB, surgically repaired shoulder re-aggravated in the Week 3 LSU win; sat out (did not play) vs. Florida on Sep 26, "not as bad as we thought, but still not perfect" per coach Golding, no surgery needed, next-game status unclear
     "Dante Moore": "OUT",        # CFB — Oregon QB, carted off in a neck brace after a targeting hit vs. USC on Sep 26; MRI/CT clean (concussion only, no structural damage), in protocol, Oregon has a bye until Oct 10 giving him ~2 weeks to clear, not season-ending but no fixed return date
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
-    "Puka Nacua": "Q",           # NFL — groin/hip injury, missed Weeks 2-3 vs. 49ers/Broncos, limited practice Sep 30 and McVay now expects him to play Week 4 (Oct 4) vs. Eagles
     "Travis Etienne Jr.": "IR",  # NFL — re-aggravated hamstring in Week 3 loss to Raiders (Sep 28); formally placed on IR Oct 1, minimum 4 games, Week 9 (after Saints' Week 8 bye) the likely return
     "Jaxson Dart": "IR",         # NFL — left knee surgery (MCL/PCL/meniscus) after Week 3 MNF hit vs. Rams; out for the rest of the regular season, team not ruling out a playoff return
     "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions; week-to-week, ruled out Week 4 vs. Bears, Jets hoping he avoids IR with a return in under 4 weeks
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season
+    "Justin Jefferson": "OUT",   # NFL — ankle sprain, officially ruled out for Week 4, expected back Week 6 after Minnesota's Week 5 bye
+    "LJ Martin": "Q",            # CFB — BYU RB, ruled out in-game Oct 3 vs. TCU with a right ankle injury and did not return; too fresh for a confirmed severity/timetable
 }
 
 
