@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-05. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-06. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
     # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
@@ -74,6 +74,7 @@ PLAYER_STATUS: dict[str, str] = {
     "LJ Martin": "Q",            # CFB — BYU RB, ruled out in-game Oct 3 vs. TCU with a right ankle injury and did not return; too fresh for a confirmed severity/timetable
     "Ja'Marr Chase": "Q",        # NFL — entered concussion protocol after a facemask hit vs. Jaguars Oct 4, ruled out rest of that game; Week 5 (@ Dolphins) clearance unconfirmed
     "Saquon Barkley": "Q",       # NFL — hamstring injury, ruled out early in the Oct 4 game vs. Rams; Week 5 status unconfirmed
+    "Macklin Celebrini": "Q",    # NHL — lower-body injury, late scratch vs. Stars Oct 5 after warming up; no diagnosis/timetable disclosed yet, next game Oct 8 vs. Blues
 }
 
 
