@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-07. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-08. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
     # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
@@ -71,7 +71,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions; week-to-week, ruled out Week 4 vs. Bears, Jets hoping he avoids IR with a return in under 4 weeks
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season
     "Justin Jefferson": "Q",     # NFL — ankle sprain; Vikings "hopeful" he plays Week 5 vs. Saints, minor sprain described as not a long-term issue
-    "LJ Martin": "Q",            # CFB — BYU RB, ruled out in-game Oct 3 vs. TCU with a right ankle injury and did not return; too fresh for a confirmed severity/timetable
+    "LJ Martin": "D",            # CFB — BYU RB, right ankle injury (ruled out in-game Oct 3 vs. TCU); HC Kalani Sitake said Oct 5 it "looks doubtful" for this week's game
     "Ja'Marr Chase": "Q",        # NFL — entered concussion protocol after a facemask hit vs. Jaguars Oct 4, ruled out rest of that game; Week 5 (@ Dolphins) clearance unconfirmed
     "Saquon Barkley": "Q",       # NFL — hamstring injury, ruled out early in the Oct 4 game vs. Rams; Week 5 status unconfirmed
     "Macklin Celebrini": "Q",    # NHL — lower-body injury, late scratch vs. Stars Oct 5 after warming up; no diagnosis/timetable disclosed yet, next game Oct 8 vs. Blues
