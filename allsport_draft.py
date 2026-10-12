@@ -36,15 +36,16 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-11. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-12. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season opened Sep 29 with games actually played, so
-    # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 1) still
+    # Q/D applies there too now. NBA (Oct 20) and CBB (Nov 2) still
     # haven't started their 2026-27 seasons, so only confirmed multi-week/
     # season-opening absences are tagged (as OUT/IR) for those two
     # leagues — no Q/D until their games are live. MLB's regular season
-    # has ended and the postseason (Wild Card started Sep 29, ALDS now
-    # underway) is in progress, so IL/day-to-day tags reflect current
-    # postseason-roster status.
+    # has ended and the postseason is down to the LCS round (Yankees swept
+    # in the ALDS, Mets/Padres/Braves/D-backs all out), so IL/day-to-day
+    # tags reflect current postseason-roster status for the four teams
+    # still alive.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent says he won't sign before medical clearance
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage, resolving the criminal case; NFL says no change to his Exempt List status yet but is expected to convert it to a suspension (domestic-violence cases carry a 6-game standard under the CBA)
@@ -58,7 +59,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound; still not practicing, coach says timetable anywhere from mid-Sept to mid-Oct is unknown
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; Seahawks opened his practice window Oct 1, now eligible to return as early as Week 5 (Oct 12) vs. 49ers
+    "Zach Charbonnet": "IR",     # NFL — on PUP to start the season; ruled out for Week 5 (Oct 12) vs. 49ers, still limited in practice, Week 6 vs. Broncos now the more plausible return target
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season; HC Kellen Moore says Week 5 return is unlikely, Week 6-9 more plausible
     "Aaron Judge": "IL",         # MLB — right calf strain; left off both the Wild Card and ALDS rosters, Boone says "not quite ready"; eligible for the ALCS roster if the Yankees advance
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing, no resolution timeline
@@ -73,7 +74,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Justin Jefferson": "Q",     # NFL — ankle sprain; Vikings "hopeful" he plays Week 5 vs. Saints, minor sprain described as not a long-term issue
     "LJ Martin": "OUT",          # CFB — BYU RB, right ankle injury; ESPN (Thamel) reported Oct 7 he'll miss 4-6 weeks, ruling him out of the Oct 17 Notre Dame game too
     "Ja'Marr Chase": "Q",        # NFL — entered concussion protocol after a facemask hit vs. Jaguars Oct 4, ruled out rest of that game; Week 5 (@ Dolphins) clearance unconfirmed
-    "Saquon Barkley": "Q",       # NFL — hamstring injury, ruled out early in the Oct 4 game vs. Rams; Week 5 status unconfirmed
+    "Saquon Barkley": "OUT",     # NFL — hamstring injury; officially ruled out for the Week 5 (Oct 12) London game vs. Jaguars, next chance Oct 18 vs. Panthers
     "Macklin Celebrini": "Q",    # NHL — lower-body injury, late scratch vs. Stars Oct 5 after warming up; no diagnosis/timetable disclosed yet, next game Oct 8 vs. Blues
     "Aleksander Barkov": "IR",   # NHL — left knee injury vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, out 6-8 weeks, team says not season-ending
 }
