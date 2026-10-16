@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-15. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-16. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA (opens Oct 20) and CBB (opens Nov 2) are both still in
     # preseason, so only confirmed multi-week/season-opening absences are
@@ -57,7 +57,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound (May 11); still no return-to-practice announced, confirmed out for the Oct 17 Ole Miss game, Oct 31 vs. Arkansas the earliest plausible return, unconfirmed
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "IR",     # NFL — 21-day practice window opened Oct 1 (must activate by Oct 21 or stay out all year); targeting the Oct 15 Thursday-night game vs. Broncos, Week 7 also possible, coach noncommittal
+    "Zach Charbonnet": "IR",     # NFL — 21-day practice window opened Oct 1 (must activate by Oct 21 or stay out all year); confirmed OUT for the Oct 15 Thursday-night game (Macdonald: too tricky on a short week), Week 7 now the target, Emanuel Wilson leads the backfield in the meantime
     "Jordyn Tyson": "IR",        # NFL — hamstring, on IR to start season; ESPN reports he's "weeks away," Week 7 the earliest, Week 9 "more logical"
     "Aaron Judge": "IL",         # MLB — right calf strain; Yankees were swept 3-0 by the Rays in the ALDS and are eliminated, so his season is over regardless of the injury
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; holdout ongoing as of Oct 12-14 reporting, no resolution timeline
