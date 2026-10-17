@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-16. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-17. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA (opens Oct 20) and CBB (opens Nov 2) are both still in
     # preseason, so only confirmed multi-week/season-opening absences are
@@ -72,6 +72,7 @@ PLAYER_STATUS: dict[str, str] = {
     "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; ESPN (Thamel) reported Oct 7 he'll miss 4-6 weeks, ruling him out of the Oct 17 Notre Dame game too
     "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for the Week 5 London game vs. Jaguars, roughly 50/50 for Week 6 (Oct 18) vs. Panthers pending practice
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, out 6-8 weeks, team says not season-ending
+    "Ashton Jeanty": "Q",        # NFL — nagging ankle injury (since preseason) plus a newer plantar fasciitis issue; was questionable and only cleared Week 5 vs. Patriots after a pregame workout; Raiders have discussed a rest week internally but HC Kubiak publicly denied it ahead of Week 6 vs. Bills
 }
 
 
