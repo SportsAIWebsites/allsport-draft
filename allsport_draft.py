@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-17. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-18. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA (opens Oct 20) and CBB (opens Nov 2) are both still in
     # preseason, so only confirmed multi-week/season-opening absences are
@@ -45,11 +45,11 @@ PLAYER_STATUS: dict[str, str] = {
     # round (Rays vs. Guardians in the ALCS, Dodgers vs. Brewers in the
     # NLCS — Yankees swept 3-0 in the ALDS and are eliminated), World
     # Series still slated to start Oct 23.
-    "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent (Rosenhaus) says no 2026 signing expected, no real market yet despite Chiefs speculation
+    "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent (Rosenhaus) now says a signing is close/expected soon, Chiefs seen as leading suitor (Mahomes/Kelce/Jones publicly welcoming him back) targeting a November on-field return — still unsigned as of Oct 17-18, keep OUT until a deal is official
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage; first court date Nov 17, no reinstatement timeline yet, Packers bracing for the NFL to still add a suspension on top
-    "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); practicing and "in good spirits" for a possible Week 6 (Oct 18) vs. Jets return, but team has not confirmed he'll actually play
-    "Rashee Rice": "Q",          # NFL — hamstring tweaked vs. Raiders, downgraded doubtful and did not return; Chiefs then had their bye; no fresh official game-status report yet for Week 6 vs. Chargers
+    "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); eligible to return and pushing to play Week 6 vs. Jets, but Vrabel called it "up in the air" as of Oct 16-17 with some chance NE holds him to Week 7 instead — no activation confirmed yet
+    "Rashee Rice": "Q",          # NFL — hamstring tweaked vs. Raiders, downgraded doubtful and did not return; Chiefs then had their bye; DNP again Wed/Thu this week, Reid noncommittal ("we'll see") — trending doubtful for Week 6 vs. Chargers, no final designation yet
     "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured; return timeline reports diverge between Christmas and Feb 2027 (~1 year post-surgery)
@@ -67,10 +67,10 @@ PLAYER_STATUS: dict[str, str] = {
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
     "Travis Etienne Jr.": "IR",  # NFL — re-aggravated hamstring with the Saints in Week 1/2; formally placed on IR Oct 1, minimum 4 games, Week 9 (after the Week 8 bye) the likely return
     "Jaxson Dart": "IR",         # NFL — left knee surgery (MCL/PCL/meniscus) after Week 3 MNF hit vs. Rams; surgery "went well" per Harbaugh, out for the rest of the regular season, playoff return called ambitious
-    "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions; week-to-week, ruled out Week 4 vs. Bears, no fresher practice report found — re-verify before Week 6 lineups
+    "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions; has now missed two straight games (ruled out Week 4 vs. Bears, DNP again this week), in danger of missing a third straight vs. Patriots in Week 6 — re-verify before Sunday's lineups lock
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season (now with the Clippers after the Kawhi Leonard/Raptors trade — no team field in this app's data, so no change needed there)
     "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; ESPN (Thamel) reported Oct 7 he'll miss 4-6 weeks, ruling him out of the Oct 17 Notre Dame game too
-    "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for the Week 5 London game vs. Jaguars, roughly 50/50 for Week 6 (Oct 18) vs. Panthers pending practice
+    "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for the Week 5 London game vs. Jaguars; DNP Wed/Thu again this week, Sirianni "hopeful" he clears by Friday for Week 6 (Oct 18) vs. Panthers — still genuinely 50/50 pending the final practice/injury report
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, out 6-8 weeks, team says not season-ending
     "Ashton Jeanty": "Q",        # NFL — nagging ankle injury (since preseason) plus a newer plantar fasciitis issue; was questionable and only cleared Week 5 vs. Patriots after a pregame workout; Raiders have discussed a rest week internally but HC Kubiak publicly denied it ahead of Week 6 vs. Bills
 }
