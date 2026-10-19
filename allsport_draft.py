@@ -36,21 +36,23 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-18. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-19. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
-    # too. NBA (opens Oct 20) and CBB (opens Nov 2) are both still in
-    # preseason, so only confirmed multi-week/season-opening absences are
-    # tagged (as OUT/IR) for those two leagues — no Q/D until their games
-    # are live. MLB's regular season has ended; postseason is at the LCS
-    # round (Rays vs. Guardians in the ALCS, Dodgers vs. Brewers in the
-    # NLCS — Yankees swept 3-0 in the ALDS and are eliminated), World
-    # Series still slated to start Oct 23.
+    # too. NBA's 2026-27 season opens Oct 20 (tomorrow) and CBB opens
+    # Nov 2 — both still preseason as of today, so only confirmed
+    # multi-week/season-opening absences are tagged (as OUT/IR) for
+    # those two leagues — no Q/D until their games are live. MLB's
+    # regular season has ended; the Brewers swept the Dodgers 4-0 in the
+    # NLCS (their first World Series berth since 1982), while the ALCS
+    # between the Guardians and Rays is still undecided (Guardians led
+    # 2-1 entering a Game 6 on Oct 19), World Series Game 1 still slated
+    # for Oct 23 in Milwaukee.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent (Rosenhaus) now says a signing is close/expected soon, Chiefs seen as leading suitor (Mahomes/Kelce/Jones publicly welcoming him back) targeting a November on-field return — still unsigned as of Oct 17-18, keep OUT until a deal is official
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Josh Jacobs": "OUT",        # NFL — on Commissioner's Exempt List; pled no contest Sep 10 to misdemeanor battery ($1,000 fine) + deferred judgment on criminal damage; first court date Nov 17, no reinstatement timeline yet, Packers bracing for the NFL to still add a suspension on top
     "A.J. Brown": "IR",          # NFL — high ankle sprain, placed on IR Sep 11 (now with Patriots); eligible to return and pushing to play Week 6 vs. Jets, but Vrabel called it "up in the air" as of Oct 16-17 with some chance NE holds him to Week 7 instead — no activation confirmed yet
     "Rashee Rice": "Q",          # NFL — hamstring tweaked vs. Raiders, downgraded doubtful and did not return; Chiefs then had their bye; DNP again Wed/Thu this week, Reid noncommittal ("we'll see") — trending doubtful for Week 6 vs. Chargers, no final designation yet
-    "Spencer Strider": "IL",     # MLB — on 60-day IL, throwing progression resumed, 2026 return not assured
+    "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured; return timeline reports diverge between Christmas and Feb 2027 (~1 year post-surgery)
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, Texas Tech has confirmed he will play in 2026-27 but with no firm return date; won't be ready anywhere close to the start of the season
@@ -72,7 +74,6 @@ PLAYER_STATUS: dict[str, str] = {
     "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; ESPN (Thamel) reported Oct 7 he'll miss 4-6 weeks, ruling him out of the Oct 17 Notre Dame game too
     "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for the Week 5 London game vs. Jaguars; DNP Wed/Thu again this week, Sirianni "hopeful" he clears by Friday for Week 6 (Oct 18) vs. Panthers — still genuinely 50/50 pending the final practice/injury report
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, out 6-8 weeks, team says not season-ending
-    "Ashton Jeanty": "Q",        # NFL — nagging ankle injury (since preseason) plus a newer plantar fasciitis issue; was questionable and only cleared Week 5 vs. Patriots after a pregame workout; Raiders have discussed a rest week internally but HC Kubiak publicly denied it ahead of Week 6 vs. Bills
 }
 
 
