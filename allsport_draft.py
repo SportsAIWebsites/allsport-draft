@@ -56,6 +56,7 @@ PLAYER_STATUS: dict[str, str] = {
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, Texas Tech has confirmed he will play in 2026-27 but with no firm return date; won't be ready anywhere close to the start of the season
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound (May 11); still no return-to-practice announced, confirmed out for the Oct 17 Ole Miss game, Oct 31 vs. Arkansas the earliest plausible return, unconfirmed
+    "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day said he'll likely miss "several weeks," true freshman Luke Fahey starting in his absence; Buckeyes have a bye before facing USC Oct 31
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
     "Zach Charbonnet": "IR",     # NFL — PUP-opened practice window; still not activated as of the Week 6 Broncos game (Macdonald opted for a patient approach again), 21-day window closes ~Oct 22, Week 7 vs. Chiefs (Oct 25) is the next and likely activation point
     "Jordyn Tyson": "IR",        # NFL — hamstring, eligible to return from IR since Week 5 but still hasn't made his season debut; coach Moore said "not right now" on a practice return as of Oct 12, no firm timeline
