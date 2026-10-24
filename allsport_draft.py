@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-21. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-24. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA's 2026-27 season opened Oct 20, so Q/D now applies there as
     # well (no current NBA Q/D cases identified yet — only pre-existing
@@ -44,9 +44,10 @@ PLAYER_STATUS: dict[str, str] = {
     # Nov 2 (one early game Nov 1 in Rome) — still preseason, so only
     # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
     # for that league — no Q/D until games are live. MLB's regular season
-    # has ended; World Series is underway (Brewers vs. the Guardians/Rays
-    # ALCS winner), so no further MLB status changes expected barring an
-    # offseason surgery/retirement announcement.
+    # has ended; World Series is underway (Rays beat Guardians 4-2 in the
+    # ALCS, now facing the Brewers — Game 1 played Oct 23 in Milwaukee), so
+    # no further MLB status changes expected barring an offseason surgery/
+    # retirement announcement.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent (Rosenhaus) says a signing is close, Chiefs seen as leading suitor — still unsigned as of Oct 21, keep OUT until a deal is official
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Rashee Rice": "OUT",        # NFL — hamstring, ruled out for Week 6 vs. Chargers (Oct 18); Reid optimistic on a short absence ("could be a week, could be two") but still not practicing and no Week 7 clearance yet, so OUT (upgraded from Q) rather than a game-day questionable
@@ -56,7 +57,7 @@ PLAYER_STATUS: dict[str, str] = {
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, Texas Tech has confirmed he will play in 2026-27 but with no firm return date; won't be ready anywhere close to the start of the season
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound (May 11); still no return-to-practice announced, confirmed out for the Oct 17 Ole Miss game, Oct 31 vs. Arkansas the earliest plausible return, unconfirmed
-    "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day said he'll likely miss "several weeks," true freshman Luke Fahey starting in his absence; Buckeyes have a bye before facing USC Oct 31
+    "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day updated (Oct 21) his earlier "several weeks" language to "out indefinitely," not ruling out missing the rest of the season incl. postseason; true freshman Luke Fahey (with Tavien St. Clair also in the mix) starting in his absence heading into the Oct 31 USC game
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
     "Zach Charbonnet": "IR",     # NFL — PUP-opened practice window; still not activated as of the Week 6 Broncos game (Macdonald opted for a patient approach again), 21-day window closes ~Oct 22, Week 7 vs. Chiefs (Oct 25) is the next and likely activation point
     "Jordyn Tyson": "IR",        # NFL — hamstring, eligible to return from IR since Week 5 but still hasn't made his season debut; coach Moore said "not right now" on a practice return as of Oct 12, no firm timeline
