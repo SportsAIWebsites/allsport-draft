@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-24. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-27. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA's 2026-27 season opened Oct 20, so Q/D now applies there as
     # well (no current NBA Q/D cases identified yet — only pre-existing
@@ -59,7 +59,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound (May 11); still no return-to-practice announced, confirmed out for the Oct 17 Ole Miss game, Oct 31 vs. Arkansas the earliest plausible return, unconfirmed
     "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day updated (Oct 21) his earlier "several weeks" language to "out indefinitely," not ruling out missing the rest of the season incl. postseason; true freshman Luke Fahey (with Tavien St. Clair also in the mix) starting in his absence heading into the Oct 31 USC game
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "IR",     # NFL — PUP-opened practice window; still not activated as of the Week 6 Broncos game (Macdonald opted for a patient approach again), 21-day window closes ~Oct 22, Week 7 vs. Chiefs (Oct 25) is the next and likely activation point
+    "Zach Charbonnet": "OUT",    # NFL — activated off PUP/IR Oct 22, but Seahawks ruled him out for the Week 7 SNF game vs. Chiefs (Oct 25) after earlier optimism; off reserve now, just not playing yet — re-verify before Week 8 lineups lock
     "Jordyn Tyson": "IR",        # NFL — hamstring, eligible to return from IR since Week 5 but still hasn't made his season debut; coach Moore said "not right now" on a practice return as of Oct 12, no firm timeline
     "Aaron Judge": "IL",         # MLB — right calf strain; Yankees were swept 3-0 by the Rays in the ALDS and are eliminated, so his season is over regardless of the injury
     "Connor Hellebuyck": "OUT",  # NHL — suspended by Jets for failing to report to training camp amid a public trade request; suspension reportedly expiring around Oct 23 but the holdout itself unresolved, Kings/Sabres/Hurricanes/Mammoth mentioned as possible trade fits, no deal yet
