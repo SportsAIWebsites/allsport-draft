@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-28. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-29. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA's 2026-27 season opened Oct 20, so Q/D now applies there as
     # well (no current NBA Q/D cases identified yet — only pre-existing
@@ -73,7 +73,9 @@ PLAYER_STATUS: dict[str, str] = {
     "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for Week 6 vs. Panthers (Oct 16-17 reports) after missing the full practice week, backfield to Pierce/Steele/Blue — re-verify before Week 7 lineups lock
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, 6-8 week window (Maurice) puts a realistic return around mid/late Nov, team says not season-ending
     "Nick Suzuki": "OUT",        # NHL — Canadiens captain, left hand/upper-body injury blocking a shot vs. Sharks Oct 20; team announced Oct 22 he's out 2-4 weeks, ending his 546-game ironman streak
-    "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8
+    "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8/9
+    "Anthony Edwards": "OUT",    # NBA — Timberwolves, right knee arthroscopic "cleanup" procedure (not a meniscus tear per reports); ruled out this week, team says could miss up to two months, Connelly doesn't currently believe it costs him the rest of the season
+    "Tyrese Haliburton": "OUT",  # NBA — Pacers, left hamstring strain suffered four games into his return from last season's Achilles tear; Carlisle calls it mild but ruled him week-to-week with no return before a re-eval in ~2 weeks (~Nov 11)
 }
 
 
