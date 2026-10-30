@@ -36,46 +36,47 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-29. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-30. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA's 2026-27 season opened Oct 20, so Q/D now applies there as
     # well (no current NBA Q/D cases identified yet — only pre-existing
     # season-opening IR/OUT absences below). CBB's full opening day is
-    # Nov 2 (one early game Nov 1 in Rome) — still preseason, so only
-    # confirmed multi-week/season-opening absences are tagged (as OUT/IR)
-    # for that league — no Q/D until games are live. MLB's regular season
-    # has ended; World Series is underway (Brewers lead the Rays 2-0 after
-    # Games 1-2 in Milwaukee; Games 3-4 played in Tampa Oct 26-27), so
-    # no further MLB status changes expected barring an offseason surgery/
-    # retirement announcement.
+    # still Nov 2 (one early game Nov 1 in Rome) as of this check — still
+    # preseason, so only confirmed multi-week/season-opening absences are
+    # tagged (as OUT/IR) for that league — no Q/D until games are live.
+    # MLB's regular season has ended and the World Series was still in
+    # progress as of this check, so no further MLB status changes expected
+    # barring an offseason surgery/retirement announcement.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent (Rosenhaus) says a signing is close, Chiefs seen as leading suitor — still unsigned as of Oct 25, keep OUT until a deal is official
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
-    "Rashee Rice": "OUT",        # NFL — hamstring/knee; hasn't practiced since Week 4, inactive Week 6 and Week 7 (SNF vs. Seahawks), status TBD for Week 8 vs. Broncos
+    "Rashee Rice": "OUT",        # NFL — hamstring (not knee); hasn't practiced since Week 4, inactive Week 6 and Week 7 (SNF vs. Seahawks), status TBD for Week 8 vs. Broncos
     "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
     "Nick Kurtz": "IL",          # MLB — 60-day IL for chronic thumb tear (PRP injection Aug 4), done for 2026
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured; return timeline reports diverge between Christmas and Feb 2027 (~1 year post-surgery)
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, Texas Tech has confirmed he will play in 2026-27 but with no firm return date; won't be ready anywhere close to the start of the season
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
-    "Ahmad Hardy": "OUT",        # CFB — recovering from a gunshot wound (May 11); still no return-to-practice announced, confirmed out for the Oct 17 Ole Miss game, Oct 31 vs. Arkansas the earliest plausible return, unconfirmed
+    "Ahmad Hardy": "OUT",        # CFB — Missouri RB recovering from a gunshot wound (May 11); Drinkwitz confirmed (~Oct 25) he's cleared to return to practice, but no decision yet on game availability vs. Arkansas (Oct 31) — re-verify before that lineup locks
     "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day updated (Oct 21) his earlier "several weeks" language to "out indefinitely," not ruling out missing the rest of the season incl. postseason; true freshman Luke Fahey (with Tavien St. Clair also in the mix) starting in his absence heading into the Oct 31 USC game
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Zach Charbonnet": "OUT",    # NFL — activated off PUP/IR Oct 22, but Seahawks ruled him out for the Week 7 SNF game vs. Chiefs (Oct 25) after a full practice week; next game is Week 8 MNF vs. Bears (Nov 2) — re-verify before that lineup locks
+    "Zach Charbonnet": "OUT",    # NFL — activated off PUP/IR Oct 22, but Seahawks ruled him out for the Week 7 SNF game vs. Chiefs (Oct 25); GM "hopeful" for the Week 8 MNF game vs. Bears (Nov 2) but not yet confirmed active — re-verify before that lineup locks
     "Jordyn Tyson": "IR",        # NFL — hamstring, eligible to return from IR since Week 5 but still hasn't made his season debut; still hadn't practiced as of Oct 21, team now targeting a Week 9 return (after the Week 8 bye)
     "Aaron Judge": "IL",         # MLB — right calf strain; Yankees were swept 3-0 by the Rays in the ALDS and are eliminated, so his season is over regardless of the injury
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
-    "Dante Moore": "OUT",        # CFB — Oregon QB, targeting-hit concussion vs. USC (Sep 26); has now missed three straight games (UCLA, Nebraska, Illinois) in concussion recovery, Raiola/Thomas trading reps/starts in his absence, no official clearance yet
+    "Dante Moore": "OUT",        # CFB — Oregon QB, targeting-hit concussion vs. USC (Sep 26); Dan Lanning confirmed (~Oct 26-27) he will not return this season, now a scout-team QB; Raiola/Thomas splitting starts in his absence
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
     "Travis Etienne Jr.": "IR",  # NFL — re-aggravated hamstring with the Saints in Week 1/2; formally placed on IR Oct 1, minimum 4 games, Week 9 (after the Week 8 bye) the likely return
     "Jaxson Dart": "IR",         # NFL — left knee surgery (MCL/PCL/meniscus) after Week 3 MNF hit vs. Rams; surgery "went well" per Harbaugh, out for the rest of the regular season, playoff return called ambitious
-    "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions; has now missed four straight games (not on IR), trending toward a Week 8 return per Oct 27 reports — re-verify before Week 8 lineups lock
+    "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions, plus a minor Week 7 knee tweak layered on top (not on IR); coach Aaron Glenn and Rapoport both expect him to play Week 8 vs. Bengals, but not yet confirmed active — re-verify before that lineup locks
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season (now with the Clippers after the Kawhi Leonard/Raptors trade — no team field in this app's data, so no change needed there); Clippers' opener is Oct 21 vs. Kings, no activation confirmed
     "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; missed the Oct 17 Notre Dame game as expected (4-6 week timeline from Oct 7), no return confirmed yet
-    "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for Week 6 vs. Panthers (Oct 16-17 reports) after missing the full practice week, backfield to Pierce/Steele/Blue — re-verify before Week 7 lineups lock
+    "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for Week 6 vs. Panthers (Oct 16-17 reports), backfield to Pierce/Steele/Blue in his absence; current-week status not independently confirmable as of this check — re-verify against the Eagles' official injury report before any lineup locks
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, 6-8 week window (Maurice) puts a realistic return around mid/late Nov, team says not season-ending
     "Nick Suzuki": "OUT",        # NHL — Canadiens captain, left hand/upper-body injury blocking a shot vs. Sharks Oct 20; team announced Oct 22 he's out 2-4 weeks, ending his 546-game ironman streak
     "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8/9
     "Anthony Edwards": "OUT",    # NBA — Timberwolves, right knee arthroscopic "cleanup" procedure (not a meniscus tear per reports); ruled out this week, team says could miss up to two months, Connelly doesn't currently believe it costs him the rest of the season
     "Tyrese Haliburton": "OUT",  # NBA — Pacers, left hamstring strain suffered four games into his return from last season's Achilles tear; Carlisle calls it mild but ruled him week-to-week with no return before a re-eval in ~2 weeks (~Nov 11)
+    "Kewan Lacy": "OUT",          # CFB — Ole Miss RB, dislocated (left) shoulder vs. Texas (Oct 25); Pete Golding ruled him out for the Oct 31 Auburn game, no timetable beyond that, further MRI/evaluation ongoing
+    "Kawhi Leonard": "OUT",       # NBA — Clippers, left knee swelling; sidelined since ~Oct 25-26, team has him in a treatment/rehab program with a re-eval in ~1 week, MRI showed no structural damage, Shams reports he could miss "a period of weeks"
 }
 
 
