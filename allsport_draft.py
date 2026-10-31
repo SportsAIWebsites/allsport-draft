@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-30. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-10-31. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA's 2026-27 season opened Oct 20, so Q/D now applies there as
     # well (no current NBA Q/D cases identified yet — only pre-existing
@@ -44,9 +44,9 @@ PLAYER_STATUS: dict[str, str] = {
     # still Nov 2 (one early game Nov 1 in Rome) as of this check — still
     # preseason, so only confirmed multi-week/season-opening absences are
     # tagged (as OUT/IR) for that league — no Q/D until games are live.
-    # MLB's regular season has ended and the World Series was still in
-    # progress as of this check, so no further MLB status changes expected
-    # barring an offseason surgery/retirement announcement.
+    # MLB's World Series has concluded (Brewers beat Rays 4-1, clinched
+    # Game 5 on Oct 28), so no further MLB status changes expected barring
+    # an offseason surgery/retirement announcement.
     "Tyreek Hill": "OUT",        # NFL — unsigned FA recovering from knee reconstruction; agent (Rosenhaus) says a signing is close, Chiefs seen as leading suitor — still unsigned as of Oct 25, keep OUT until a deal is official
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Rashee Rice": "OUT",        # NFL — hamstring (not knee); hasn't practiced since Week 4, inactive Week 6 and Week 7 (SNF vs. Seahawks), status TBD for Week 8 vs. Broncos
