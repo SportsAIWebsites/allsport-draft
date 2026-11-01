@@ -36,7 +36,7 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-10-31. NFL and CFB Q/D tags are valid (both in-season).
+    # Updated 2026-11-01. NFL and CFB Q/D tags are valid (both in-season).
     # NHL's 2026-27 season (opened Sep 29) is live, so Q/D applies there
     # too. NBA's 2026-27 season opened Oct 20, so Q/D now applies there as
     # well (no current NBA Q/D cases identified yet — only pre-existing
@@ -69,7 +69,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Breece Hall": "OUT",        # NFL — quad injury suffered Week 3 vs. Lions, plus a minor Week 7 knee tweak layered on top (not on IR); coach Aaron Glenn and Rapoport both expect him to play Week 8 vs. Bengals, but not yet confirmed active — re-verify before that lineup locks
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season (now with the Clippers after the Kawhi Leonard/Raptors trade — no team field in this app's data, so no change needed there); Clippers' opener is Oct 21 vs. Kings, no activation confirmed
     "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; missed the Oct 17 Notre Dame game as expected (4-6 week timeline from Oct 7), no return confirmed yet
-    "Saquon Barkley": "OUT",     # NFL — hamstring injury (week-to-week, not on IR); ruled out for Week 6 vs. Panthers (Oct 16-17 reports), backfield to Pierce/Steele/Blue in his absence; current-week status not independently confirmable as of this check — re-verify against the Eagles' official injury report before any lineup locks
+    "Saquon Barkley": "Q",       # NFL — hamstring injury (week-to-week, not on IR); was questionable but active for the Week 7 MNF game vs. Cowboys (Oct 26), played through it (visibly hobbled); downgraded from the stale Week 6 OUT tag — re-verify current-week status against the Eagles' official injury report before any lineup locks
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, 6-8 week window (Maurice) puts a realistic return around mid/late Nov, team says not season-ending
     "Nick Suzuki": "OUT",        # NHL — Canadiens captain, left hand/upper-body injury blocking a shot vs. Sharks Oct 20; team announced Oct 22 he's out 2-4 weeks, ending his 546-game ironman streak
     "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8/9
