@@ -36,16 +36,14 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-11-04. NFL, CFB, NHL, NBA, and CBB seasons are all live,
-    # so Q/D tags are valid for all five; MLB is in its offseason (World
-    # Series concluded Oct 28), so no MLB Q/D. Tonight's re-verify cleared
-    # three NFL players who played Week 8 with no injury designation
-    # (Rashee Rice, Saquon Barkley, Zach Charbonnet — tags removed) and
-    # downgraded two from OUT to Q where reporting is more "likely active,
-    # role/snaps uncertain" than "ruled out" (Breece Hall, Ahmad Hardy).
-    # Also fixed a stale PLAYER_TEAM entry: Kawhi Leonard and Brandon
-    # Ingram were swapped (pre-dated their Sept 15 trade); corrected to
-    # Leonard-TOR / Ingram-LAC.
+    # Updated 2026-11-05. NFL, CFB, NHL, NBA, and CBB seasons are all live,
+    # so Q/D tags are valid for all five; MLB is in its offseason, so no
+    # MLB Q/D. Re-verified all 27 existing tags tonight plus a top-20/30
+    # spot check per sport — no tag changes or pool removals found;
+    # everyone currently tagged is still out/questionable per the same
+    # situations as last night. Only two notes refreshed for accuracy:
+    # Ahmad Hardy's debut is now confirmed (he played a limited role vs.
+    # Arkansas), and Kawhi Leonard has begun his return-to-play ramp-up.
     "Tyreek Hill": "OUT",         # NFL — unsigned FA recovering from knee reconstruction; Chiefs reunion reportedly "looks dead" as of ~Nov 3 (team has moved on, DV-verdict liability baggage scaring off suitors), still no team imminent — keep OUT until signed
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
@@ -53,7 +51,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Jimmy Butler": "IR",        # NBA — torn ACL, will open 2026-27 season injured; return timeline reports diverge between Christmas and Feb 2027 (~1 year post-surgery)
     "JT Toppin": "OUT",          # CBB — ACL tear Feb 2026, Texas Tech has confirmed he will play in 2026-27 but with no firm return date; won't be ready anywhere close to the start of the season
     "Donnie Freeman": "OUT",     # CBB — ruptured Achilles (offseason workout), out for 2026-27 season
-    "Ahmad Hardy": "Q",          # CFB — Missouri RB recovering from a gunshot wound (May 11); ESPN's Pete Thamel (Oct 29) reported Hardy cleared and expected to make his season debut vs. Arkansas (Oct 31) in a limited role; downgraded from OUT since he's active, just on a managed workload — bullet is still lodged near his femur, ongoing situation worth rechecking
+    "Ahmad Hardy": "Q",          # CFB — Missouri RB recovering from a gunshot wound (May 11); made his confirmed season debut vs. Arkansas (Oct 31) with 3 carries for 42 yards, still a clearly limited/backup role behind Jamal Roberts — bullet is still lodged near his femur, keep as Q while workload remains managed
     "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day updated (Oct 21) his earlier "several weeks" language to "out indefinitely," not ruling out missing the rest of the season incl. postseason; true freshman Luke Fahey (with Tavien St. Clair also in the mix) starting in his absence heading into the Oct 31 USC game
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
     "Jordyn Tyson": "IR",        # NFL — hamstring, eligible to return from IR since Week 5 but still hasn't made his season debut; still hadn't practiced as of Oct 21, team now targeting a Week 9 return (after the Week 8 bye)
@@ -72,7 +70,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Anthony Edwards": "OUT",    # NBA — Timberwolves, right knee arthroscopic "cleanup" procedure (not a meniscus tear per reports); ruled out this week, team says could miss up to two months, Connelly doesn't currently believe it costs him the rest of the season
     "Tyrese Haliburton": "OUT",  # NBA — Pacers, left hamstring strain suffered four games into his return from last season's Achilles tear; Carlisle calls it mild but ruled him week-to-week with no return before a re-eval in ~2 weeks (~Nov 11)
     "Kewan Lacy": "OUT",          # CFB — Ole Miss RB, dislocated (left) shoulder vs. Texas (Oct 25); missed the Oct 31 Auburn game as expected (Ole Miss won 45-15 behind Trinidad Chambliss), no new timetable given — status for the Nov 7 Georgia game unannounced, re-verify then
-    "Kawhi Leonard": "OUT",       # NBA — now with the Raptors (Sept 15 trade for Brandon Ingram, PLAYER_TEAM corrected to TOR), left knee swelling; sidelined since ~Oct 25-26, team has him in a treatment/rehab program with a re-eval in ~1 week, MRI showed no structural damage, Shams reports he could miss "a period of weeks"
+    "Kawhi Leonard": "OUT",       # NBA — now with the Raptors (Sept 15 trade for Brandon Ingram, PLAYER_TEAM corrected to TOR), left knee swelling since ~Oct 25-26; team announced (Nov 3) he's completed treatment and begun the formal return-to-play ramp-up, earliest possible return Nov 11 vs. Boston, no official return date yet
 }
 
 
