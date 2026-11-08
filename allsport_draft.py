@@ -36,14 +36,18 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-11-05. NFL, CFB, NHL, NBA, and CBB seasons are all live,
-    # so Q/D tags are valid for all five; MLB is in its offseason, so no
-    # MLB Q/D. Re-verified all 27 existing tags tonight plus a top-20/30
-    # spot check per sport — no tag changes or pool removals found;
-    # everyone currently tagged is still out/questionable per the same
-    # situations as last night. Only two notes refreshed for accuracy:
-    # Ahmad Hardy's debut is now confirmed (he played a limited role vs.
-    # Arkansas), and Kawhi Leonard has begun his return-to-play ramp-up.
+    # Updated 2026-11-08. NFL, CFB, NHL, NBA, and CBB seasons are all live
+    # (CBB tipped off Nov 1-2), so Q/D tags are valid for all five; MLB is
+    # in its offseason (GM meetings Nov 10-12), so no MLB Q/D. Re-verified
+    # all 27 existing tags tonight plus a top-25/30 spot check per sport
+    # across all six leagues — one change found: Nick Suzuki (NHL) was
+    # activated and returned to the Canadiens' lineup Nov 5, so his OUT
+    # tag is cleared. Every other tag is re-confirmed accurate as of
+    # tonight; no pool removals. Two situations are still mid-resolution
+    # and should be re-checked next run rather than guessed at: Jordyn
+    # Tyson / Travis Etienne Jr.'s Week 9 game (today, Nov 8) hadn't been
+    # played yet as of this check, and LJ Martin / Kewan Lacy's Nov 7
+    # game results weren't yet indexed by search.
     "Tyreek Hill": "OUT",         # NFL — unsigned FA recovering from knee reconstruction; Chiefs reunion reportedly "looks dead" as of ~Nov 3 (team has moved on, DV-verdict liability baggage scaring off suitors), still no team imminent — keep OUT until signed
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
@@ -65,7 +69,6 @@ PLAYER_STATUS: dict[str, str] = {
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season; now with the Clippers after the Sept 15 Kawhi Leonard/Raptors trade — PLAYER_TEAM corrected to LAC
     "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; missed the Oct 17 Notre Dame game as expected (4-6 week timeline from Oct 7); as of Oct 29 still hasn't practiced but team voiced optimism for BYU's Nov 7 Utah game — re-verify then
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, window estimates range 6-12 weeks (reports vary), realistic return mid/late Nov to early Jan, team says not season-ending
-    "Nick Suzuki": "OUT",        # NHL — Canadiens captain, left hand/upper-body injury blocking a shot vs. Sharks Oct 20; team announced Oct 22 he's out 2-4 weeks, ending his 546-game ironman streak
     "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8/9
     "Anthony Edwards": "OUT",    # NBA — Timberwolves, right knee arthroscopic "cleanup" procedure (not a meniscus tear per reports); ruled out this week, team says could miss up to two months, Connelly doesn't currently believe it costs him the rest of the season
     "Tyrese Haliburton": "OUT",  # NBA — Pacers, left hamstring strain suffered four games into his return from last season's Achilles tear; Carlisle calls it mild but ruled him week-to-week with no return before a re-eval in ~2 weeks (~Nov 11)
