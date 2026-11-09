@@ -36,18 +36,25 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-11-08. NFL, CFB, NHL, NBA, and CBB seasons are all live
-    # (CBB tipped off Nov 1-2), so Q/D tags are valid for all five; MLB is
-    # in its offseason (GM meetings Nov 10-12), so no MLB Q/D. Re-verified
-    # all 27 existing tags tonight plus a top-25/30 spot check per sport
-    # across all six leagues — one change found: Nick Suzuki (NHL) was
-    # activated and returned to the Canadiens' lineup Nov 5, so his OUT
-    # tag is cleared. Every other tag is re-confirmed accurate as of
-    # tonight; no pool removals. Two situations are still mid-resolution
-    # and should be re-checked next run rather than guessed at: Jordyn
-    # Tyson / Travis Etienne Jr.'s Week 9 game (today, Nov 8) hadn't been
-    # played yet as of this check, and LJ Martin / Kewan Lacy's Nov 7
-    # game results weren't yet indexed by search.
+    # Updated 2026-11-09. NFL, CFB, NHL, NBA, and CBB seasons are all live,
+    # so Q/D tags are valid for all five; MLB is in its offseason (GM
+    # meetings Nov 10-12), so no MLB Q/D. Re-verified all 26 existing tags
+    # tonight plus a top-25/30 spot check per sport across all six
+    # leagues. Changes found: LJ Martin (CFB) played a limited role in
+    # BYU's Nov 7 loss to Utah (7 car/19 yds/1 TD, 1 rec/5 yds), so he's
+    # downgraded from OUT to Q rather than cleared outright; three new CFB
+    # tags added from breaking news this week — Duce Robinson (FSU WR,
+    # torn ACL, season-ending surgery), Avery Johnson (Kansas State QB,
+    # shoulder/neck injury, coach says return is "probably longer than
+    # not" this season), and Malachi Toney (Miami WR, high ankle sprain,
+    # needs surgery, team said he'd miss the Nov 7 Notre Dame game and
+    # multiple games after). Everything else re-confirmed accurate as of
+    # tonight; no pool removals found. Two items still mid-resolution,
+    # re-check next run rather than guess: Jordyn Tyson / Travis Etienne
+    # Jr.'s (NFL) actual Week 9 activation/snap counts weren't confirmable
+    # via search yet, and Jalen Duren (NBA) / Kawhi Leonard's (NBA)
+    # imminent re-eval/return decisions hadn't been announced as of this
+    # check.
     "Tyreek Hill": "OUT",         # NFL — unsigned FA recovering from knee reconstruction; Chiefs reunion reportedly "looks dead" as of ~Nov 3 (team has moved on, DV-verdict liability baggage scaring off suitors), still no team imminent — keep OUT until signed
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
@@ -67,7 +74,10 @@ PLAYER_STATUS: dict[str, str] = {
     "Jaxson Dart": "IR",         # NFL — left knee surgery (MCL/PCL/meniscus) after Week 3 MNF hit vs. Rams; surgery "went well" per Harbaugh, out for the rest of the regular season, playoff return called ambitious
     "Breece Hall": "Q",          # NFL — quad injury (Week 3 vs. Lions) plus a minor Week 7 knee tweak layered on top (not on IR); sources disagree on Week 9 availability (Rapoport says good to go, other Nov 3 reporting lists him TBD with the Jets "hoping"), downgraded from OUT since he's trending toward playing, not ruled out — re-verify before lineup locks
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season; now with the Clippers after the Sept 15 Kawhi Leonard/Raptors trade — PLAYER_TEAM corrected to LAC
-    "LJ Martin": "OUT",          # CFB — BYU RB, lower-body/ankle injury; missed the Oct 17 Notre Dame game as expected (4-6 week timeline from Oct 7); as of Oct 29 still hasn't practiced but team voiced optimism for BYU's Nov 7 Utah game — re-verify then
+    "LJ Martin": "Q",             # CFB — BYU RB, returned from a lower-body/ankle injury Nov 7 vs. Utah but in a clearly limited role (7 carries/19 yards/1 TD, 1 catch/5 yards in a 28-20 loss) — not yet back to full workload, keep as Q
+    "Duce Robinson": "OUT",       # CFB — Florida State WR, torn ACL in the Nov 1 loss to Clemson; AP source says season-ending knee surgery, out for the rest of 2026
+    "Avery Johnson": "OUT",       # CFB — Kansas State QB, neck/shoulder injury, has missed 2 straight games (Weeks 8-9); coach Collin Klein said (Nov 3) a return is "probably looking longer than not" with only an "outside chance" of playing again in 2026
+    "Malachi Toney": "OUT",       # CFB — Miami WR, high ankle sprain suffered in practice Nov 4, scheduled for surgery (TightRope procedure); team/AP source said he'd miss the Nov 7 Notre Dame game and multiple games after, ~4-6 week timeline, possible return by the CFP
     "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, window estimates range 6-12 weeks (reports vary), realistic return mid/late Nov to early Jan, team says not season-ending
     "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8/9
     "Anthony Edwards": "OUT",    # NBA — Timberwolves, right knee arthroscopic "cleanup" procedure (not a meniscus tear per reports); ruled out this week, team says could miss up to two months, Connelly doesn't currently believe it costs him the rest of the season
