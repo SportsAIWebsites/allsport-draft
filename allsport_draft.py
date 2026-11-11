@@ -36,26 +36,23 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-11-10. NFL, CFB, NHL, NBA, and CBB seasons are all live,
+    # Updated 2026-11-11. NFL, CFB, NHL, NBA, and CBB seasons are all live,
     # so Q/D tags are valid for all five; MLB is in its offseason, so no
-    # MLB Q/D. Re-verified all 29 existing tags tonight plus a top-25/30
-    # spot check per sport across all six leagues. Changes found: Paolo
-    # Banchero (NBA) added as OUT — low-grade right high ankle sprain
-    # suffered vs. Timberwolves (~Oct 24-25), Shams Charania reported a
-    # multi-week absence (typical 4-6 week timeline), no return date or
-    # activation found yet. Aaron Judge (MLB) cleared — his IL tag was
-    # carried over from a late-season calf strain, but the MLB season
-    # (World Series included) has now fully concluded for every team and
-    # the Yankees expect him fully healthy by spring training with no
-    # procedure needed, so the tag no longer reflects anything
-    # draft-relevant going forward. Everything else re-confirmed accurate
-    # as of tonight; no pool removals found. Several items still
-    # mid-resolution, re-check next run rather than guess: Jordyn Tyson /
-    # Travis Etienne Jr.'s (NFL) Week 10 activation, Breece Hall's (NFL)
-    # current Week 10 report, Jalen Duren / Anthony Edwards / Tyrese
-    # Haliburton / Kawhi Leonard's (NBA) re-eval/return decisions, and
-    # Kewan Lacy's (CFB) status for the Nov 7 Georgia game weren't
-    # confirmable via search tonight.
+    # MLB Q/D. Re-verified all existing tags tonight plus a top-20/30 spot
+    # check per sport across all six leagues. Changes found: Jordyn Tyson
+    # (NFL) cleared — activated off IR Nov 7 and made his NFL debut Week 9
+    # vs. the Browns (Nov 9), no longer injured. Chet Holmgren (NBA) added
+    # as OUT — Thunder announced (Oct 30-31) a small patellar tendon tear
+    # in his right knee, treated biologically rather than surgically,
+    # 8-10 week timeline (into 2027), missed in the prior top-28 spot
+    # check. Everything else re-confirmed accurate or left unchanged on
+    # insufficient confidence as of tonight; no pool removals found.
+    # Still mid-resolution, re-check next run rather than guess: Travis
+    # Etienne Jr.'s (NFL) actual Week 9/10 return, Breece Hall's (NFL)
+    # current week-to-week status, Jalen Duren / Kawhi Leonard's (NBA)
+    # actual return-to-play dates, and Kewan Lacy's (CFB) status for the
+    # Nov 7 Georgia game (Ole Miss lost 42-7, no explicit injury-report
+    # confirmation found either way).
     "Tyreek Hill": "OUT",         # NFL — unsigned FA recovering from knee reconstruction; Chiefs reunion reportedly "looks dead" as of ~Nov 3 (team has moved on, DV-verdict liability baggage scaring off suitors), still no team imminent — keep OUT until signed
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
@@ -66,7 +63,6 @@ PLAYER_STATUS: dict[str, str] = {
     "Ahmad Hardy": "Q",          # CFB — Missouri RB recovering from a gunshot wound (May 11); made his confirmed season debut vs. Arkansas (Oct 31) with 3 carries for 42 yards, still a clearly limited/backup role behind Jamal Roberts — bullet is still lodged near his femur, keep as Q while workload remains managed
     "Julian Sayin": "OUT",       # CFB — Ohio State QB, right shoulder injury vs. Indiana (Oct 17) on a hit from Mario Landino; Ryan Day updated (Oct 21) his earlier "several weeks" language to "out indefinitely," not ruling out missing the rest of the season incl. postseason; true freshman Luke Fahey (with Tavien St. Clair also in the mix) starting in his absence heading into the Oct 31 USC game
     "Ricky Pearsall": "IR",      # NFL — PCL surgery, out for the season
-    "Jordyn Tyson": "IR",        # NFL — hamstring, eligible to return from IR since Week 5 but still hasn't made his season debut; still hadn't practiced as of Oct 21, team now targeting a Week 9 return (after the Week 8 bye)
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
     "Dante Moore": "OUT",        # CFB — Oregon QB, targeting-hit concussion vs. USC (Sep 26); Dan Lanning confirmed (~Oct 26-27) he will not return this season, now a scout-team QB; Raiola/Thomas splitting starts in his absence
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
@@ -85,6 +81,7 @@ PLAYER_STATUS: dict[str, str] = {
     "Kewan Lacy": "OUT",          # CFB — Ole Miss RB, dislocated (left) shoulder vs. Texas (Oct 25); missed the Oct 31 Auburn game as expected (Ole Miss won 45-15 behind Trinidad Chambliss), no new timetable given — status for the Nov 7 Georgia game unannounced, re-verify then
     "Kawhi Leonard": "OUT",       # NBA — now with the Raptors (Sept 15 trade for Brandon Ingram, PLAYER_TEAM corrected to TOR), left knee swelling since ~Oct 25-26; team announced (Nov 3) he's completed treatment and begun the formal return-to-play ramp-up, earliest possible return Nov 11 vs. Boston, no official return date yet
     "Paolo Banchero": "OUT",      # NBA — Magic, low-grade right high ankle sprain suffered vs. Timberwolves ~Oct 24-25; Shams Charania reported a multi-week absence (typical 4-6 week high-ankle-sprain timeline, which would put a return in late Nov), no team return date or activation confirmed as of tonight
+    "Chet Holmgren": "OUT",       # NBA — Thunder, small patellar tendon tear in his right knee first felt ~Oct 25 vs. Suns; team opted for biological treatment over surgery (announced Oct 30-31), 8-10 week timeline that runs into 2027
 }
 
 
