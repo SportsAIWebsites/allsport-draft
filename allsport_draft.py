@@ -36,23 +36,23 @@ COLLEGE_SPORTS = {"CBB", "CFB"}
 # players who have left their league entirely are removed from the
 # relevant *_RAW list instead of tagged here.
 PLAYER_STATUS: dict[str, str] = {
-    # Updated 2026-11-11. NFL, CFB, NHL, NBA, and CBB seasons are all live,
+    # Updated 2026-11-12. NFL, CFB, NHL, NBA, and CBB seasons are all live,
     # so Q/D tags are valid for all five; MLB is in its offseason, so no
     # MLB Q/D. Re-verified all existing tags tonight plus a top-20/30 spot
-    # check per sport across all six leagues. Changes found: Jordyn Tyson
-    # (NFL) cleared — activated off IR Nov 7 and made his NFL debut Week 9
-    # vs. the Browns (Nov 9), no longer injured. Chet Holmgren (NBA) added
-    # as OUT — Thunder announced (Oct 30-31) a small patellar tendon tear
-    # in his right knee, treated biologically rather than surgically,
-    # 8-10 week timeline (into 2027), missed in the prior top-28 spot
-    # check. Everything else re-confirmed accurate or left unchanged on
+    # check per sport across all six leagues. Changes found: Travis
+    # Etienne Jr. (NFL) cleared — confirmed he played a full workload in
+    # Week 9 (22 carries/84 yards, 5 catches/31 yards in the Saints' OT
+    # win over the Raiders), resolving last night's open question. Breece
+    # Hall (NFL) cleared — official Jets recap confirms he returned Week 9
+    # (Nov 8 @ Chiefs, 87 scrimmage yards), ending his 5-game absence.
+    # Everything else re-confirmed accurate or left unchanged on
     # insufficient confidence as of tonight; no pool removals found.
-    # Still mid-resolution, re-check next run rather than guess: Travis
-    # Etienne Jr.'s (NFL) actual Week 9/10 return, Breece Hall's (NFL)
-    # current week-to-week status, Jalen Duren / Kawhi Leonard's (NBA)
-    # actual return-to-play dates, and Kewan Lacy's (CFB) status for the
-    # Nov 7 Georgia game (Ole Miss lost 42-7, no explicit injury-report
-    # confirmation found either way).
+    # Still mid-resolution, re-check next run rather than guess: Kawhi
+    # Leonard's (NBA) actual return date (debuted for Toronto earlier this
+    # season before the late-Oct knee swelling, but couldn't confirm
+    # whether he played the Nov 11 game vs. Boston), Tyrese Haliburton's
+    # (NBA) and Anthony Edwards' (NBA) current week-to-week timelines, and
+    # Ahmad Hardy's (CFB) workload trend as Missouri's season progresses.
     "Tyreek Hill": "OUT",         # NFL — unsigned FA recovering from knee reconstruction; Chiefs reunion reportedly "looks dead" as of ~Nov 3 (team has moved on, DV-verdict liability baggage scaring off suitors), still no team imminent — keep OUT until signed
     "Jayden Higgins": "IR",      # NFL — torn ACL, out for the season
     "Spencer Strider": "IL",     # MLB — right elbow inflammation since June, hasn't pitched since, locker reportedly cleared out at end of the Braves' season; no indication of a 2026 return
@@ -66,19 +66,17 @@ PLAYER_STATUS: dict[str, str] = {
     "Shaedon Sharpe": "IR",      # NBA — torn (lateral) meniscus in right knee, surgery late Aug 2026; ruled out ~6 months, targeting a late Feb/early Mar 2027 return, will miss start of 2026-27 season
     "Dante Moore": "OUT",        # CFB — Oregon QB, targeting-hit concussion vs. USC (Sep 26); Dan Lanning confirmed (~Oct 26-27) he will not return this season, now a scout-team QB; Raiola/Thomas splitting starts in his absence
     "De'Von Achane": "IR",       # NFL — torn ACL vs. Chiefs Sep 28, placed on IR, out for the rest of the 2026 season
-    "Travis Etienne Jr.": "IR",  # NFL — re-aggravated hamstring with the Saints in Week 1/2; formally placed on IR Oct 1, minimum 4 games, Week 9 (after the Week 8 bye) the likely return
     "Jaxson Dart": "IR",         # NFL — left knee surgery (MCL/PCL/meniscus) after Week 3 MNF hit vs. Rams; surgery "went well" per Harbaugh, out for the rest of the regular season, playoff return called ambitious
-    "Breece Hall": "Q",          # NFL — quad injury (Week 3 vs. Lions) plus a minor Week 7 knee tweak layered on top (not on IR); sources disagree on Week 9 availability (Rapoport says good to go, other Nov 3 reporting lists him TBD with the Jets "hoping"), downgraded from OUT since he's trending toward playing, not ruled out — re-verify before lineup locks
     "Brandon Ingram": "OUT",     # NBA — partially torn Achilles found during recent heel surgery; will miss the start of the 2026-27 season; now with the Clippers after the Sept 15 Kawhi Leonard/Raptors trade — PLAYER_TEAM corrected to LAC
     "LJ Martin": "Q",             # CFB — BYU RB, returned from a lower-body/ankle injury Nov 7 vs. Utah but in a clearly limited role (7 carries/19 yards/1 TD, 1 catch/5 yards in a 28-20 loss) — not yet back to full workload, keep as Q
     "Duce Robinson": "OUT",       # CFB — Florida State WR, torn ACL in the Nov 1 loss to Clemson; AP source says season-ending knee surgery, out for the rest of 2026
     "Avery Johnson": "OUT",       # CFB — Kansas State QB, neck/shoulder injury, has missed 2 straight games (Weeks 8-9); coach Collin Klein said (Nov 3) a return is "probably looking longer than not" with only an "outside chance" of playing again in 2026
     "Malachi Toney": "OUT",       # CFB — Miami WR, high ankle sprain suffered in practice Nov 4, scheduled for surgery (TightRope procedure); team/AP source said he'd miss the Nov 7 Notre Dame game and multiple games after, ~4-6 week timeline, possible return by the CFP
-    "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; no surgery needed, window estimates range 6-12 weeks (reports vary), realistic return mid/late Nov to early Jan, team says not season-ending
-    "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; team announced Oct 25 he'll miss at least two weeks, re-eval ~Nov 8/9
+    "Aleksander Barkov": "IR",   # NHL — left-leg injury (not a recurrence of last year's right knee) vs. Sharks Oct 1, placed on long-term IR Oct 3; still not practicing full-contact as of Nov 10, doing on-ice/morning-skate work during the Panthers' road trip, realistic return window still mid/late Nov, team says not season-ending
+    "Jalen Duren": "OUT",        # NBA — Pistons C, right hamstring strain suffered vs. Heat Oct 23; re-eval window extended (per Nov 9 report) to ~Nov 23, still week-to-week
     "Anthony Edwards": "OUT",    # NBA — Timberwolves, right knee arthroscopic "cleanup" procedure (not a meniscus tear per reports); ruled out this week, team says could miss up to two months, Connelly doesn't currently believe it costs him the rest of the season
     "Tyrese Haliburton": "OUT",  # NBA — Pacers, left hamstring strain suffered four games into his return from last season's Achilles tear; Carlisle calls it mild but ruled him week-to-week with no return before a re-eval in ~2 weeks (~Nov 11)
-    "Kewan Lacy": "OUT",          # CFB — Ole Miss RB, dislocated (left) shoulder vs. Texas (Oct 25); missed the Oct 31 Auburn game as expected (Ole Miss won 45-15 behind Trinidad Chambliss), no new timetable given — status for the Nov 7 Georgia game unannounced, re-verify then
+    "Kewan Lacy": "OUT",          # CFB — Ole Miss RB, dislocated (left) shoulder vs. Texas (Oct 25); confirmed sidelined for a second straight game vs. Georgia (Nov 7) in addition to the Oct 31 Auburn game, still no new timetable given
     "Kawhi Leonard": "OUT",       # NBA — now with the Raptors (Sept 15 trade for Brandon Ingram, PLAYER_TEAM corrected to TOR), left knee swelling since ~Oct 25-26; team announced (Nov 3) he's completed treatment and begun the formal return-to-play ramp-up, earliest possible return Nov 11 vs. Boston, no official return date yet
     "Paolo Banchero": "OUT",      # NBA — Magic, low-grade right high ankle sprain suffered vs. Timberwolves ~Oct 24-25; Shams Charania reported a multi-week absence (typical 4-6 week high-ankle-sprain timeline, which would put a return in late Nov), no team return date or activation confirmed as of tonight
     "Chet Holmgren": "OUT",       # NBA — Thunder, small patellar tendon tear in his right knee first felt ~Oct 25 vs. Suns; team opted for biological treatment over surgery (announced Oct 30-31), 8-10 week timeline that runs into 2027
